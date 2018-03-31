@@ -37,6 +37,7 @@
 - Nav Bar
 - Style all view pages
 - Integrate API connections with microserving apps
+x Angular Bootstrap
 
 ### Project Requirements:
 - Angular application for the front end portion of the system
