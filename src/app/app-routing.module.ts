@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomepageComponent } from './homepage/homepage.component';
 import { ServiceListComponent } from './service/service-list.component';
+import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomepageComponent }
-  { path: 'services', component: ServiceListComponent }
+  { path: 'home', component: HomepageComponent },
+  { path: 'services', component: ServiceListComponent },
+  { path: 'blog', component: BlogComponent }
 ]
 
 @NgModule({
