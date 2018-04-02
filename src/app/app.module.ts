@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ServiceListComponent } from './service/service-list.component';
 import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 import { BlogComponent } from './blog/blog.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
     HomepageComponent,
     ServiceListComponent,
     AboutComponent,
+    ContactComponent,
     BlogComponent
   ],
   providers: [],
