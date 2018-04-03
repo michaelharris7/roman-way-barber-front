@@ -7,6 +7,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { ServicesComponent } from './services/services.component';
 import { HaircutComponent } from './services/haircut/haircut.component';
 import { ShaveComponent } from './services/shave/shave.component';
+import { TrimComponent } from './services/trim/trim.component';
 
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'services', component: ServicesComponent },
   { path: 'haircut', component: HaircutComponent },
   { path: 'shave', component: ShaveComponent },
+  { path: 'trim', component: TrimComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'blog', component: BlogComponent },
