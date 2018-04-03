@@ -1,11 +1,11 @@
 html {
-    height: 100%;
+  min-height: 100%;
 }
 body {
   font-family: 'Roboto Slab', serif;
-  height: 100%;
+  min-height: 100%;
+  background: linear-gradient(#556981, #0f1317) no-repeat;
   margin: 0;
-  background: linear-gradient(#556981, #0f1317);
   font-weight: 500;
 }
 
@@ -16,6 +16,11 @@ body {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 800;
 }
+.page-content-focus {
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 2rem;
+}
 
 h1,
 h2,
@@ -23,6 +28,8 @@ h3,
 h4,
 h5,
 h6 {
+  color: white;
+  text-shadow: 1px 1px 2px #000000;
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 800;
 }
