@@ -4,7 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
-import { ServiceListComponent } from './service/service-list.component';
+import { ServicesComponent } from './services/services.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { BlogComponent } from './blog/blog.component';
@@ -22,7 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     HomepageComponent,
-    ServiceListComponent,
+    ServicesComponent,
     AboutComponent,
     ContactComponent,
     BlogComponent,

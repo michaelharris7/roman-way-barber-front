@@ -9,12 +9,11 @@
 
 ### Components
 - Homepage
-- Contact Info
-- About Company
+x Contact Info
+x About Company
 - Services
-- Testimonials
-- Blog
-- Appointment Scheduler
+x Testimonials
+x Blog
 
 ### Features
 - SMS Sending -> reminder of appointment with link to change appointment -> integrated with Heroku scheduler
@@ -34,7 +33,7 @@
 
 ### TODOs:
 - Create Components
-- Nav Bar
+x Nav Bar
 - Style all view pages
 - Integrate API connections with microserving apps
 x Angular Bootstrap
@@ -42,7 +41,7 @@ x Angular Bootstrap
 ### Project Requirements:
 - Angular application for the front end portion of the system
 - Rails API for the backend
-- Use Github for version control
+x Use Github for version control
 - Use TDD for Rails API application
 
 
