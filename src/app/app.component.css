@@ -23,20 +23,26 @@
   position: absolute;
   top: 5px;
   right: 20px;
-  font-size: .6em;
+  font-size: .5em;
   line-height: 1.3em;
 }
 .contact-type {
   padding: 0 6px 0 12px;
   color: #556981;
-  font-weight: 700;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-size: 1.5em !important;
+}
+
+
+.nav {
+  font-family: 'Alegreya Sans SC', sans-serif;
 }
 
 
 .nav-styles {
   width: 100%;
-  font-weight: 500;
-  font-size: 1em;
+  font-weight: 800;
+  font-size: 1.2em;
 }
 .nav-styles a {
   color: #0e1f40;
@@ -76,7 +82,8 @@
   text-shadow: 1px 1px 2px #d0d0d0;
   box-shadow: 1px 1px 2px #d0d0d0;
   border-color: #0e1f40;
-  font-size: .9em;
+  font-weight: 800;
+  font-size: 1em;
 }
 .btn-dropdown-heading:hover {
   color: #ffffe0;
