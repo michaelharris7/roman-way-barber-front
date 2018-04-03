@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import { ServicesComponent } from './services/services.component';
 import { HaircutComponent } from './services/haircut/haircut.component';
+import { ShaveComponent } from './services/shave/shave.component';
 
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
@@ -27,6 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
     HomepageComponent,
     ServicesComponent,
     HaircutComponent,
+    ShaveComponent,
     AboutComponent,
     ContactComponent,
     BlogComponent,
