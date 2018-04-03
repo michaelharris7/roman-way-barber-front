@@ -4,7 +4,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
+
 import { ServicesComponent } from './services/services.component';
+import { HaircutComponent } from './services/haircut/haircut.component';
+
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { BlogComponent } from './blog/blog.component';
@@ -23,6 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     HomepageComponent,
     ServicesComponent,
+    HaircutComponent,
     AboutComponent,
     ContactComponent,
     BlogComponent,
