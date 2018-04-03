@@ -23,11 +23,12 @@
   position: absolute;
   top: 5px;
   right: 20px;
-  font-size: .5em;
+  font-size: .6em;
   line-height: 1.3em;
 }
 .contact-type {
   padding: 0 6px 0 12px;
+  color: #556981;
   font-weight: 700;
 }
 
@@ -35,7 +36,7 @@
 .nav-styles {
   width: 100%;
   font-weight: 500;
-  font-size: 1.3em;
+  font-size: 1em;
 }
 .nav-styles a {
   color: #0e1f40;
@@ -65,7 +66,7 @@
 
 
 .nav-item {
-  margin-right: 1rem;
+  margin-right: .75rem;
 }
 
 
