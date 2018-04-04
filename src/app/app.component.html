@@ -1,7 +1,7 @@
 <nav class="navbar nav-styles masthead">
   <div class="container">
     <div class="brand mr-auto">
-      <img src="https://s3-us-west-1.amazonaws.com/evans-roman-way/logo.png" title="Evan's Roman Way Barber/Stylist" height="80px" />
+      <img src="https://s3-us-west-1.amazonaws.com/evans-roman-way/logo.png" title="Evan's Roman Way Barber/Stylist" alt="Company logo for Evan's Roman Way Barber/Stylist in Pleasant Grove, Utah" height="80px" />
     </div>
 
     <div class="contact d-flex">
@@ -49,7 +49,68 @@
   </div>
 </nav>
 
-<div class="app-body">
-</div>
+
 
 <router-outlet></router-outlet>
+
+
+
+<footer>
+  <div class="copyright">
+    &#169; 2018 | Evan's Roman Way Barber Stylist &nbsp;All rights reserved
+  </div>
+
+  <ul class="footer-links d-flex justify-content-center">
+    <li class="footer-line">
+      <a class="footer-link" routerLink="/home" routerLinkActive="active">Home</a>
+    </li>
+
+    <li>
+      <a class="footer-link" routerLink="/services" routerLinkActive="active">Services</a>
+    </li>
+    <li class="footer-arrow">
+    </li>
+    <li class="footer-line">
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" routerLink="/haircut" routerLinkActive="active">Men's Haircut</a>
+      </div>
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" routerLink="/shave" routerLinkActive="active">Straight Edge Razor Shave</a>
+      </div>
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" routerLink="/trim" routerLinkActive="active">Beard Trim</a>
+      </div>
+    </li>
+
+    <li class="footer-line">
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" routerLink="/about" routerLinkActive="active">About Me</a>
+      </div>
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" routerLink="/contact" routerLinkActive="active">Contact Me</a>
+      </div>
+    </li>
+
+    <li class="footer-line">
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" routerLink="/blog" routerLinkActive="active">Blog</a>
+      </div>
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" routerLink="/testimonials" routerLinkActive="active">Testimonials</a>
+      </div>
+    </li>
+
+    <li>
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" routerLink="/register" routerLinkActive="active">Register</a>
+      </div>
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" routerLink="/login" routerLinkActive="active">Login</a>
+      </div>
+    </li>
+  </ul>
+
+  <div>
+    <a class="footer-scroll-up" href="#"><i class="fas fa-chevron-circle-up fa-2x"></i></a>
+  </div>
+</footer>
