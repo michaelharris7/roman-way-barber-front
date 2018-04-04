@@ -1,16 +1,23 @@
 /*///// Header Styles /////*/
 .masthead {
-  background: linear-gradient(to top, #404040 1px, #fff 2px, #fff 100%);
+  /*background: linear-gradient(to top, #404040 1px, #fff 2px, #fff 100%);*/
+  background-color: white;
   min-height: 80px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, .5);
 }
 .brand {
   margin-bottom: 0px;
+}
+
+.contact-box {
+ width: 100%;
+ position: relative;
 }
 .contact {
   color: #808080;
   position: absolute;
   top: 5px;
-  right: 20px;
+  right: 0px;
   font-size: .5em;
   line-height: 1.3em;
 }
@@ -106,6 +113,10 @@
   color: #fff !important;
   background-color: #c02000;
 }
+.nav-account {
+  margin: 5px 0 0 7px;
+  font-size: .7em;
+}
 
 
 
@@ -136,7 +147,6 @@ footer {
 }
 .footer-link {
   padding: .25rem 0;
-  /*color: #d3e7ff;*/
   color: #9fadbf;
 }
 .footer-line {
