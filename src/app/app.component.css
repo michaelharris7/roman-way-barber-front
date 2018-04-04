@@ -110,8 +110,13 @@
   background-color: #1c3f80;
 }
 .dropdown-item:focus {
+  color: #ffffe0 !important;
+  background-color: #c02000;
+}
+.dropdown-item.active {
   color: #fff !important;
   background-color: #c02000;
+  text-shadow: none !important;
 }
 .nav-account {
   margin: 5px 0 0 7px;
