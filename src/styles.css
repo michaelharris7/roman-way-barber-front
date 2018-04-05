@@ -48,9 +48,22 @@ body {
 }
 .main-content a:hover {
   text-decoration: underline;
+  text-shadow: none;
 }
 .main-content a:active {
   color: #ffffd3;
+  text-shadow: none;
+}
+.main-content a img {
+  border: 1px solid #d3e7ff;
+}
+.main-content a img:hover {
+  border: 2px solid #d3e7ff;
+  box-shadow: none;
+}
+.main-content a img:active {
+  border: 2px solid #ffffd3;
+  box-shadow: none;
 }
 
 
