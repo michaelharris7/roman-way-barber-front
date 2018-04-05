@@ -13,6 +13,14 @@ body {
 
 
 
+.loading-app {
+  color: white;
+  padding: 20px 40px;
+  font-size: 1.5em;
+}
+
+
+
 .back-image {
   background-image: url('https://s3-us-west-1.amazonaws.com/evans-roman-way/barber-chair.jpg');
   background-repeat: no-repeat;
