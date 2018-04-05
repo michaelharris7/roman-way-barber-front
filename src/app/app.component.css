@@ -108,10 +108,12 @@
 .dropdown-item:hover {
   color: #ffffe0 !important;
   background-color: #1c3f80;
+  text-shadow: none !important;
 }
 .dropdown-item:focus {
   color: #ffffe0 !important;
   background-color: #c02000;
+  text-shadow: none !important;
 }
 .dropdown-item.active {
   color: #fff !important;
