@@ -139,7 +139,7 @@ footer {
   right: 0;
   bottom: 0;
   left: 0;
-  height: 13rem;
+  min-height: 13.2rem;
   padding: 10px;
 }
 .copyright {
@@ -172,7 +172,6 @@ footer {
   border-left: .3em solid;
 }
 .footer-scroll-up {
-  padding: 1em;
   color: #353a40;
 }
 .footer-scroll-up:hover {
