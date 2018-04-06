@@ -21,8 +21,13 @@ body {
 
 
 
-.back-image {
+.back-image-barber {
   background-image: url('https://s3-us-west-1.amazonaws.com/evans-roman-way/barber-chair.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.back-image-building {
+  background-image: url('https://s3-us-west-1.amazonaws.com/evans-roman-way/barber_shop_building.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -53,6 +58,12 @@ body {
 .main-content a:active {
   color: #ffffd3;
   text-shadow: none;
+}
+.main-content img {
+  border: 1px solid #999999;
+  border-radius: 5px;
+  margin: 10px;
+  box-shadow: 1px 1px 2px #202020;
 }
 .main-content a img {
   border: 1px solid #d3e7ff;
