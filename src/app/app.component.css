@@ -83,7 +83,8 @@
   text-shadow: none;
   box-shadow: none;
 }
-.btn-dropdown-heading:focus {
+.btn-dropdown-heading:focus,
+.btn-dropdown-selected {
   color: #1c3f80;
   background-color: transparent;
   border-color: #c02000;
