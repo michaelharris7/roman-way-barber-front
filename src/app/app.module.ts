@@ -14,7 +14,7 @@ import { TrimComponent } from './services/trim/trim.component';
 
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
-import { BlogComponent } from './blog/blog.component';
+import { NewsComponent } from './news/news.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +36,7 @@ import { AppRoutingModule } from './app-routing.module';
     TrimComponent,
     AboutComponent,
     ContactComponent,
-    BlogComponent,
+    NewsComponent,
     TestimonialsComponent
   ],
   providers: [],

@@ -11,7 +11,7 @@ import { TrimComponent } from './services/trim/trim.component';
 
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
-import { BlogComponent } from './blog/blog.component';
+import { NewsComponent } from './news/news.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 
 const routes: Routes = [
@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'services/trim', component: TrimComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'blog', component: BlogComponent },
+  { path: 'news', component: NewsComponent },
   { path: 'testimonials', component: TestimonialsComponent }
 ]
 
