@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { News } from './news';
 
 @Component({
@@ -6,5 +6,5 @@ import { News } from './news';
   templateUrl: 'news-new.component.html',
   styleUrls: ['news-new.component.css']
 })
-export class NewsNewComponent {
-}
+
+export class NewsNewComponent {}
