@@ -14,7 +14,11 @@ import { TrimComponent } from './services/trim/trim.component';
 
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+
 import { NewsComponent } from './news/news.component';
+import { NewsNewComponent } from './news/news-new.component';
+import { NewsShowComponent } from './news/news-show.component';
+
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,13 +34,19 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     HomepageComponent,
+
     ServicesComponent,
     HaircutComponent,
     ShaveComponent,
     TrimComponent,
+
     AboutComponent,
     ContactComponent,
+
     NewsComponent,
+    NewsNewComponent,
+    NewsShowComponent,
+
     TestimonialsComponent
   ],
   providers: [],

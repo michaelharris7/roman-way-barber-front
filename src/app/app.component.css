@@ -91,7 +91,7 @@
 }
 .nav-styles-news a:active {
   color: white;
-  border-bottom-color: #c02000;
+  border-bottom-color: #ffc000;
 }
 
 
@@ -156,16 +156,19 @@
   background-color: rgba(255, 255, 255, .9);
   border-color: rgba(255, 255, 255, .9);
 }
-.btn-dropdown-heading-news:focus {
+.btn-dropdown-heading-news:focus,
+.btn-dropdown-selected-news {
   color: rgba(255, 255, 255, .9);
   background-color: transparent;
-  box-shadow: 0 0 0 0.1rem #c02000;
+  border-color: #ffc000;
+  text-shadow: none;
+  box-shadow: 0 0 0 0.1rem #ffc000;
 }
 .btn-dropdown-heading-news:active {
   color: #1c3f80;
   background-color: rgba(255, 255, 255, .9);
   border-color: rgba(255, 255, 255, .9);
-  box-shadow: 0 0 0 0.1rem #c02000;
+  box-shadow: 0 0 0 0.1rem #ffc000;
 }
 
 

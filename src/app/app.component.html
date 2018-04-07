@@ -27,10 +27,10 @@
         </li>
         <li class="nav-item dropdown">
           <div ngbDropdown class="d-inline-block dropdown-links">
-            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected]="currentPath >= '/services' && currentPath != '/testimonials'" [class.btn-dropdown-heading-news]="currentPath == '/news'" id="proposalDropdown" ngbDropdownToggle>
+            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected]="currentPath >= '/services' && currentPath != '/testimonials'" [class.btn-dropdown-heading-news]="currentPath == '/news'" id="servicesDropdown" ngbDropdownToggle>
               <i class="fas fa-cut"></i> Services
             </button>
-            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="proposalDropdown">
+            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="servicesDropdown">
               <a class="dropdown-item" routerLink="/services/haircut" routerLinkActive="active">Men's Haircut</a>
               <a class="dropdown-item" routerLink="/services/shave" routerLinkActive="active">Straight Edge Razor Shave</a>
               <a class="dropdown-item" routerLink="/services/trim" routerLinkActive="active">Beard Trim</a>
@@ -44,9 +44,22 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact Me</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [class.nav-link-news]="currentPath == '/news'" routerLink="/news" routerLinkActive="active">News</a>
+        <!-- News Dropdown for Admin only. TODO: refactor for only showing for admins -->
+        <li class="nav-item dropdown">
+          <div ngbDropdown class="d-inline-block dropdown-links">
+            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected-news]="currentPath === '/news' || currentPath === '/news-new'" [class.btn-dropdown-heading-news]="currentPath === '/news' || currentPath === '/news-new'" id="newsDropdown" ngbDropdownToggle>
+              News
+            </button>
+            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="newsDropdown">
+              <a class="dropdown-item" routerLink="/news" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">News</a>
+              <a class="dropdown-item" routerLink="/news-new" routerLinkActive="active">New News</a>
+            </div>
+          </div>
         </li>
+        <!-- Standard News link for non-admin users. TODO: refactor to show when no admin user is logged in -->
+<!--         <li class="nav-item">
+          <a class="nav-link" [class.nav-link-news]="currentPath == '/news'" routerLink="/news" routerLinkActive="active">News</a>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" routerLink="/testimonials" routerLinkActive="active">Testimonials</a>
         </li>
