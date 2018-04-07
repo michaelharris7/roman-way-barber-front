@@ -1,16 +1,18 @@
-<nav [class]="currentPath != '/news' ?
-             'navbar nav-styles masthead' :
-             'navbar nav-styles-news masthead-news'"
+<nav [class]="onNewsPage() ?
+             'navbar nav-styles-news masthead-news' :
+             'navbar nav-styles masthead'"
      id="top">
+
+     <!-- {{currentPath.indexOf('news')}} -->
   <div class="container">
 
     <div class="contact-box">
-      <div class="contact d-flex" [class.contact-news]="currentPath == '/news'">
+      <div class="contact d-flex" [class.contact-news]=onNewsPage()>
         <div>
-          <span class="contact-type" [class.contact-type-news]="currentPath == '/news'">Phone:</span>801.785.9090
+          <span class="contact-type" [class.contact-type-news]=onNewsPage()>Phone:</span>801.785.9090
         </div>
         <div class="d-flex">
-          <span class="contact-type" [class.contact-type-news]="currentPath == '/news'">Address:</span>1 E Center St.<br />
+          <span class="contact-type" [class.contact-type-news]=onNewsPage()>Address:</span>1 E Center St.<br />
           Pleasant Grove, UT 84062
         </div>
       </div>
@@ -21,13 +23,13 @@
     </div>
 
     <div class="ml-auto mt-auto">
-      <ul class="nav ml-5" [class.nav-news]="currentPath == '/news'">
+      <ul class="nav ml-5" [class.nav-news]=onNewsPage()>
         <li class="nav-item">
           <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fas fa-home fa-lg"></i></a>
         </li>
         <li class="nav-item dropdown">
           <div ngbDropdown class="d-inline-block dropdown-links">
-            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected]="currentPath >= '/services' && currentPath != '/testimonials'" [class.btn-dropdown-heading-news]="currentPath == '/news'" id="servicesDropdown" ngbDropdownToggle>
+            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected]=onServicesPage() [class.btn-dropdown-heading-news]=onNewsPage() id="servicesDropdown" ngbDropdownToggle>
               <i class="fas fa-cut"></i> Services
             </button>
             <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="servicesDropdown">
@@ -47,7 +49,7 @@
         <!-- News Dropdown for Admin only. TODO: refactor for only showing for admins -->
         <li class="nav-item dropdown">
           <div ngbDropdown class="d-inline-block dropdown-links">
-            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected-news]="currentPath === '/news' || currentPath === '/news-new'" [class.btn-dropdown-heading-news]="currentPath === '/news' || currentPath === '/news-new'" id="newsDropdown" ngbDropdownToggle>
+            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected-news]=onNewsPage() [class.btn-dropdown-heading-news]=onNewsPage() id="newsDropdown" ngbDropdownToggle>
               News
             </button>
             <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="newsDropdown">
@@ -80,22 +82,22 @@
 
 
 
-<footer [class.footer-news]="currentPath == '/news'">
+<footer [class.footer-news]=onNewsPage()>
   <div class="copyright">
     &#169; {{today | date:'yyyy'}} | Evan's Roman Way Barber Stylist &nbsp;All rights reserved
   </div>
 
   <ul class="footer-links d-flex justify-content-center">
-    <li class="footer-line" [class.footer-line-news]="currentPath == '/news'">
+    <li class="footer-line" [class.footer-line-news]=onNewsPage()>
       <a class="footer-link" routerLink="/home" routerLinkActive="active">Home</a>
     </li>
 
     <li>
       <a class="footer-link" routerLink="/services" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Services</a>
     </li>
-    <li class="footer-arrow" [class.footer-arrow-news]="currentPath == '/news'">
+    <li class="footer-arrow" [class.footer-arrow-news]=onNewsPage()>
     </li>
-    <li class="footer-line" [class.footer-line-news]="currentPath == '/news'">
+    <li class="footer-line" [class.footer-line-news]=onNewsPage()>
       <div class="d-flex justify-content-start">
         <a class="footer-link py-0 my-0" routerLink="/services/haircut" routerLinkActive="active">Men's Haircut</a>
       </div>
@@ -107,7 +109,7 @@
       </div>
     </li>
 
-    <li class="footer-line" [class.footer-line-news]="currentPath == '/news'">
+    <li class="footer-line" [class.footer-line-news]=onNewsPage()>
       <div class="d-flex justify-content-start">
         <a class="footer-link py-0 my-0" routerLink="/about" routerLinkActive="active">About Me</a>
       </div>
@@ -116,7 +118,7 @@
       </div>
     </li>
 
-    <li class="footer-line" [class.footer-line-news]="currentPath == '/news'">
+    <li class="footer-line" [class.footer-line-news]=onNewsPage()>
       <div class="d-flex justify-content-start">
         <a class="footer-link py-0 my-0" routerLink="/news" routerLinkActive="active">News</a>
       </div>
@@ -136,9 +138,9 @@
   </ul>
 
   <div class="mt-4">
-    <a [class]="currentPath != '/news' ?
-             'footer-scroll-up' :
-             'footer-scroll-up-news'"
+    <a [class]="onNewsPage() ?
+             'footer-scroll-up-news' :
+             'footer-scroll-up'"
        pageScroll [pageScrollDuration]="200" href="#top"><i class="fas fa-chevron-circle-up fa-2x"></i></a>
   </div>
 </footer>

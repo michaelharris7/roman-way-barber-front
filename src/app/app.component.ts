@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   title = 'app';
   today: Date = new Date();
 
+
   public currentPath: string = "";
 
   constructor(private router: Router) {}
@@ -25,5 +26,12 @@ export class AppComponent implements OnInit {
       }
       window.scrollTo(0, 0)
     });
+  }
+
+  onServicesPage() {
+    return this.currentPath.indexOf('/services') !== -1;
+  }
+  onNewsPage() {
+    return this.currentPath.indexOf('/news') !== -1;
   }
 }
