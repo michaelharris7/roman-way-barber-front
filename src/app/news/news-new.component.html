@@ -2,51 +2,86 @@
 
   <div class="news-header">
     <div class="container">
-      <div class="row">
-        <div class="col-md-9 col-sm-10 col-12">
-          <h1>
-            New news post:
-          </h1>
-          <h4>
-            Post any kind of news media, recent events, and other fun stuff
-          </h4>
-        </div>
-
-        <div class="col-md-3 col-sm-2 col">
-        </div>
-      </div>
+      <h1>
+        Create a News Post:
+      </h1>
+      <h4>
+        Post any kind of news media, recent event, or other fun thing
+      </h4>
     </div>
   </div>
 
   <div class="container">
     <div class="row">
-      <div class="col-md-9 col-sm-7 col-6">
-        <div class="container pb-5">
-          <p>
-            This is a test
-          </p>
-          <p>
-            I graduate of BYU where I learned how to cut hair right. Soon after school, I served a brief period in the US Army while stationed in Vietnam. Upon returning home, I used the knowledge I gained in college and opened up for business in cutting hair for men in [Month] of [year]. I started my own business, Evan's Roman Way, in Orem Utah.
-          </p>
-          <p>
-            I graduate of BYU where I learned how to cut hair right. Soon after school, I served a brief period in the US Army while stationed in Vietnam. Upon returning home, I used the knowledge I gained in college and opened up for business in cutting hair for men in [Month] of [year]. I started my own business, Evan's Roman Way, in Orem Utah.
-          </p>
-          <p>
-            I graduate of BYU where I learned how to cut hair right. Soon after school, I served a brief period in the US Army while stationed in Vietnam. Upon returning home, I used the knowledge I gained in college and opened up for business in cutting hair for men in [Month] of [year]. I started my own business, Evan's Roman Way, in Orem Utah.
-          </p>
-          <p>
-            I graduate of BYU where I learned how to cut hair right. Soon after school, I served a brief period in the US Army while stationed in Vietnam. Upon returning home, I used the knowledge I gained in college and opened up for business in cutting hair for men in [Month] of [year]. I started my own business, Evan's Roman Way, in Orem Utah.
-          </p>
+      <div class="col-md-6">
+        <div class="container">
+          <h3 class="text-center pb-3">
+            News post creation:
+          </h3>
+
+          <form #newsPostForm="ngForm" class="pb-5">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text"
+                     class="form-control"
+                     id="title"
+                     placeholder="News Post"
+                     required
+                     name="title"
+                     #title='ngModel'
+                     [(ngModel)]="newsPost.title"
+              >
+            </div>
+            <div class="form-group">
+              <label for="content">Body</label>
+              <textarea rows="10"
+                     class="form-control"
+                     id="content"
+                     placeholder="Post content"
+                     required
+                     name="content"
+                     #content='ngModel'
+                     [(ngModel)]="newsPost.content"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="ref_source_url">Reference Source</label>
+              <input type="text"
+                     class="form-control"
+                     id="ref_source_url"
+                     placeholder="News Post"
+                     name="ref_source_url"
+                     #ref_source_url='ngModel'
+                     [(ngModel)]="newsPost.ref_source_url"
+              >
+            </div>
+          </form>
         </div>
       </div>
 
-      <div class="col-md-3 col-sm-5 col-6">
+      <div class="col-md-6">
         <div class="container">
-          <div class="news-sidebar pt-4">
+          <h3 class="text-center pb-5">
+            News post will show as:
+          </h3>
+          <div *ngIf="newsPost.title || newsPost.content;
+                else no_post">
+            <h2 class="pb-4">
+              {{newsPost.title}}
+            </h2>
             <p>
-              <a routerLink="/login" routerLinkActive="active">Login</a> or <a routerLink="/register" routerLinkActive="active">register</a> to comment on news posts.
+              {{newsPost.content}}
             </p>
           </div>
+          <ng-template #no_post>
+            <p class='alert alert-danger'>
+              No news post data entered yet.
+            </p>
+          </ng-template>
+
+          <p *ngIf="newsPost.ref_source_url > 'http://'">
+            Referenced from: {{newsPost.ref_source_url}}
+          </p>
         </div>
       </div>
     </div>

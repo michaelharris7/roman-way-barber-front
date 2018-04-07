@@ -1,3 +1,22 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 300;
+  line-height: 1em;
+  text-shadow: none;
+  color: black;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+
+
 .news-back {
   /*background-color: #e5e5e5;*/
   /*background-color: rgba(255, 255, 255, .7);*/
@@ -29,18 +48,7 @@
 
 
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Roboto Slab', serif;
-  font-weight: 300;
-  line-height: 1em;
-  text-shadow: none;
-}
-
-h1 {
-  font-size: 3rem;
+#no_post {
+  color: red;
+  font-size: 1.5;
 }

@@ -1,9 +1,8 @@
-export class News {
+export class NewsPost {
   constructor(
     public id?: number,
-    public user?: string,
     public title?: string,
     public content?: string,
-    public source_url: string = 'http://',
+    public ref_source_url: string = 'http://',
   ) {}
 }
