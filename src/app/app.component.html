@@ -5,12 +5,12 @@
   <div class="container">
 
     <div class="contact-box">
-      <div [class.contact-news]="currentPath == '/news'" class="contact d-flex">
+      <div class="contact d-flex" [class.contact-news]="currentPath == '/news'">
         <div>
-          <span [class.contact-type-news]="currentPath == '/news'" class="contact-type">Phone:</span>801.785.9090
+          <span class="contact-type" [class.contact-type-news]="currentPath == '/news'">Phone:</span>801.785.9090
         </div>
         <div class="d-flex">
-          <span [class.contact-type-news]="currentPath == '/news'" class="contact-type">Address:</span>1 E Center St.<br />
+          <span class="contact-type" [class.contact-type-news]="currentPath == '/news'">Address:</span>1 E Center St.<br />
           Pleasant Grove, UT 84062
         </div>
       </div>
@@ -67,22 +67,22 @@
 
 
 
-<footer>
+<footer [class.footer-news]="currentPath == '/news'">
   <div class="copyright">
     &#169; {{today | date:'yyyy'}} | Evan's Roman Way Barber Stylist &nbsp;All rights reserved
   </div>
 
   <ul class="footer-links d-flex justify-content-center">
-    <li class="footer-line">
+    <li class="footer-line" [class.footer-line-news]="currentPath == '/news'">
       <a class="footer-link" routerLink="/home" routerLinkActive="active">Home</a>
     </li>
 
     <li>
       <a class="footer-link" routerLink="/services" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Services</a>
     </li>
-    <li class="footer-arrow">
+    <li class="footer-arrow" [class.footer-arrow-news]="currentPath == '/news'">
     </li>
-    <li class="footer-line">
+    <li class="footer-line" [class.footer-line-news]="currentPath == '/news'">
       <div class="d-flex justify-content-start">
         <a class="footer-link py-0 my-0" routerLink="/services/haircut" routerLinkActive="active">Men's Haircut</a>
       </div>
@@ -94,7 +94,7 @@
       </div>
     </li>
 
-    <li class="footer-line">
+    <li class="footer-line" [class.footer-line-news]="currentPath == '/news'">
       <div class="d-flex justify-content-start">
         <a class="footer-link py-0 my-0" routerLink="/about" routerLinkActive="active">About Me</a>
       </div>
@@ -103,7 +103,7 @@
       </div>
     </li>
 
-    <li class="footer-line">
+    <li class="footer-line" [class.footer-line-news]="currentPath == '/news'">
       <div class="d-flex justify-content-start">
         <a class="footer-link py-0 my-0" routerLink="/news" routerLinkActive="active">News</a>
       </div>
@@ -123,6 +123,9 @@
   </ul>
 
   <div class="mt-4">
-    <a class="footer-scroll-up" pageScroll [pageScrollDuration]="200" href="#top"><i class="fas fa-chevron-circle-up fa-2x"></i></a>
+    <a [class]="currentPath != '/news' ?
+             'footer-scroll-up' :
+             'footer-scroll-up-news'"
+       pageScroll [pageScrollDuration]="200" href="#top"><i class="fas fa-chevron-circle-up fa-2x"></i></a>
   </div>
 </footer>

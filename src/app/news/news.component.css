@@ -8,10 +8,16 @@
 
 
 .news-header {
-  color: #2a5ebf;
   padding: 3rem 0 2rem;
   margin-bottom: 2rem;
   border-bottom: .05rem solid #eee;
+}
+.news-header h1 {
+  color: #1c3f80;
+}
+.news-header h4 {
+  color: #c0c0c0;
+  text-shadow: none;
 }
 
 
@@ -28,9 +34,9 @@ h4,
 h5,
 h6 {
   font-family: 'Roboto Slab', serif;
-  color: #2a5ebf;
   text-shadow: 1px 1px 2px #bfbfbf;
   font-weight: 300;
+  line-height: 1em;
 }
 
 h1 {
