@@ -1,16 +1,16 @@
-<nav [class]="currentPath != '/blog' ?
+<nav [class]="currentPath != '/news' ?
              'navbar nav-styles masthead' :
-             'navbar nav-styles-blog masthead-blog'"
+             'navbar nav-styles-news masthead-news'"
      id="top">
   <div class="container">
 
     <div class="contact-box">
-      <div [class.contact-blog]="currentPath == '/blog'" class="contact d-flex">
+      <div [class.contact-news]="currentPath == '/news'" class="contact d-flex">
         <div>
-          <span [class.contact-type-blog]="currentPath == '/blog'" class="contact-type">Phone:</span>801.785.9090
+          <span [class.contact-type-news]="currentPath == '/news'" class="contact-type">Phone:</span>801.785.9090
         </div>
         <div class="d-flex">
-          <span [class.contact-type-blog]="currentPath == '/blog'" class="contact-type">Address:</span>1 E Center St.<br />
+          <span [class.contact-type-news]="currentPath == '/news'" class="contact-type">Address:</span>1 E Center St.<br />
           Pleasant Grove, UT 84062
         </div>
       </div>
@@ -21,13 +21,13 @@
     </div>
 
     <div class="ml-auto mt-auto">
-      <ul class="nav ml-5" [class.nav-blog]="currentPath == '/blog'">
+      <ul class="nav ml-5" [class.nav-news]="currentPath == '/news'">
         <li class="nav-item">
           <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fas fa-home fa-lg"></i></a>
         </li>
         <li class="nav-item dropdown">
           <div ngbDropdown class="d-inline-block dropdown-links">
-            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected]="currentPath >= '/services' && currentPath != '/testimonials'" [class.btn-dropdown-heading-blog]="currentPath == '/blog'" id="proposalDropdown" ngbDropdownToggle>
+            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected]="currentPath >= '/services' && currentPath != '/testimonials'" [class.btn-dropdown-heading-news]="currentPath == '/news'" id="proposalDropdown" ngbDropdownToggle>
               <i class="fas fa-cut"></i> Services
             </button>
             <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="proposalDropdown">
@@ -45,7 +45,7 @@
           <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact Me</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.nav-link-blog]="currentPath == '/blog'" routerLink="/blog" routerLinkActive="active">Blog</a>
+          <a class="nav-link" [class.nav-link-news]="currentPath == '/news'" routerLink="/news" routerLinkActive="active">News</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/testimonials" routerLinkActive="active">Testimonials</a>
@@ -105,7 +105,7 @@
 
     <li class="footer-line">
       <div class="d-flex justify-content-start">
-        <a class="footer-link py-0 my-0" routerLink="/blog" routerLinkActive="active">Blog</a>
+        <a class="footer-link py-0 my-0" routerLink="/news" routerLinkActive="active">News</a>
       </div>
       <div class="d-flex justify-content-start">
         <a class="footer-link py-0 my-0" routerLink="/testimonials" routerLinkActive="active">Testimonials</a>

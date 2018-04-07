@@ -1,4 +1,4 @@
-.blog-back {
+.news-back {
   /*background-color: #e5e5e5;*/
   /*background-color: rgba(255, 255, 255, .7);*/
   font-family: 'Roboto', sans-serif;
@@ -7,7 +7,7 @@
 }
 
 
-.blog-header {
+.news-header {
   color: #2a5ebf;
   padding: 3rem 0 2rem;
   margin-bottom: 2rem;
