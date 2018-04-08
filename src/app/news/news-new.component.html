@@ -11,80 +11,92 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="container">
-          <h3 class="text-center pb-3">
-            News post creation:
-          </h3>
+  <div class="news-main">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="container">
+            <h3 class="text-center pb-3">
+              News post creation:
+            </h3>
 
-          <form #newsPostForm="ngForm" class="pb-5">
-            <div class="form-group">
-              <label for="title">Title</label>
-              <input type="text"
-                     class="form-control"
-                     id="title"
-                     placeholder="News Post"
-                     required
-                     name="title"
-                     #title='ngModel'
-                     [(ngModel)]="newsPost.title"
-              >
+            <div class="card card-box-shadows py-2 mb-5">
+              <div class="container">
+                <form #newsPostForm="ngForm">
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text"
+                           class="form-control"
+                           id="title"
+                           placeholder="News Post"
+                           required
+                           name="title"
+                           #title='ngModel'
+                           [(ngModel)]="newsPost.title"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="content">Body</label>
+                    <textarea rows="10"
+                           class="form-control"
+                           id="content"
+                           placeholder="Post content"
+                           required
+                           name="content"
+                           #content='ngModel'
+                           [(ngModel)]="newsPost.content"
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="ref_source_url">Reference Source</label>
+                    <input type="text"
+                           class="form-control"
+                           id="ref_source_url"
+                           placeholder="News Post"
+                           name="ref_source_url"
+                           #ref_source_url='ngModel'
+                           [(ngModel)]="newsPost.ref_source_url"
+                    >
+                  </div>
+                </form>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="content">Body</label>
-              <textarea rows="10"
-                     class="form-control"
-                     id="content"
-                     placeholder="Post content"
-                     required
-                     name="content"
-                     #content='ngModel'
-                     [(ngModel)]="newsPost.content"
-              ></textarea>
-            </div>
-            <div class="form-group">
-              <label for="ref_source_url">Reference Source</label>
-              <input type="text"
-                     class="form-control"
-                     id="ref_source_url"
-                     placeholder="News Post"
-                     name="ref_source_url"
-                     #ref_source_url='ngModel'
-                     [(ngModel)]="newsPost.ref_source_url"
-              >
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="container">
-          <h3 class="text-center pb-5">
-            News post will show as:
-          </h3>
-          <div *ngIf="newsPost.title || newsPost.content;
-                else no_post">
-            <h2 class="pb-4">
-              {{newsPost.title}}
-            </h2>
-            <p>
-              {{newsPost.content}}
-            </p>
           </div>
-          <ng-template #no_post>
-            <p class='alert alert-danger'>
-              No news post data entered yet.
-            </p>
-          </ng-template>
-
-          <p *ngIf="newsPost.ref_source_url > 'http://'">
-            Referenced from: {{newsPost.ref_source_url}}
-          </p>
         </div>
+
+        <div class="col-md-6">
+          <div class="container">
+            <h3 class="text-center pb-3">
+              News post will show as:
+            </h3>
+
+            <div *ngIf="newsPost.title || newsPost.content;
+                  else no_post">
+              <div class="card card-box-shadows">
+                <div class="container">
+                  <h2 class="py-4">
+                    {{newsPost.title}}
+                  </h2>
+                  <p>
+                    {{newsPost.content}}
+                  </p>
+                  <p *ngIf="newsPost.ref_source_url >'http://'">
+                    Referenced from: {{newsPost.ref_source_url}}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <ng-template #no_post>
+              <p class='alert alert-danger pl-5 mt-3'>
+                No news post data entered. Please type something in.
+              </p>
+            </ng-template>
+
+          </div>
+        </div>
+
       </div>
     </div>
-
   </div>
 </div>
