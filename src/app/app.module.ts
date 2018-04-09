@@ -19,6 +19,7 @@ import { ContactComponent } from './contact/contact.component';
 import { NewsComponent } from './news/news.component';
 import { NewsNewComponent } from './news/news-new.component';
 import { NewsShowComponent } from './news/news-show.component';
+import { NewsService } from './news/news.service';
 
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 
@@ -51,7 +52,9 @@ import { AppRoutingModule } from './app-routing.module';
 
     TestimonialsComponent
   ],
-  providers: [],
+  providers: [
+    NewsService
+  ],
   bootstrap: [
     AppComponent
   ]

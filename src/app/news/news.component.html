@@ -16,21 +16,15 @@
       <div class="row">
         <div class="col-md-9 col-sm-7 col-6">
           <div class="container pb-5">
-            <p>
-              This is a test
-            </p>
-            <p>
-              I graduate of BYU where I learned how to cut hair right. Soon after school, I served a brief period in the US Army while stationed in Vietnam. Upon returning home, I used the knowledge I gained in college and opened up for business in cutting hair for men in [Month] of [year]. I started my own business, Evan's Roman Way, in Orem Utah.
-            </p>
-            <p>
-              I graduate of BYU where I learned how to cut hair right. Soon after school, I served a brief period in the US Army while stationed in Vietnam. Upon returning home, I used the knowledge I gained in college and opened up for business in cutting hair for men in [Month] of [year]. I started my own business, Evan's Roman Way, in Orem Utah.
-            </p>
-            <p>
-              I graduate of BYU where I learned how to cut hair right. Soon after school, I served a brief period in the US Army while stationed in Vietnam. Upon returning home, I used the knowledge I gained in college and opened up for business in cutting hair for men in [Month] of [year]. I started my own business, Evan's Roman Way, in Orem Utah.
-            </p>
-            <p>
-              I graduate of BYU where I learned how to cut hair right. Soon after school, I served a brief period in the US Army while stationed in Vietnam. Upon returning home, I used the knowledge I gained in college and opened up for business in cutting hair for men in [Month] of [year]. I started my own business, Evan's Roman Way, in Orem Utah.
-            </p>
+            <div *ngFor="let newsPost of newsPosts" class="">
+              <h2 class="pb-4">
+                {{ newsPost.title }}
+              </h2>
+              <p class="pb-5">
+                {{ (newsPost.content.length>30)? (newsPost.content | slice:0:1500)+'... (Click to read more)':(newsPost.content) }}
+              </p>
+            </div>
+
           </div>
         </div>
 
