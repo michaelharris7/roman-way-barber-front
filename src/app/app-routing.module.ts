@@ -31,8 +31,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
 
   { path: 'news', component: NewsComponent },
-  { path: 'news-new', component: NewsNewComponent },
-  { path: 'news-show', component: NewsShowComponent },
+  { path: 'news/new', component: NewsNewComponent },
+  { path: 'news/post/:id', component: NewsShowComponent },
 
   { path: 'testimonials', component: TestimonialsComponent }
 ]
