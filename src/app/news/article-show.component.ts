@@ -1,26 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+
 import { Article } from './article';
+import { ArticleService } from './article.service';
 
 @Component({
   selector: 'article-show',
   templateUrl: 'article-show.component.html',
-  styleUrls: ['article.component.css']
+  styleUrls: ['article.component.css'],
+  providers: [ ArticleService ]
 })
 
 export class ArticleShowComponent implements OnInit {
-  id: number;
-  routeId: any;
-
   constructor(
-    private route: ActivatedRoute
+    private http: Http,
+    private route: ActivatedRoute,
+    private articleService: ArticleService
   ) {}
 
+  @Input()
+  article: Article;
+
   ngOnInit(): void {
-    this.routeId = this.route.params.subscribe(
-      params => {
-        this.id = +params['id'];
-      }
-    )
+    let articleRequest = this.route.params
+        .flatMap((params: Params) =>
+          this.articleService.getArticle(+params['id']));
+    articleRequest.subscribe(response => this.article = response.json());
   }
 }

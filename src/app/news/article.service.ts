@@ -6,7 +6,7 @@ import { Article } from './article';
 
 @Injectable()
 export class ArticleService {
-  private articlesUrl = 'http://localhost:3001/articles.json';
+  private articlesUrl = 'http://localhost:3001/articles';
 
   constructor(
     private http: Http
@@ -16,6 +16,10 @@ export class ArticleService {
     return this.http.get(this.articlesUrl)
                     .map((response: Response) => <Article[]>response.json())
                     .catch(this.handleError);
+  }
+
+  getArticle(id: number) {
+    return this.http.get(this.articlesUrl + "/" + id + ".json")
   }
 
   private handleError (error: Response | any) {

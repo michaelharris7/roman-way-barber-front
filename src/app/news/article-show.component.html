@@ -1,9 +1,9 @@
 <div class="news-back">
 
   <div class="news-header">
-    <div class="container">
+    <div *ngIf="article" class="container">
       <h1>
-        {{ title }}
+        {{ article.title }}
       </h1>
     </div>
   </div>
@@ -12,12 +12,12 @@
     <div class="container">
       <div class="row">
         <div class="col-md-9 col-sm-7 col-6">
-          <div class="container pb-5">
+          <div *ngIf="article" class="container pb-5">
             <p>
-              {{ content}}
+              {{ article.content}}
             </p>
             <p>
-              {{ url }}
+              {{ article.ref_source_url }}
             </p>
 
           </div>

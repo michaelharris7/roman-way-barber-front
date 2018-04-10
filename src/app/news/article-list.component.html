@@ -26,7 +26,7 @@
                   </a>
                 </h2>
                 <p>
-                  {{ (article.content.length>30)? (article.content | slice:0:1500)+'...':(article.content) }}
+                  {{ (article.content.length>500)? (article.content | slice:0:500)+'...':(article.content) }}
                 </p>
                 <div class="container">
                   <span class="pr-3">
