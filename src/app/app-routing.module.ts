@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
 
   { path: 'news', component: ArticleListComponent },
-  { path: 'news/new', component: ArticleNewComponent },
+  { path: 'news/articles/new', component: ArticleNewComponent },
   { path: 'news/article/:id', component: ArticleShowComponent },
 
   { path: 'testimonials', component: TestimonialsComponent }

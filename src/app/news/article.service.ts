@@ -6,7 +6,7 @@ import { Article } from './article';
 
 @Injectable()
 export class ArticleService {
-  private articlesUrl = 'http://localhost:3001/article.json';
+  private articlesUrl = 'http://localhost:3001/articles.json';
 
   constructor(
     private http: Http
