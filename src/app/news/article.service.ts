@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
-import { NewsPost } from './news-post';
+import { Article } from './article';
 
 @Injectable()
-export class NewsService {
-  private newsUrl = 'http://localhost:3000/news.json';
+export class ArticleService {
+  private articlesUrl = 'http://localhost:3001/article.json';
 
   constructor(
     private http: Http
   ) {}
 
-  getNewsPosts(): Observable<NewsPost[]> {
-    return this.http.get(this.newsUrl)
-                    .map((response: Response) => <NewsPost[]>response.json())
+  getArticles(): Observable<Article[]> {
+    return this.http.get(this.articlesUrl)
+                    .map((response: Response) => <Article[]>response.json())
                     .catch(this.handleError);
   }
 

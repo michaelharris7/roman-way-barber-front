@@ -16,10 +16,10 @@ import { TrimComponent } from './services/trim/trim.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 
-import { NewsComponent } from './news/news.component';
-import { NewsNewComponent } from './news/news-new.component';
-import { NewsShowComponent } from './news/news-show.component';
-import { NewsService } from './news/news.service';
+import { ArticleListComponent } from './news/article-list.component';
+import { ArticleNewComponent } from './news/article-new.component';
+import { ArticleShowComponent } from './news/article-show.component';
+import { ArticleService } from './news/article.service';
 
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 
@@ -46,14 +46,14 @@ import { AppRoutingModule } from './app-routing.module';
     AboutComponent,
     ContactComponent,
 
-    NewsComponent,
-    NewsNewComponent,
-    NewsShowComponent,
+    ArticleListComponent,
+    ArticleNewComponent,
+    ArticleShowComponent,
 
     TestimonialsComponent
   ],
   providers: [
-    NewsService
+    ArticleService
   ],
   bootstrap: [
     AppComponent

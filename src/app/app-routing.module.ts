@@ -11,9 +11,9 @@ import { TrimComponent } from './services/trim/trim.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 
-import { NewsComponent } from './news/news.component';
-import { NewsNewComponent } from './news/news-new.component';
-import { NewsShowComponent } from './news/news-show.component';
+import { ArticleListComponent } from './news/article-list.component';
+import { ArticleNewComponent } from './news/article-new.component';
+import { ArticleShowComponent } from './news/article-show.component';
 
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 
@@ -30,9 +30,9 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
 
-  { path: 'news', component: NewsComponent },
-  { path: 'news/new', component: NewsNewComponent },
-  { path: 'news/post/:id', component: NewsShowComponent },
+  { path: 'news', component: ArticleListComponent },
+  { path: 'news/new', component: ArticleNewComponent },
+  { path: 'news/article/:id', component: ArticleShowComponent },
 
   { path: 'testimonials', component: TestimonialsComponent }
 ]

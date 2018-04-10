@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { NewsPost } from './news-post';
+import { Article } from './article';
 
 @Component({
-  selector: 'news-show',
-  templateUrl: 'news-show.component.html',
-  styleUrls: ['news.component.css']
+  selector: 'article-show',
+  templateUrl: 'article-show.component.html',
+  styleUrls: ['article.component.css']
 })
 
-export class NewsShowComponent implements OnInit {
+export class ArticleShowComponent implements OnInit {
   id: number;
   routeId: any;
 

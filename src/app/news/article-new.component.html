@@ -22,7 +22,7 @@
 
             <div class="card card-box-shadows py-2 mb-5">
               <div class="container">
-                <form #newsPostForm="ngForm">
+                <form #articleForm="ngForm">
                   <div class="form-group">
                     <label for="title">Title</label>
                     <div [hidden]="title.valid || title.pristine" class = 'alert alert-danger'>
@@ -31,11 +31,11 @@
                     <input type="text"
                            class="form-control"
                            id="title"
-                           placeholder="News Post"
+                           placeholder="The Great Haircut"
                            required
                            name="title"
                            #title='ngModel'
-                           [(ngModel)]="newsPost.title"
+                           [(ngModel)]="article.title"
                     >
                   </div>
                   <div class="form-group">
@@ -46,11 +46,11 @@
                     <textarea rows="10"
                            class="form-control"
                            id="content"
-                           placeholder="Post content"
+                           placeholder="Article content"
                            required
                            name="content"
                            #content='ngModel'
-                           [(ngModel)]="newsPost.content"
+                           [(ngModel)]="article.content"
                     ></textarea>
                   </div>
                   <div class="form-group">
@@ -61,7 +61,7 @@
                            placeholder="News Post"
                            name="ref_source_url"
                            #ref_source_url='ngModel'
-                           [(ngModel)]="newsPost.ref_source_url"
+                           [(ngModel)]="article.ref_source_url"
                     >
                   </div>
                 </form>
@@ -76,18 +76,18 @@
               News post will show as:
             </h3>
 
-            <div *ngIf="newsPost.title || newsPost.content;
+            <div *ngIf="article.title || article.content;
                   else no_post">
               <div class="card card-box-shadows">
                 <div class="container">
                   <h2 class="py-4">
-                    {{newsPost.title}}
+                    {{article.title}}
                   </h2>
                   <p>
-                    {{newsPost.content}}
+                    {{article.content}}
                   </p>
-                  <p *ngIf="newsPost.ref_source_url >'http://'">
-                    Referenced from: {{newsPost.ref_source_url}}
+                  <p *ngIf="article.ref_source_url >'http://'">
+                    Referenced from: {{article.ref_source_url}}
                   </p>
                 </div>
               </div>
