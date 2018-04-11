@@ -9,7 +9,8 @@ import { Article } from './article';
 })
 
 export class ArticleNewComponent implements OnInit {
-  public article = new Article;
+  article = new Article;
+  submitted: boolean = false;
 
   constructor(private _markdown: MarkdownService) {
   }

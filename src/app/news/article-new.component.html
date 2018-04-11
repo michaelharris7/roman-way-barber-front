@@ -3,7 +3,7 @@
   <div class="news-header">
     <div class="container">
       <h1>
-        Create a News Post:
+        Create a News Article:
       </h1>
       <h4>
         Post any kind of news media, recent event, or other fun thing
@@ -14,10 +14,11 @@
   <div class="news-main">
     <div class="container">
       <div class="row">
+
         <div class="col-md-6">
           <div class="container">
             <h3 class="text-center pb-3">
-              News post creation:
+              News article creation:
             </h3>
 
             <div class="card card-box-shadows py-2 mb-5">
@@ -64,6 +65,14 @@
                            [(ngModel)]="article.ref_source_url"
                     >
                   </div>
+
+                  <button type="submit"
+                    class="btn btn-outline-primary btn-lg w-100 mt-4 mb-3"
+                    [disabled]="!articleForm.form.valid"
+                    [hidden]="submitted"
+                  >
+                    Post Article
+                  </button>
                 </form>
               </div>
             </div>
@@ -73,7 +82,7 @@
         <div class="col-md-6">
           <div class="container">
             <h3 class="text-center pb-3">
-              News post will show as:
+              News article will show as:
             </h3>
 
             <div *ngIf="article.title || article.content;
