@@ -1,18 +1,35 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { MarkdownService } from 'angular2-markdown';
 import { Article } from './article';
+import { ArticleService } from './article.service';
 
 @Component({
   selector: 'article-new',
   templateUrl: 'article-new.component.html',
-  styleUrls: ['article.component.css']
+  styleUrls: ['article.component.css'],
+  providers: [ ArticleService ]
 })
 
 export class ArticleNewComponent implements OnInit {
   article = new Article;
   submitted: boolean = false;
 
-  constructor(private _markdown: MarkdownService) {
+  constructor(
+    private articleService: ArticleService,
+    private _markdown: MarkdownService
+  ) {}
+
+  createArticle(article) {
+    this.submitted = true;
+    this.articleService.createArticle(article)
+        .subscribe(
+          data => { return true },
+          error => {
+            console.log("Error saving proposal");
+            return Observable.throw(error);
+          }
+        );
   }
 
   ngOnInit() {

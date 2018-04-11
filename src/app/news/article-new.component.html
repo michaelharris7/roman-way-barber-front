@@ -23,7 +23,7 @@
 
             <div class="card card-box-shadows py-2 mb-5">
               <div class="container">
-                <form #articleForm="ngForm">
+                <form (ngSubmit)="createArticle(article)" #articleForm="ngForm">
                   <div class="form-group">
                     <label for="title">Title</label>
                     <div [hidden]="title.valid || title.pristine" class = 'alert alert-danger'>
