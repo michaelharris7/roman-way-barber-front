@@ -17,7 +17,7 @@ export class ArticleNewComponent implements OnInit {
   ngOnInit() {
     this._markdown.renderer.table = (header: string, body: string) => {
       return `
-      <table class="table2">
+      <table class="markdown-table">
         <thead>
           ${header}
         </thead>
@@ -28,7 +28,7 @@ export class ArticleNewComponent implements OnInit {
       `;
     }
     this._markdown.renderer.blockquote = (quote: string) => {
-      return `<blockquote class="king-quote">${quote}</blockquote>`;
+      return `<blockquote class="markdown-quote">${quote}</blockquote>`;
     }
   }
 }

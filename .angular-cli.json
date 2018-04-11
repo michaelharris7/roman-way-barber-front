@@ -19,7 +19,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "assets/css/styles.css"
+        "assets/css/styles.css",
+        "assets/css/markdown-styles.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
