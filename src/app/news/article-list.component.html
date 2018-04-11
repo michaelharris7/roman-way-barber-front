@@ -17,7 +17,7 @@
         <div class="col-md-9 col-sm-7 col-6">
           <div class="container pb-5">
 
-            <div *ngFor="let article of articles; let first = first; let last = last" class="pb-4" [class.news-separator]="!last" [class.pt-4]="!first">
+            <div *ngFor="let article of articles; let first = first; let last = last" [class.news-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first">
               <div class="container news-post">
                 <a (click)="goToShow(article)">
                   <a (click)="goToShow(article)">
