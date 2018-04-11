@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Article } from './article';
 import { ArticleService } from './article.service';
@@ -16,7 +17,8 @@ export class ArticleListComponent implements OnInit {
   mode = "Observable";
 
   constructor(
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -30,5 +32,10 @@ export class ArticleListComponent implements OnInit {
           articles => this.articles = articles,
           error => this.errorMessage = <any>error
         );
+  }
+
+  goToShow(article: Article): void {
+    let link = ['/news/article', article.id];
+    this.router.navigate(link);
   }
 }
