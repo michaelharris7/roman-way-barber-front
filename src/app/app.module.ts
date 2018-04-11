@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
+import { MarkdownModule } from 'angular2-markdown';
 
 
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
+    MarkdownModule.forRoot(),
     NgxPageScrollModule
   ],
   declarations: [

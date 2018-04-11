@@ -79,13 +79,13 @@
             <div *ngIf="article.title || article.content;
                   else no_post">
               <div class="card card-box-shadows">
-                <div class="container">
+                <div class="container news-markdown">
                   <h2 class="py-4">
                     {{article.title}}
                   </h2>
-                  <p>
-                    {{article.content}}
-                  </p>
+
+                  <markdown [data]="article.content"></markdown>
+
                   <p *ngIf="article.ref_source_url >'http://'">
                     Referenced from: {{article.ref_source_url}}
                   </p>
