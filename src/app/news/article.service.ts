@@ -27,14 +27,23 @@ export class ArticleService {
   }
 
   createArticle(article: Article): Observable<Article> {
-    return this.http.post(this.articlesUrl, JSON.stringify(article),this.options)              .map(this.extractData)
-                    .catch(this.handleError);
+    return this.http.post(this.articlesUrl, JSON.stringify(article),
+      this.options).map(this.extractData)
+          .catch(this.handleError);
   }
 
-  deleteArticle(id: number): Observable<Article[]> {
-    return this.http.delete(this.articlesUrl + "/" + id + ".json", this.options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+  deleteArticle(id: number): Observable<Article> {
+    const url = `${this.articlesUrl}/${id}`;
+    return this.http.delete(url, this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  updateArticle(article: Article): Observable<Article> {
+    const url = `${this.articlesUrl}/${article.id}`;
+    return this.http.put(url, JSON.stringify(article),
+      this.options).map((this.extractData))
+          .catch(this.handleError);
   }
 
   private extractData(res: Response) {
@@ -42,17 +51,8 @@ export class ArticleService {
       return body || {};
   }
 
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+  private handleError (error: any): Promise<any> {
+    console.error('An error occured ', error);
+    return Promise.reject(error.message || error);
   }
 }
