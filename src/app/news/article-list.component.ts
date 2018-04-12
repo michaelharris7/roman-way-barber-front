@@ -38,7 +38,10 @@ export class ArticleListComponent implements OnInit {
   deleteArticle(id: number) {
     this.articleService.deleteArticle(id)
         .subscribe(
-          result => console.log(result),
+          result => {
+            console.log(result);
+            this.getArticles();
+          },
           error => this.errorMessage = <any>error
         );
   }
