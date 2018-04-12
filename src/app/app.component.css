@@ -112,6 +112,10 @@
 .nav-item {
   margin-right: .75rem;
 }
+.news-page {
+  border-bottom-color: #ffe000;
+}
+
 
 .btn-dropdown-heading {
   color: #071021;
