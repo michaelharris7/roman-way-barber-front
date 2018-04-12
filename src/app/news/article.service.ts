@@ -28,7 +28,9 @@ export class ArticleService {
 
   createArticle(article) {
     return this.http.post(this.articlesUrl, JSON.stringify(article), {
-      headers: this.headers }).map((res: Response) => res.json());
+      headers: this.headers })
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
   deleteArticle(id: number): Observable<Article[]> {
