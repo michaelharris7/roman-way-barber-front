@@ -13,6 +13,7 @@ import { ArticleService } from './article.service';
 
 export class ArticleListComponent implements OnInit {
   articles: Article[];
+  article: Article;
   errorMessage: string;
   mode = "Observable";
 
@@ -30,6 +31,14 @@ export class ArticleListComponent implements OnInit {
     this.articleService.getArticles()
         .subscribe(
           articles => this.articles = articles,
+          error => this.errorMessage = <any>error
+        );
+  }
+
+  deleteArticle(id: number) {
+    this.articleService.deleteArticle(id)
+        .subscribe(
+          result => console.log(result),
           error => this.errorMessage = <any>error
         );
   }

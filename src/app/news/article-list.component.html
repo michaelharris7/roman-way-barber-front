@@ -12,6 +12,7 @@
       <p>
         <a routerLink="/news/articles/new" routerLinkActive="active">New news article</a>
       </p>
+      <!-- TODO: Refactor to show only for admins -->
     </div>
   </div>
 
@@ -21,7 +22,7 @@
         <div class="col-md-9 col-sm-7 col-6">
           <div class="container pb-5">
 
-            <div *ngFor="let article of articles; let first = first; let last = last" [class.news-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first">
+            <div *ngFor="let article of articles; let first = first; let last = last" [class.news-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
               <div class="container news-post">
                 <a (click)="goToShow(article)">
                   <a (click)="goToShow(article)">
@@ -32,21 +33,30 @@
                   <p>
                     {{ (article.content.length>500)? (article.content | slice:0:500)+'...':(article.content) }}
                   </p>
-                  <div class="container">
-                    <span class="pr-3">
-                      <a (click)="goToShow(article)" class="news-link">
-                        <button class="btn btn-primary news-show-btn mb-3">Read More</button>
-                      </a>
-                    </span>
-                    <span>
-                      <a (click)="goToShow(article)" class="news-link">
-                        <button class="btn btn-secondary news-show-btn mb-3">See Comments</button>
-                      </a>
-                    </span>
-                  </div>
                 </a>
               </div>
-              <!-- <hr class="my-4"> -->
+
+              <div class="container mt-3">
+                <span class="pr-3">
+                  <a (click)="goToShow(article)" class="news-link">
+                    <button class="btn btn-primary news-show-btn mb-3">Read More</button>
+                  </a>
+                </span>
+
+                <span class="pr-3">
+                  <a (click)="goToShow(article)" class="news-link">
+                    <button class="btn btn-secondary news-show-btn mb-3">See Comments</button>
+                  </a>
+                </span>
+
+                <!-- TODO: Refactor to show only for admin user -->
+                <span>
+                  <a (click)="deleteArticle(article.id)" class="news-link">
+                    <button class="btn btn-danger news-show-btn mb-3">Delete Article</button>
+                  </a>
+                </span>
+                <!-- TODO: Refactor to show only for admin user -->
+              </div>
             </div>
 
           </div>
