@@ -1,0 +1,75 @@
+/*///// Footer Styles /////*/
+footer {
+  /*border-top: 1px solid #806353;*/
+  background: linear-gradient(#33302e, black);
+  border-top: 1px solid #664f42;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  color: #404040;
+  text-align: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 13.2rem;
+  padding: 10px;
+}
+.footer-news {
+  background: linear-gradient(#403c39, #1a1817);
+  border-top: 2px solid #9a8172;
+}
+.copyright {
+  color: #c0c0c0;
+  margin-bottom: 20px;
+}
+.footer-links {
+  width: 100%;
+  text-decoration: none;
+  list-style-type: none;
+  font-size: .9em;
+}
+.footer-link {
+  padding: .25rem 0;
+  color: #9fadbf;
+}
+.footer-link:active {
+  color: #d3e7ff;
+}
+.footer-link.active {
+  color: #ffffd3;
+}
+.footer-line {
+  padding-right: 20px;
+  border-right: 1px solid #404040;
+  margin-right: 20px;
+}
+.footer-arrow {
+  width: 0;
+  height: 0;
+  margin: .4em 1em;
+  content: "";
+  border-top: .3em solid transparent;
+  border-right: 0;
+  border-bottom: .3em solid transparent;
+  border-left: .3em solid;
+}
+.footer-scroll-up {
+  color: #353a40;
+}
+.footer-scroll-up:hover {
+  color: #4a5159;
+}
+
+
+
+.footer-line-news {
+  border-right: 1px solid #575757;
+}
+.footer-arrow-news {
+  color: #575757;
+}
+.footer-scroll-up-news {
+  color: #4c5156;
+}
+.footer-scroll-up-news:hover {
+  color: #64696f;
+}

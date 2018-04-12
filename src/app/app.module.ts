@@ -12,6 +12,7 @@ import { Angular2TokenService } from 'angular2-token';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
+import { FooterComponent } from './footer/footer.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import { ServicesComponent } from './services/services.component';
@@ -49,6 +50,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     NavbarComponent,
     AuthDialogComponent,
+    FooterComponent,
     HomepageComponent,
 
     ServicesComponent,
