@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { MarkdownService } from 'angular2-markdown';
 import { Article } from './article';
 import { ArticleService } from './article.service';
 
@@ -11,13 +10,12 @@ import { ArticleService } from './article.service';
   providers: [ ArticleService ]
 })
 
-export class ArticleNewComponent implements OnInit {
+export class ArticleNewComponent {
   article = new Article;
   submitted: boolean = false;
 
   constructor(
     private articleService: ArticleService,
-    private _markdown: MarkdownService
   ) {}
 
   createArticle(article) {
@@ -30,23 +28,5 @@ export class ArticleNewComponent implements OnInit {
             return Observable.throw(error);
           }
         );
-  }
-
-  ngOnInit() {
-    this._markdown.renderer.table = (header: string, body: string) => {
-      return `
-      <table class="markdown-table">
-        <thead>
-          ${header}
-        </thead>
-        <tbody>
-          ${body}
-        </tbody>
-      </table>
-      `;
-    }
-    this._markdown.renderer.blockquote = (quote: string) => {
-      return `<blockquote class="markdown-quote">${quote}</blockquote>`;
-    }
   }
 }

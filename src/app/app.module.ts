@@ -25,6 +25,8 @@ import { ArticleService } from './news/article.service';
 
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 
+import { TruncatePipe } from './app.pipe';
+
 import { AppRoutingModule } from './app-routing.module';
 
 
@@ -54,7 +56,9 @@ import { AppRoutingModule } from './app-routing.module';
     ArticleNewComponent,
     ArticleShowComponent,
 
-    TestimonialsComponent
+    TestimonialsComponent,
+
+    TruncatePipe
   ],
   providers: [
     ArticleService
