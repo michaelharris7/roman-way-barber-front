@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { MarkdownModule } from 'angular2-markdown';
+import { MaterializeModule } from 'angular2-materialize';
 import { Angular2TokenService } from 'angular2-token';
 
 
@@ -40,6 +41,7 @@ import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
     HttpModule,
     NgbModule.forRoot(),
     MarkdownModule.forRoot(),
+    MaterializeModule,
     NgxPageScrollModule
   ],
   declarations: [

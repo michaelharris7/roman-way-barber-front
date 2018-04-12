@@ -1,3 +1,26 @@
-<p>
-  auth-dialog works!
-</p>
+<div class="modal" materialize="modal" [materializeActions]="modalActions">
+  <div class="card card-dimensions-edge mx-auto">
+    <div>
+      <span class="modal-close">
+        <i class="fa fa-times card-head" aria-hidden="true"></i>
+      </span>
+    </div>
+    <div class="card-heading"></div>
+
+    <div class="card-dimensions-body card-box-shadows d-flex flex-column">
+      <!-- d-flex align-items-center -->
+      <div class="mt-auto mb-3">
+        Current mode: {{authMode}}
+      </div>
+
+      <div class="mb-auto">
+        <span *ngIf="isLoginMode()">
+          Need an account? <a (click)="authMode='register'">Click here to register.</a>
+        </span>
+        <span *ngIf="isRegisterMode()">
+          Already have an account? <a (click)="authMode='login'">Click here to login.</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

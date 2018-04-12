@@ -1,0 +1,29 @@
+.card-dimensions-edge {
+  width: 400px;
+  margin-top: 100px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px #404040;
+}
+.card-dimensions-body {
+  padding: 30px;
+  min-height: 150px;
+  background-color: #eef6ff;
+}
+
+
+.card-head {
+  padding: 8px;
+  font-size: 1.6em;
+}
+.card-head:hover {
+  cursor: pointer;
+}
+
+
+.card-heading {
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(#ccc, #eef6ff);
+  height: 3px;
+  width: 100%;
+}
