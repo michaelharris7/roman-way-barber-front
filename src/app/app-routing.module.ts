@@ -19,7 +19,7 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
 
   { path: 'services', component: ServicesComponent },

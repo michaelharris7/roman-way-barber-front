@@ -29,6 +29,7 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { TruncatePipe } from './app.pipe';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 
 
 @NgModule({
@@ -59,7 +60,9 @@ import { AppRoutingModule } from './app-routing.module';
 
     TestimonialsComponent,
 
-    TruncatePipe
+    TruncatePipe,
+
+    AuthDialogComponent
   ],
   providers: [
     ArticleService,
