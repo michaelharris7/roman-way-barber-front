@@ -33,6 +33,9 @@
                   <p class="news-markdown">
                     <markdown data="{{ article.content | truncate:[200] }}"></markdown>
                   </p>
+                  <p>
+                    <small>Last Updated: {{article.updated_at | date:'medium'}}</small>
+                  </p>
                 </a>
               </div>
 

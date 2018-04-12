@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import { Article } from './article';
 
 
@@ -26,10 +26,8 @@ export class ArticleService {
     return this.http.get(this.articlesUrl + "/" + id + ".json");
   }
 
-  createArticle(article) {
-    return this.http.post(this.articlesUrl, JSON.stringify(article), {
-      headers: this.headers })
-                    .map(this.extractData)
+  createArticle(article: Article): Observable<Article> {
+    return this.http.post(this.articlesUrl, JSON.stringify(article),this.options)              .map(this.extractData)
                     .catch(this.handleError);
   }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-
+import { Http } from '@angular/http';
+// import { Http, Response, Headers, RequestOptions } from '@angular/http';
+// import { Observable } from 'rxjs/Rx';
 import { Article } from './article';
 import { ArticleService } from './article.service';
 
@@ -20,8 +20,7 @@ export class ArticleShowComponent implements OnInit {
     private articleService: ArticleService
   ) {}
 
-  @Input()
-  article: Article;
+  @Input() article: Article;
 
   ngOnInit(): void {
     let articleRequest = this.route.params
