@@ -5,6 +5,9 @@
       <h1>
         {{ article.title }}
       </h1>
+      <p class="mt-3">
+        <a routerLink="/news">Back to news articles</a>
+      </p>
     </div>
   </div>
 
@@ -13,8 +16,8 @@
       <div class="row">
         <div class="col-md-9 col-sm-7 col-6">
           <div *ngIf="article" class="container pb-5">
-            <p>
-              {{ article.content}}
+            <p class="news-markdown">
+              <markdown data="{{ article.content }}"></markdown>
             </p>
             <p>
               {{ article.ref_source_url }}

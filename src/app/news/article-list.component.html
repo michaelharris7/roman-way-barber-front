@@ -9,8 +9,8 @@
         News media, recent events, and other fun stuff
       </h4>
       <!-- TODO: Refactor to show only for admins -->
-      <p>
-        <a routerLink="/news/articles/new" routerLinkActive="active">New news article</a>
+      <p class="mt-3">
+        <a routerLink="/news/articles/new">New news article</a>
       </p>
       <!-- TODO: Refactor to show only for admins -->
     </div>
@@ -30,8 +30,8 @@
                       {{ article.title }}
                     </h2>
                   </a>
-                  <p>
-                    {{ (article.content.length>500)? (article.content | slice:0:500)+'...':(article.content) }}
+                  <p class="news-markdown">
+                    <markdown data="{{ article.content | truncate:[200] }}"></markdown>
                   </p>
                 </a>
               </div>
