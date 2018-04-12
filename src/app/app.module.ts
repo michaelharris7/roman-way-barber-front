@@ -34,6 +34,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
+import { AccountComponent } from './account/account.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { RegisterFormComponent } from './register-form/register-form.component';
     TruncatePipe,
 
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    AccountComponent
   ],
   providers: [
     ArticleService,
