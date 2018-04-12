@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { MarkdownService } from 'angular2-markdown';
+import { Angular2TokenService } from 'angular2-token';
+import { environment } from '../environments/environment';
 
 
 @Component({
@@ -18,8 +20,23 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private _markdown: MarkdownService
-  ) {}
+    private _markdown: MarkdownService,
+    private authToken: Angular2TokenService
+  ) {
+    this.authToken.init(environment.token_auth_config);
+
+    // Sign in test
+    // this.authToken.signIn({email: "user@example.com", password: "123456"})
+    //     .subscribe(res => {
+    //       console.log('auth response:', res);
+    //       console.log('auth response headers: ', res.headers.toJSON()); //log the response header to show the auth token
+    //       console.log('auth response body:', res.json()); //log the response body to show the user
+    //     },
+    //     err => {
+    //       console.error('auth error:', err);
+    //     }
+    )
+  }
 
   ngOnInit() {
     this.router.events.subscribe((res) => {

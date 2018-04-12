@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { MarkdownModule } from 'angular2-markdown';
+import { Angular2TokenService } from 'angular2-token';
 
 
 import { AppComponent } from './app.component';
@@ -61,7 +62,8 @@ import { AppRoutingModule } from './app-routing.module';
     TruncatePipe
   ],
   providers: [
-    ArticleService
+    ArticleService,
+    Angular2TokenService
   ],
   bootstrap: [
     AppComponent

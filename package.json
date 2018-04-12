@@ -23,6 +23,7 @@
     "@angular/router": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "^1.1.0",
     "angular2-markdown": "^2.2.3",
+    "angular2-token": "^0.2.0-beta.14",
     "autoprefixer": "^8.2.0",
     "core-js": "^2.4.1",
     "ngx-page-scroll": "^4.0.2",
