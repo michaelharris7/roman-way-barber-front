@@ -23,8 +23,7 @@ export class ArticleService {
   }
 
   createArticle(article) {
-    let headers = new Headers(
-      { 'Content-Type': 'application/json' });
+    let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.articlesUrl, JSON.stringify(article), {
       headers: headers }).map((res: Response) => res.json());

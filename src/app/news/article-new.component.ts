@@ -26,7 +26,7 @@ export class ArticleNewComponent implements OnInit {
         .subscribe(
           data => { return true },
           error => {
-            console.log("Error saving proposal");
+            console.log("Error saving article");
             return Observable.throw(error);
           }
         );
