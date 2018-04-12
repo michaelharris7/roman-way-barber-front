@@ -107,6 +107,7 @@
 }
 .nav-link-news.active {
   color: white !important;
+  border-bottom-color: #ffe000;
 }
 .nav-item {
   margin-right: .75rem;
