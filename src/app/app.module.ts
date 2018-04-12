@@ -10,6 +10,8 @@ import { Angular2TokenService } from 'angular2-token';
 
 
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import { ServicesComponent } from './services/services.component';
@@ -30,7 +32,6 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { TruncatePipe } from './app.pipe';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 
 
 @NgModule({
@@ -46,6 +47,8 @@ import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
   ],
   declarations: [
     AppComponent,
+    NavbarComponent,
+    AuthDialogComponent,
     HomepageComponent,
 
     ServicesComponent,
@@ -62,9 +65,7 @@ import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 
     TestimonialsComponent,
 
-    TruncatePipe,
-
-    AuthDialogComponent
+    TruncatePipe
   ],
   providers: [
     ArticleService,

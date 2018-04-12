@@ -1,0 +1,67 @@
+<nav [class]="onNewsPage() ?
+             'navbar nav-styles-news masthead-news' :
+             'navbar nav-styles masthead'"
+     id="top" role="navigation">
+
+  <div class="container">
+
+    <div class="contact-box">
+      <div class="contact d-flex" [class.contact-news]=onNewsPage()>
+        <div>
+          <span class="contact-type" [class.contact-type-news]=onNewsPage()>Phone:</span>801.785.9090
+        </div>
+        <div class="d-flex">
+          <span class="contact-type" [class.contact-type-news]=onNewsPage()>Address:</span>1 E Center St.<br />
+          Pleasant Grove, UT 84062
+        </div>
+      </div>
+    </div>
+
+    <div class="brand mt-0">
+      <a [routerLink]="['']" id="logo-container" class="brand-logo">
+        <img src='https://s3-us-west-1.amazonaws.com/evans-roman-way/logo_sm.png' alt="Company logo for Evan's Roman Way Barber/Stylist in Pleasant Grove, Utah" height="80px" />
+      </a>
+    </div>
+
+    <div class="ml-auto mt-auto">
+      <ul class="nav ml-5" [class.nav-news]=onNewsPage()>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fas fa-home fa-lg"></i></a>
+        </li>
+        <li class="nav-item dropdown">
+          <div ngbDropdown class="d-inline-block dropdown-links">
+            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected]=onServicesPage() [class.btn-dropdown-heading-news]=onNewsPage() id="servicesDropdown" ngbDropdownToggle>
+              <i class="fas fa-cut"></i> Services
+            </button>
+            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="servicesDropdown">
+              <a class="dropdown-item" routerLink="/services/haircut" routerLinkActive="active">Men's Haircut</a>
+              <a class="dropdown-item" routerLink="/services/shave" routerLinkActive="active">Straight Edge Razor Shave</a>
+              <a class="dropdown-item" routerLink="/services/trim" routerLinkActive="active">Beard Trim</a>
+              <a class="dropdown-item" routerLink="/services" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">All Services</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about" routerLinkActive="active">About Me</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact Me</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-news" [class.news-page]=onNewsPage() routerLink="/news" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/testimonials" routerLinkActive="active">Testimonials</a>
+        </li>
+        <li class="nav-account">
+          <a class="nav-link" (click)="presentAuthDialog('register')">Register</a>
+        </li>
+        <li class="nav-account">
+          <a class="nav-link" (click)="presentAuthDialog()">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<app-auth-dialog #authDialog></app-auth-dialog>

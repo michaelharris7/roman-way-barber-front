@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { MarkdownService } from 'angular2-markdown';
 import { Angular2TokenService } from 'angular2-token';
 import { environment } from '../environments/environment';
-import { AuthDialogComponent } from "./auth-dialog/auth-dialog.component";
 
 
 @Component({
@@ -14,10 +13,6 @@ import { AuthDialogComponent } from "./auth-dialog/auth-dialog.component";
 })
 
 export class AppComponent implements OnInit {
-
-  @ViewChild('authDialog') authDialog: AuthDialogComponent;
-
-  title = 'app';
   today: Date = new Date();
 
   public currentPath: string = "";
@@ -32,6 +27,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((res) => {
       this.currentPath = this.router.url;
     });
+
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
             return;
@@ -55,15 +51,10 @@ export class AppComponent implements OnInit {
       return `<blockquote class="markdown-quote">${quote}</blockquote>`;
     }
   }
-
   onServicesPage() {
     return this.currentPath.indexOf('/services') !== -1;
   }
   onNewsPage() {
     return this.currentPath.indexOf('/news') !== -1;
-  }
-
-  presentAuthDialog(mode?: 'login'| 'register'){
-    this.authDialog.openDialog(mode);
   }
 }

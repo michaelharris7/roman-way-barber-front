@@ -1,4 +1,17 @@
-.card-dimensions-edge {
+a {
+  color: #007bff !important;
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline !important;
+}
+a:active {
+  color: #0056b3 !important;
+}
+
+
+.card-dimensions-main {
+  font-family: 'Roboto', sans-serif;
   width: 400px;
   margin-top: 100px;
   border-radius: 5px;
