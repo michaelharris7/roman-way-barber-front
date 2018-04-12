@@ -57,14 +57,14 @@
         <li class="nav-account" *ngIf="!tokenAuthService.userSignedIn()">
           <a class="nav-link" (click)="presentAuthDialog('register')">Register</a>
         </li>
-        <li class="nav-account" *ngIf="!tokenAuthService.userSignedIn()>
+        <li class="nav-account" *ngIf="!tokenAuthService.userSignedIn()">
           <a class="nav-link" (click)="presentAuthDialog()">Login</a>
         </li>
 
         <li class="nav-account" *ngIf="tokenAuthService.userSignedIn()">
           <a class="nav-link">Account</a>
         </li>
-        <li class="nav-account" *ngIf="tokenAuthService.userSignedIn()>
+        <li class="nav-account" *ngIf="tokenAuthService.userSignedIn()">
           <a class="nav-link" (click)="tokenAuthService.signOut()">Logout</a>
         </li>
       </ul>

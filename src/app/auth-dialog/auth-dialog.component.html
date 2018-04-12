@@ -10,10 +10,18 @@
     <div class="card-dimensions-body card-box-shadows d-flex flex-column">
       <!-- d-flex align-items-center -->
       <div class="mt-auto mb-3">
-        Current mode: {{authMode}}
+        <h3>{{authMode}}</h3>
       </div>
 
       <div class="mb-auto">
+        <app-login-form (onFormResult)="onLoginFormResult($event)"
+                        *ngIf="isLoginMode()">
+        </app-login-form>
+
+        <app-register-form (onFormResult)="onRegisterFormResult($event)"
+                           *ngIf="isRegisterMode()">
+        </app-register-form>
+
         <span *ngIf="isLoginMode()">
           Need an account? <a (click)="authMode='register'">Click here to register.</a>
         </span>
