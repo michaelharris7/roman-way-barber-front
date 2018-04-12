@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthDialogComponent } from "../auth-dialog/auth-dialog.component";
+import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
+import { Angular2TokenService } from 'angular2-token';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class NavbarComponent implements OnInit {
   @ViewChild('authDialog') authDialog: AuthDialogComponent;
 
   constructor(
-    private router: Router
+    private router: Router,
+    public tokenAuthService:Angular2TokenService
   ) {}
 
   ngOnInit() {
