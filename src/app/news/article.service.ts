@@ -18,7 +18,7 @@ export class ArticleService {
 
   getArticles(): Observable<Article[]> {
     return this.http.get(this.articlesUrl)
-                    .map((response: Response) => <Article[]>response.json())
+                    .map(this.extractData)
                     .catch(this.handleError);
   }
 
@@ -33,7 +33,6 @@ export class ArticleService {
 
   deleteArticle(id: number): Observable<Article[]> {
     return this.http.delete(this.articlesUrl + "/" + id + ".json", this.options)
-                    // .map((response: Response) => <Article[]> response.json())
                     .map(this.extractData)
                     .catch(this.handleError);
   }
@@ -42,13 +41,6 @@ export class ArticleService {
       let body = res.json();
       return body || {};
   }
-
-    // deleteServiceWithId(url: string, key: string, val: string): Observable {
-    // return this.http
-    //     .delete(url + "/" + val, this.options)
-    //     .map(this.extractData)
-    //     .catch(this.handleError);
-    // }
 
   private handleError (error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure

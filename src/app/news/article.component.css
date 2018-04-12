@@ -38,6 +38,7 @@ a:active {
 .news-main {
   padding-top: 3rem;
   background-color: #fafaff;
+  min-height: 400px;
 }
 
 
