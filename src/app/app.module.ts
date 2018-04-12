@@ -5,13 +5,11 @@ import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { MarkdownModule } from 'angular2-markdown';
-import { MaterializeModule } from 'angular2-materialize';
 import { Angular2TokenService } from 'angular2-token';
 
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
@@ -46,13 +44,11 @@ import { RegisterFormComponent } from './register-form/register-form.component';
     HttpModule,
     NgbModule.forRoot(),
     MarkdownModule.forRoot(),
-    MaterializeModule,
     NgxPageScrollModule
   ],
   declarations: [
     AppComponent,
     NavbarComponent,
-    AuthDialogComponent,
     FooterComponent,
     HomepageComponent,
 

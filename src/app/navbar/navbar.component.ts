@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
 import { Angular2TokenService } from 'angular2-token';
 
 
@@ -15,7 +14,7 @@ export class NavbarComponent implements OnInit {
 
   public currentPath: string = "";
 
-  @ViewChild('authDialog') authDialog: AuthDialogComponent;
+  // @ViewChild('authDialog') authDialog: AuthDialogComponent;
 
   constructor(
     private router: Router,
@@ -28,9 +27,9 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  presentAuthDialog(mode?: 'login'| 'register'){
-    this.authDialog.openDialog(mode);
-  }
+  // presentAuthDialog(mode?: 'login'| 'register'){
+  //   this.authDialog.openDialog(mode);
+  // }
   onServicesPage() {
     return this.currentPath.indexOf('/services') !== -1;
   }
