@@ -6,6 +6,7 @@ import { AuthenticationService } from '../authentication.service';
 
 
 @Component({
+  selector: 'account-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })

@@ -38,6 +38,8 @@ import { AccountComponent } from './account/account.component';
 import { AuthLinksComponent } from './authentication/auth-links.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 
+import { RegisterComponent } from './authentication/register/register.component';
+
 
 @NgModule({
   imports: [
@@ -75,7 +77,9 @@ import { AuthenticationModule } from './authentication/authentication.module';
     TruncatePipe,
 
     AccountComponent,
-    AuthLinksComponent
+    AuthLinksComponent,
+
+    RegisterComponent
   ],
   providers: [
     ArticleService,

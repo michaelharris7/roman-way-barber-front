@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { User } from '../user'
 import { AuthenticationService } from '../authentication.service';
 
 
@@ -9,7 +10,8 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  submitted: boolean;
+  user = new User;
+  submitted: boolean = false;
   loginForm: FormGroup;
 
   constructor(

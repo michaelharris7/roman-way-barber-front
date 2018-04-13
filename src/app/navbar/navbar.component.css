@@ -214,3 +214,16 @@
   margin: 5px 0 0 7px;
   font-size: .7em;
 }
+
+
+
+.account-position {
+  position: absolute;
+  top: 200px;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+.account-size {
+  width: 500px;
+}
