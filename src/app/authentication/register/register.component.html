@@ -17,79 +17,86 @@
 
         <div class="col-md-8 mx-auto">
           <div class="container">
-            <h3 class="text-center pb-3">
+            <h2 class="text-center pb-3">
               User account creation:
-            </h3>
+            </h2>
 
-            <div class="card card-box-shadows py-2 mb-5">
+            <div class="card card-shadow-hard pt-4 pb-2 px-2 mb-5">
               <div class="container">
                 <form (ngSubmit)="createUser(user)" #registerForm="ngForm">
-                  <div class="form-group">
-                    <label for="first_name">First Name</label>
-                    <div [hidden]="first_name.valid || first_name.pristine" class = 'alert alert-danger'>
-                      A first name is required
+                  <div class="row">
+                    <div class="form-group col-lg-6">
+                      <label for="first_name">First Name</label>
+                      <div [hidden]="first_name.valid || first_name.pristine" class = 'alert alert-danger'>
+                        A first name is required
+                      </div>
+                      <input type="text"
+                             class="form-control"
+                             id="first_name"
+                             required
+                             name="first_name"
+                             #first_name='ngModel'
+                             [(ngModel)]="user.first_name"
+                      >
                     </div>
-                    <input type="text"
-                           class="form-control"
-                           id="first_name"
-                           required
-                           name="first_name"
-                           #first_name='ngModel'
-                           [(ngModel)]="user.first_name"
-                    >
-                  </div>
-                  <div class="form-group">
-                    <label for="last_name">Last Name</label>
-                    <input type="text"
-                           class="form-control"
-                           id="last_name"
-                           name="last_name"
-                           #last_name='ngModel'
-                           [(ngModel)]="user.last_name"
-                    >
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <div [hidden]="email.valid || email.pristine" class = 'alert alert-danger'>
-                      An email address is required
+                    <div class="form-group col-lg-6">
+                      <label for="last_name">Last Name</label>
+                      <input type="text"
+                             class="form-control"
+                             id="last_name"
+                             name="last_name"
+                             #last_name='ngModel'
+                             [(ngModel)]="user.last_name"
+                      >
                     </div>
-                    <input type="text"
-                           class="form-control"
-                           id="email"
-                           placeholder="user@example.com"
-                           required
-                           name="email"
-                           #email='ngModel'
-                           [(ngModel)]="user.email"
-                    >
                   </div>
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <div [hidden]="password.valid || password.pristine" class = 'alert alert-danger'>
-                      Passwords must be at least 8 characters long
+                  <div class="row">
+                    <div class="form-group col-lg-6 pb-4">
+                      <label for="email">Email Address</label>
+                      <div [hidden]="email.valid || email.pristine" class = 'alert alert-danger'>
+                        An email address is required
+                      </div>
+                      <input type="text"
+                             class="form-control"
+                             id="email"
+                             placeholder="user@example.com"
+                             required
+                             name="email"
+                             #email='ngModel'
+                             [(ngModel)]="user.email"
+                      >
                     </div>
-                    <input type="text"
-                           class="form-control"
-                           id="password"
-                           required
-                           name="password"
-                           #password='ngModel'
-                           [(ngModel)]="user.password"
-                    >
                   </div>
-                  <div class="form-group">
-                    <label for="passwordConfirm">Confirm Password</label>
-                    <div [hidden]="passwordConfirm.valid || passwordConfirm.pristine" class = 'alert alert-danger'>
-                      Your passwords must match
+                  <hr>
+                  <div class="row mt-4 mb-5">
+                    <div class="form-group col-lg-6">
+                      <label for="password">Password</label>
+                      <div [hidden]="password.valid || password.pristine" class = 'alert alert-danger'>
+                        Passwords must be at least 8 characters long
+                      </div>
+                      <input type="text"
+                             class="form-control"
+                             id="password"
+                             required
+                             name="password"
+                             #password='ngModel'
+                             [(ngModel)]="user.password"
+                      >
                     </div>
-                    <input type="text"
-                           class="form-control"
-                           id="passwordConfirm"
-                           required
-                           name="passwordConfirm"
-                           #passwordConfirm='ngModel'
-                           [(ngModel)]="user.passwordConfirm"
-                    >
+                    <div class="form-group col-lg-6">
+                      <label for="passwordConfirm">Confirm Password</label>
+                      <div [hidden]="passwordConfirm.valid || passwordConfirm.pristine" class = 'alert alert-danger'>
+                        Your passwords must match
+                      </div>
+                      <input type="text"
+                             class="form-control"
+                             id="passwordConfirm"
+                             required
+                             name="passwordConfirm"
+                             #passwordConfirm='ngModel'
+                             [(ngModel)]="user.passwordConfirm"
+                      >
+                    </div>
                   </div>
 
                   <button type="submit"

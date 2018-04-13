@@ -26,9 +26,9 @@
               <div class="container new-post">
                 <a (click)="goToShow(article)">
                   <a (click)="goToShow(article)">
-                    <h2 class="py-3 new-title">
+                    <h3 class="py-3 new-title">
                       {{ article.title }}
-                    </h2>
+                    </h3>
                   </a>
                   <p class="new-markdown">
                     <markdown data="{{ article.content | truncate:[200] }}"></markdown>
