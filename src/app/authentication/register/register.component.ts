@@ -12,7 +12,7 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class RegisterComponent implements OnInit {
   user = new User;
-  submitted: boolean = false;
+  submitted: boolean;
   registerForm: FormGroup;
 
   constructor(

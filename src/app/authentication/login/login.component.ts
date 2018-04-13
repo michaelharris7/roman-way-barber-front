@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { User } from '../user'
 import { AuthenticationService } from '../authentication.service';
 
