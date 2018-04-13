@@ -1,17 +1,17 @@
-<nav [class]="onNewsPage() ?
-             'navbar nav-styles-news masthead-news' :
+<nav [class]="isNewLayout() ?
+             'navbar nav-styles-new masthead-new' :
              'navbar nav-styles masthead'"
      id="top" role="navigation">
 
   <div class="container">
 
     <div class="contact-box">
-      <div class="contact d-flex" [class.contact-news]=onNewsPage()>
+      <div class="contact d-flex" [class.contact-new]=isNewLayout()>
         <div>
-          <span class="contact-type" [class.contact-type-news]=onNewsPage()>Phone:</span>801.785.9090
+          <span class="contact-type" [class.contact-type-new]=isNewLayout()>Phone:</span>801.785.9090
         </div>
         <div class="d-flex">
-          <span class="contact-type" [class.contact-type-news]=onNewsPage()>Address:</span>1 E Center St.<br />
+          <span class="contact-type" [class.contact-type-new]=isNewLayout()>Address:</span>1 E Center St.<br />
           Pleasant Grove, UT 84062
         </div>
       </div>
@@ -24,13 +24,13 @@
     </div>
 
     <div class="ml-auto mt-auto">
-      <ul class="nav ml-5" [class.nav-news]=onNewsPage()>
+      <ul class="nav ml-5" [class.nav-new]=isNewLayout()>
         <li class="nav-item">
           <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fas fa-home fa-lg"></i></a>
         </li>
         <li class="nav-item dropdown">
           <div ngbDropdown class="d-inline-block dropdown-links">
-            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected]=onServicesPage() [class.btn-dropdown-heading-news]=onNewsPage() id="servicesDropdown" ngbDropdownToggle>
+            <button class="btn btn-dropdown-heading" [class.btn-dropdown-selected]=isServicePage() [class.btn-dropdown-heading-new]=isNewLayout() id="servicesDropdown" ngbDropdownToggle>
               <i class="fas fa-cut"></i> Services
             </button>
             <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="servicesDropdown">
@@ -48,33 +48,15 @@
           <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact Me</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-link-news" [class.news-page]=onNewsPage() routerLink="/news" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">News</a>
+          <a class="nav-link nav-link-new" [class.news-page]=isNewsPage() routerLink="/news" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">News</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/testimonials" routerLinkActive="active">Testimonials</a>
+          <a class="nav-link nav-link-new" routerLink="/testimonials" routerLinkActive="active">Testimonials</a>
         </li>
         <li>
-          <form class="form-inline my-2 my-lg-0">
+          <form class="form-inline" [class.nav-link-new]=isNewLayout()>
             <auth-links></auth-links>
           </form>
-
-<!--         <form class="form-group d-flex flex-row">
-          <div class="nav-account">
-            <a class="nav-link" type="submit">Register</a>
-          </div>
-          <div class="nav-account">
-            <a class="nav-link">Login</a>
-          </div>
-        </form> -->
-
-
-
-<!--         <li class="nav-account">
-          <a class="nav-link">Register</a>
-        </li>
-        <li class="nav-account">
-          <a class="nav-link">Login</a>
-        </li> -->
         </li>
       </ul>
     </div>

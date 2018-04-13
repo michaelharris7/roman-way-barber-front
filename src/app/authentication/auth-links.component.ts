@@ -5,15 +5,23 @@ import { AuthenticationService } from './authentication.service';
 @Component({
   selector: 'auth-links',
   template: `
-    <div class="form-group">
-      <div class="nav-account" [class.nav-styles]=notOnNewsPage() [class.nav-styles-news]=onNewsPage()>
-        <a class="nav-link" routerLink="/signup" routerLinkActive="active" *ngIf="isLoggedOut()">Register</a>
-      </div>
-      <div class="nav-account" [class.nav-styles]=notOnNewsPage() [class.nav-styles-news]=onNewsPage()>
-        <a class="nav-link" type="submit" routerLink="/login" routerLinkActive="active" *ngIf="isLoggedOut()">Login</a>
-      </div>
-      <div class="nav-account" [class.nav-styles]=notOnNewsPage() [class.nav-styles-news]=onNewsPage()>
-        <a class="nav-link" type="submit" routerLink="/logout" (click)="logOut()" *ngIf="isLoggedIn()">Logout</a>
+    <div class="form-group"
+        [class.nav-styles]=!isNewLayout()
+        [class.nav-styles-new]=isNewLayout()>
+      <div class="nav" [class.nav-new]=isNewLayout()>
+
+        <div class="nav-item">
+          <a class="nav-link nav-link-new nav-account" routerLink="/register" routerLinkActive="active" *ngIf="isLoggedOut()">Register</a>
+        </div>
+
+        <div class="nav-item">
+          <a class="nav-link nav-link-new nav-account" type="submit" routerLink="/login" routerLinkActive="active" *ngIf="isLoggedOut()">Login</a>
+        </div>
+
+        <div class="nav-item">
+          <a class="nav-link nav-link-new nav-account" type="submit" routerLink="/logout" (click)="logOut()" *ngIf="isLoggedIn()">Logout</a>
+        </div>
+
       </div>
     </div>
   `,
@@ -47,10 +55,22 @@ export class AuthLinksComponent {
   }
 
 
-  notOnNewsPage() {
-    return this.currentPath.indexOf('/news') == -1;
-  }
-  onNewsPage() {
-    return this.currentPath.indexOf('/news') !== -1;
+  isNewLayout() {
+    switch (this.currentPath)
+    {
+    // On a standard page
+    case'/':
+    case'/home':
+    case'/services':
+    case'/services/haircut':
+    case'/services/shave':
+    case'/services/trim':
+    case'/about':
+    case'/contact':
+      return false;
+    case'/signup':
+    default:
+      return true;
+    }
   }
 }

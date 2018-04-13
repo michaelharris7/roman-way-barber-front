@@ -1,6 +1,6 @@
-<div class="news-back">
+<div class="new-back">
 
-  <div class="news-header">
+  <div class="new-header">
     <div class="container">
       <h1>
         The latest news:
@@ -16,21 +16,21 @@
     </div>
   </div>
 
-  <div class="news-main">
+  <div class="new-main">
     <div class="container">
       <div class="row">
         <div class="col-md-9 col-sm-7 col-6">
           <div class="container pb-5">
 
-            <div *ngFor="let article of articles; let first = first; let last = last" [class.news-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
-              <div class="container news-post">
+            <div *ngFor="let article of articles; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
+              <div class="container new-post">
                 <a (click)="goToShow(article)">
                   <a (click)="goToShow(article)">
-                    <h2 class="py-3 news-title">
+                    <h2 class="py-3 new-title">
                       {{ article.title }}
                     </h2>
                   </a>
-                  <p class="news-markdown">
+                  <p class="new-markdown">
                     <markdown data="{{ article.content | truncate:[200] }}"></markdown>
                   </p>
                   <p>
@@ -41,21 +41,21 @@
 
               <div class="container mt-3">
                 <span class="pr-3">
-                  <a (click)="goToShow(article)" class="news-link">
-                    <button class="btn btn-primary news-show-btn mb-3">Read More</button>
+                  <a (click)="goToShow(article)" class="new-link">
+                    <button class="btn btn-primary new-show-btn mb-3">Read More</button>
                   </a>
                 </span>
 
                 <span class="pr-3">
-                  <a (click)="goToShow(article)" class="news-link">
-                    <button class="btn btn-secondary news-show-btn mb-3">See Comments</button>
+                  <a (click)="goToShow(article)" class="new-link">
+                    <button class="btn btn-secondary new-show-btn mb-3">See Comments</button>
                   </a>
                 </span>
 
                 <!-- TODO: Refactor to show only for admin user -->
                 <span>
-                  <a (click)="deleteArticle(article.id)" class="news-link">
-                    <button class="btn btn-danger news-show-btn mb-3">Delete Article</button>
+                  <a (click)="deleteArticle(article.id)" class="new-link">
+                    <button class="btn btn-danger new-show-btn mb-3">Delete Article</button>
                   </a>
                 </span>
                 <!-- TODO: Refactor to show only for admin user -->
@@ -67,7 +67,7 @@
 
         <div class="col-md-3 col-sm-5 col-6">
           <div class="container">
-            <div class="news-sidebar card-box-shadows pt-4">
+            <div class="new-sidebar card-box-shadows pt-4">
               <p>
                 <a routerLink="/login" routerLinkActive="active">Login</a> or <a routerLink="/register" routerLinkActive="active">register</a> to comment on news posts.
               </p>

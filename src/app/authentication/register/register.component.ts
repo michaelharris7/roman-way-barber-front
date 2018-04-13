@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { User } from '../user'
 import { AuthenticationService } from '../authentication.service';
 
 
@@ -9,13 +10,15 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  submitted: boolean;
+  user = new User;
+  submitted: boolean = false;
   registerForm: FormGroup;
 
   constructor(
     private authService: AuthenticationService,
     private formBuilder: FormBuilder
   ) {}
+
   ngOnInit() {
     this.submitted = false;
     this.registerForm = this.formBuilder.group({
@@ -33,6 +36,15 @@ export class RegisterComponent implements OnInit {
       this.afterFailedRegister.bind(this)
     );
   }
+
+//   this._tokenService.registerAccount({
+//     email:                'example@example.org',
+//     password:             'secretPassword',
+//     passwordConfirmation: 'secretPassword'
+// }).subscribe(
+//     res =>      console.log(res),
+//     error =>    console.log(error)
+// );
 
   afterFailedRegister(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;

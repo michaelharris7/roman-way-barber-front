@@ -1,3 +1,9 @@
+[type=submit] {
+  appearance: none;
+}
+
+
+
 /*///// Header Styles /////*/
 .masthead {
   /*background-color: white;*/
@@ -5,7 +11,7 @@
   min-height: 80px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
 }
-.masthead-news {
+.masthead-new {
   background:
     linear-gradient(5deg, rgba(0, 71, 160, .5), rgba(0, 71, 160, .9)),
     /*linear-gradient(5deg, rgba(45, 89, 128, .5), rgba(45, 89, 128, .7)),*/
@@ -30,7 +36,7 @@
   font-size: .6em;
   line-height: 1.3em;
 }
-.contact-news {
+.contact-new {
   color: rgba(255, 255, 255, .6) !important;
   font-family: 'Roboto', sans-serif;
 }
@@ -40,7 +46,7 @@
   font-family: 'Alegreya Sans SC', sans-serif;
   font-size: 1.5em !important;
 }
-.contact-type-news {
+.contact-type-new {
   color: rgba(255, 255, 255, .75) !important;
   font-family: 'Ubuntu', sans-serif;
 }
@@ -51,20 +57,20 @@
 .nav {
   font-family: 'Alegreya Sans SC', sans-serif;
 }
-.nav-news {
+.nav-new {
   font-family: 'Ubuntu', sans-serif;
 }
 
 
 
 .nav-styles,
-.nav-styles-news {
+.nav-styles-new {
   width: 100%;
   font-weight: 800;
   font-size: 1.2em;
 }
 .nav-styles a,
-.nav-styles-news a {
+.nav-styles-new a {
   color: #0e1f40;
   text-shadow: 1px 1px 2px #d0d0d0;
   padding: 8px 0 0;
@@ -81,17 +87,17 @@
 
 
 
-.nav-styles-news a {
+.nav-styles-new a {
   color: rgba(255, 255, 255, .75);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
 }
-.nav-styles-news a:hover {
+.nav-styles-new a:hover {
   color: rgba(255, 255, 255, .9);
   text-shadow: none;
   border-bottom-color: #1c3f80;
   cursor: pointer;
 }
-.nav-styles-news a:active {
+.nav-styles-new a:active {
   color: white;
   border-bottom-color: #ffe000;
 }
@@ -107,7 +113,7 @@
   text-shadow: none !important;
   border-bottom-color: #c02000;
 }
-.nav-link-news.active {
+.nav-link-new.active {
   color: white !important;
   border-bottom-color: #ffe000;
 }
@@ -152,26 +158,26 @@
 
 
 
-.btn-dropdown-heading-news {
+.btn-dropdown-heading-new {
   color: rgba(255, 255, 255, .75);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
   box-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
   border-color: rgba(255, 255, 255, .75);
 }
-.btn-dropdown-heading-news:hover {
+.btn-dropdown-heading-new:hover {
   color: #1c3f80;
   background-color: rgba(255, 255, 255, .9);
   border-color: rgba(255, 255, 255, .9);
 }
-.btn-dropdown-heading-news:focus,
-.btn-dropdown-selected-news {
+.btn-dropdown-heading-new:focus,
+.btn-dropdown-selected-new {
   color: rgba(255, 255, 255, .9);
   background-color: transparent;
   border-color: #ffe000;
   text-shadow: none;
   box-shadow: 0 0 0 0.1rem #ffe000;
 }
-.btn-dropdown-heading-news:active {
+.btn-dropdown-heading-new:active {
   color: #1c3f80;
   background-color: rgba(255, 255, 255, .9);
   border-color: rgba(255, 255, 255, .9);
@@ -207,10 +213,4 @@
 .nav-account {
   margin: 5px 0 0 7px;
   font-size: .7em;
-}
-
-
-
-[type=submit] {
-  appearance: none;
 }

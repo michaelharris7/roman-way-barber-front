@@ -1,6 +1,6 @@
-<div class="news-back">
+<div class="new-back">
 
-  <div class="news-header">
+  <div class="new-header">
     <div *ngIf="article" class="container">
       <h1>
         {{ article.title }}
@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="news-main">
+  <div class="new-main">
     <div class="container">
       <div class="row">
         <div class="col-md-9 col-sm-7 col-6">
@@ -54,7 +54,7 @@
                     <input type="text"
                            class="form-control"
                            id="ref_source_url"
-                           placeholder="News Post"
+                           placeholder="new Post"
                            name="ref_source_url"
                            #ref_source_url='ngModel'
                            [(ngModel)]="article.ref_source_url"
@@ -74,7 +74,7 @@
 
 
             <div class="container card card-box-shadows pt-4 pb-1 mb-4">
-              <p class="news-markdown">
+              <p class="new-markdown">
                 <markdown data="{{ article.content }}"></markdown>
               </p>
               <p>
@@ -84,14 +84,14 @@
 
             <div class="container mb-5" [hidden]="editBtnClicked">
               <span class="pr-3">
-                <a (click)="update(article)" class="news-link">
-                  <button class="btn btn-primary news-show-btn mb-3">Edit</button>
+                <a (click)="update(article)" class="new-link">
+                  <button class="btn btn-primary new-show-btn mb-3">Edit</button>
                 </a>
               </span>
 
               <span class="pr-3">
-                <a (click)="delete(article)" class="news-link">
-                  <button class="btn btn-danger news-show-btn mb-3">Delete</button>
+                <a (click)="delete(article)" class="new-link">
+                  <button class="btn btn-danger new-show-btn mb-3">Delete</button>
                 </a>
               </span>
             </div>
@@ -101,7 +101,7 @@
 
         <div class="col-md-3 col-sm-5 col-6">
           <div class="container">
-            <div class="news-sidebar card-box-shadows pt-4">
+            <div class="new-sidebar card-box-shadows pt-4">
               <p>
                 <a routerLink="/login" routerLinkActive="active">Login</a> or <a routerLink="/register" routerLinkActive="active">register</a> to comment on news posts.
               </p>

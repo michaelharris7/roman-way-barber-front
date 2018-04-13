@@ -34,8 +34,6 @@ import { TruncatePipe } from './app.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthRoutingModule } from './authentication/auth-routing.module';
 
-import { LoginFormComponent } from './login-form/login-form.component';
-import { RegisterFormComponent } from './register-form/register-form.component';
 import { AccountComponent } from './account/account.component';
 import { AuthLinksComponent } from './authentication/auth-links.component';
 import { AuthenticationModule } from './authentication/authentication.module';
@@ -76,8 +74,6 @@ import { AuthenticationModule } from './authentication/authentication.module';
 
     TruncatePipe,
 
-    LoginFormComponent,
-    RegisterFormComponent,
     AccountComponent,
     AuthLinksComponent
   ],

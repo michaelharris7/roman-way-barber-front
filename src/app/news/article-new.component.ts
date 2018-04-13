@@ -6,8 +6,7 @@ import { ArticleService } from './article.service';
 @Component({
   selector: 'article-new',
   templateUrl: 'article-new.component.html',
-  styleUrls: ['article.component.css'],
-  providers: [ ArticleService ]
+  styleUrls: ['article.component.css']
 })
 
 export class ArticleNewComponent {

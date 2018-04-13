@@ -3,8 +3,74 @@
 }
 
 
+
+/*///// Header Styles /////*/
+.masthead {
+  /*background-color: white;*/
+  background: linear-gradient(to top, #c8c8c8, #b0b0b0 2px, #f8f8f8 3px, #e0e0e0 100%);
+  min-height: 80px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
+}
+.masthead-new {
+  background:
+    linear-gradient(5deg, rgba(0, 71, 160, .5), rgba(0, 71, 160, .9)),
+    /*linear-gradient(5deg, rgba(45, 89, 128, .5), rgba(45, 89, 128, .7)),*/
+    /*linear-gradient(5deg, rgba(70, 140, 200, .5), rgba(70, 140, 200, .7)),*/
+    linear-gradient(to top, #c8c8c8, #b0b0b0 2px, #f8f8f8 3px, #e0e0e0 100%);
+  min-height: 80px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
+}
+.brand {
+  margin-bottom: 0px;
+}
+
+.contact-box {
+ width: 100%;
+ position: relative;
+}
+.contact {
+  color: #808080;
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  font-size: .6em;
+  line-height: 1.3em;
+}
+.contact-new {
+  color: rgba(255, 255, 255, .6) !important;
+  font-family: 'Roboto', sans-serif;
+}
+.contact-type {
+  padding: 0 6px 0 12px;
+  color: #556981;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-size: 1.5em !important;
+}
+.contact-type-new {
+  color: rgba(255, 255, 255, .75) !important;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+
+
+/*///// Nav Bar Styles /////*/
+.nav {
+  font-family: 'Alegreya Sans SC', sans-serif;
+}
+.nav-new {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+
+
+.nav-styles,
+.nav-styles-new {
+  width: 100%;
+  font-weight: 800;
+  font-size: 1.2em;
+}
 .nav-styles a,
-.nav-styles-news a {
+.nav-styles-new a {
   color: #0e1f40;
   text-shadow: 1px 1px 2px #d0d0d0;
   padding: 8px 0 0;
@@ -19,20 +85,23 @@
   border-bottom-color: #c02000;
 }
 
-.nav-styles-news a {
+
+
+.nav-styles-new a {
   color: rgba(255, 255, 255, .75);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
 }
-.nav-styles-news a:hover {
+.nav-styles-new a:hover {
   color: rgba(255, 255, 255, .9);
   text-shadow: none;
   border-bottom-color: #1c3f80;
   cursor: pointer;
 }
-.nav-styles-news a:active {
+.nav-styles-new a:active {
   color: white;
   border-bottom-color: #ffe000;
 }
+
 
 
 .nav-link {
@@ -44,14 +113,104 @@
   text-shadow: none !important;
   border-bottom-color: #c02000;
 }
-.nav-link-news.active {
+.nav-link-new.active {
   color: white !important;
+  border-bottom-color: #ffe000;
+}
+.nav-item {
+  margin-right: .75rem;
+}
+.news-page {
   border-bottom-color: #ffe000;
 }
 
 
+.btn-dropdown-heading {
+  color: #071021;
+  background-color: transparent;
+  text-shadow: 1px 1px 2px #d0d0d0;
+  box-shadow: 1px 1px 2px #d0d0d0;
+  border-color: #0e1f40;
+  font-weight: 800;
+  font-size: 1em;
+}
+.btn-dropdown-heading:hover {
+  color: #ffffe0;
+  background-color: #1c3f80;
+  border-color: #1c3f80;
+  text-shadow: none;
+  box-shadow: none;
+}
+.btn-dropdown-heading:focus,
+.btn-dropdown-selected {
+  color: #1c3f80;
+  background-color: transparent;
+  border-color: #c02000;
+  text-shadow: none;
+  box-shadow: 0 0 0 0.1rem #c02000;
+}
+.btn-dropdown-heading:active {
+  color: #fff;
+  background-color: #1c3f80;
+  border-color: #1c3f80;
+  box-shadow: 0 0 0 0.1rem #c02000;
+}
+
+
+
+.btn-dropdown-heading-new {
+  color: rgba(255, 255, 255, .75);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
+  border-color: rgba(255, 255, 255, .75);
+}
+.btn-dropdown-heading-new:hover {
+  color: #1c3f80;
+  background-color: rgba(255, 255, 255, .9);
+  border-color: rgba(255, 255, 255, .9);
+}
+.btn-dropdown-heading-new:focus,
+.btn-dropdown-selected-new {
+  color: rgba(255, 255, 255, .9);
+  background-color: transparent;
+  border-color: #ffe000;
+  text-shadow: none;
+  box-shadow: 0 0 0 0.1rem #ffe000;
+}
+.btn-dropdown-heading-new:active {
+  color: #1c3f80;
+  background-color: rgba(255, 255, 255, .9);
+  border-color: rgba(255, 255, 255, .9);
+  box-shadow: 0 0 0 0.1rem #ffe000;
+}
+
+
+
+.dropdown-links a {
+  color: #0e1f40;
+  padding: 0 10px;
+}
+
+.dropdown-item {
+  text-decoration: none;
+  text-shadow: none !important;
+}
+.dropdown-item:hover {
+  color: #1c3f80 !important;
+  background-color: #e5e5e5;
+  text-shadow: none !important;
+}
+.dropdown-item:focus {
+  color: #ffffff !important;
+  background-color: #1c3f80;
+  text-shadow: none !important;
+}
+.dropdown-item.active {
+  color: #fff !important;
+  background-color: #c02000;
+  text-shadow: none !important;
+}
 .nav-account {
   margin: 5px 0 0 7px;
-  font-weight: 800;
-  font-size: .8em;
+  font-size: .7em;
 }

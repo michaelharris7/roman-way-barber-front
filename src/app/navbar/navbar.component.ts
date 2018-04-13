@@ -10,7 +10,7 @@ import { Angular2TokenService } from 'angular2-token';
 })
 
 export class NavbarComponent implements OnInit {
-  public currentPath: string = "";
+  currentPath: string = '';
 
   constructor(
     private router: Router
@@ -23,10 +23,31 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  onServicesPage() {
+  isServicePage() {
     return this.currentPath.indexOf('/services') !== -1;
   }
-  onNewsPage() {
+
+  isNewsPage() {
     return this.currentPath.indexOf('/news') !== -1;
   }
+
+  isNewLayout() {
+    switch (this.currentPath)
+    {
+    // On a standard page
+    case'/':
+    case'/home':
+    case'/services':
+    case'/services/haircut':
+    case'/services/shave':
+    case'/services/trim':
+    case'/about':
+    case'/contact':
+      return false;
+    case'/signup':
+    default:
+      return true;
+    }
+  }
+
 }

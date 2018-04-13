@@ -21,7 +21,8 @@
       "styles": [
         "assets/css/markdown-styles.css",
         "../node_modules/font-awesome/css/font-awesome.css",
-        "assets/css/styles.css"
+        "assets/css/styles.css",
+        "assets/css/new-layer.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
