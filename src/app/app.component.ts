@@ -11,7 +11,6 @@ import { environment } from '../environments/environment';
 })
 
 export class AppComponent implements OnInit {
-
   constructor(
     private _markdown: MarkdownService
   ) {}

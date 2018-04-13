@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { MarkdownModule } from 'angular2-markdown';
 import { Angular2TokenService } from 'angular2-token';
+import { AuthenticationService } from './authentication/authentication.service';
 
 
 import { AppComponent } from './app.component';
@@ -31,10 +32,13 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { TruncatePipe } from './app.pipe';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AuthRoutingModule } from './authentication/auth-routing.module';
 
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { AccountComponent } from './account/account.component';
+import { AuthLinksComponent } from './authentication/auth-links.component';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 
 @NgModule({
@@ -45,7 +49,10 @@ import { AccountComponent } from './account/account.component';
     HttpModule,
     NgbModule.forRoot(),
     MarkdownModule.forRoot(),
-    NgxPageScrollModule
+    NgxPageScrollModule,
+    AuthRoutingModule,
+    ReactiveFormsModule,
+    AuthenticationModule
   ],
   declarations: [
     AppComponent,
@@ -71,11 +78,13 @@ import { AccountComponent } from './account/account.component';
 
     LoginFormComponent,
     RegisterFormComponent,
-    AccountComponent
+    AccountComponent,
+    AuthLinksComponent
   ],
   providers: [
     ArticleService,
-    Angular2TokenService
+    Angular2TokenService,
+    AuthenticationService
   ],
   bootstrap: [
     AppComponent

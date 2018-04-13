@@ -53,23 +53,30 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/testimonials" routerLinkActive="active">Testimonials</a>
         </li>
+        <li>
+          <form class="form-inline my-2 my-lg-0">
+            <auth-links></auth-links>
+          </form>
 
-        <!-- <li class="nav-account" *ngIf="!tokenAuthService.userSignedIn()">
-          <a class="nav-link" (click)="presentAuthDialog('register')">Register</a>
-        </li>
-        <li class="nav-account" *ngIf="!tokenAuthService.userSignedIn()">
-          <a class="nav-link" (click)="presentAuthDialog()">Login</a>
-        </li>
+<!--         <form class="form-group d-flex flex-row">
+          <div class="nav-account">
+            <a class="nav-link" type="submit">Register</a>
+          </div>
+          <div class="nav-account">
+            <a class="nav-link">Login</a>
+          </div>
+        </form> -->
 
-        <li class="nav-account" *ngIf="tokenAuthService.userSignedIn()">
-          <a class="nav-link">Account</a>
+
+
+<!--         <li class="nav-account">
+          <a class="nav-link">Register</a>
         </li>
-        <li class="nav-account" *ngIf="tokenAuthService.userSignedIn()">
-          <a class="nav-link" (click)="tokenAuthService.signOut()">Logout</a>
+        <li class="nav-account">
+          <a class="nav-link">Login</a>
         </li> -->
+        </li>
       </ul>
     </div>
   </div>
 </nav>
-
-<!-- <app-auth-dialog #authDialog></app-auth-dialog> -->

@@ -208,3 +208,9 @@
   margin: 5px 0 0 7px;
   font-size: .7em;
 }
+
+
+
+[type=submit] {
+  appearance: none;
+}
