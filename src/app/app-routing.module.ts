@@ -20,9 +20,13 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { AccountComponent } from './account/account.component';
 
 
+// import { ValidateTokenComponent } from './validate-token/validate-token.component';
+
+
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
+  { path: 'logout', component: HomepageComponent },
 
   { path: 'services', component: ServicesComponent },
   { path: 'services/haircut', component: HaircutComponent },
@@ -39,6 +43,7 @@ const routes: Routes = [
   { path: 'testimonials', component: TestimonialsComponent },
 
   { path: 'account', component: AccountComponent }
+  // { path: 'auth/validate_token', component: ValidateTokenComponent }
 ]
 
 @NgModule({

@@ -12,8 +12,11 @@ import { environment } from '../environments/environment';
 
 export class AppComponent implements OnInit {
   constructor(
-    private _markdown: MarkdownService
-  ) {}
+    private _markdown: MarkdownService,
+    private _tokenService: Angular2TokenService
+  ) {
+    this._tokenService.init();
+  }
 
   ngOnInit() {
     this._markdown.renderer.table = (header: string, body: string) => {

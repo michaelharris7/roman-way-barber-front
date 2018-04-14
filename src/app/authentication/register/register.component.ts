@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../user'
+
 import { AuthenticationService } from '../authentication.service';
 
 
@@ -46,6 +47,24 @@ export class RegisterComponent implements OnInit {
 //     res =>      console.log(res),
 //     error =>    console.log(error)
 // );
+
+  // signUp(user): Observable<Article> {
+  //   return this.http.post(this.articlesUrl, JSON.stringify(article),
+  //     this.options).map(this.extractData)
+  //         .catch(this.handleError);
+  // }
+
+  signUp(user) {
+    this.submitted = true;
+    this.authService.registerAccount(user.name, user.email, user.password, user.passwordConfirmation)
+        .subscribe(
+          data => { return true },
+          error => {
+            console.log("Error saving user");
+            return Observable.throw(error);
+          }
+        );
+  }
 
   afterFailedRegister(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;

@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { MarkdownModule } from 'angular2-markdown';
 import { Angular2TokenService } from 'angular2-token';
+import { RouterModule } from '@angular/router';
 import { AuthenticationService } from './authentication/authentication.service';
 
 
@@ -42,18 +43,22 @@ import { RegisterComponent } from './authentication/register/register.component'
 import { FormTestsComponent } from './authentication/form-tests/form-tests.component';
 
 
+import { ValidateTokenComponent } from './validate-token';
+
+
 @NgModule({
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpModule,
+    RouterModule,
     NgbModule.forRoot(),
     MarkdownModule.forRoot(),
     NgxPageScrollModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    AuthenticationModule
+    AuthenticationModule,
   ],
   declarations: [
     AppComponent,
@@ -81,7 +86,8 @@ import { FormTestsComponent } from './authentication/form-tests/form-tests.compo
     AuthLinksComponent,
 
     RegisterComponent,
-    FormTestsComponent
+    FormTestsComponent,
+    ValidateTokenComponent
   ],
   providers: [
     ArticleService,

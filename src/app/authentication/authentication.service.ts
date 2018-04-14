@@ -10,9 +10,47 @@ export class AuthenticationService {
   redirectUrl: string;
 
   constructor(
-    private tokenService: Angular2TokenService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private tokenService: Angular2TokenService
+  ) {
+    this.tokenService.init({
+      apiBase:                    null,
+      apiPath:                    null,
+
+      signInPath:                 'http://localhost:3001/auth/sign_in',
+      signInRedirect:             null,
+      signInStoredUrlStorageKey:  null,
+
+      signOutPath:                'http://localhost:3001/auth/sign_out',
+      validateTokenPath:          'http://localhost:3001/auth/validate_token',
+      signOutFailedValidate:      false,
+
+      registerAccountPath:        'http://localhost:3001/auth/',
+      deleteAccountPath:          'http://localhost:3001/auth',
+      registerAccountCallback:    window.location.href,
+
+      updatePasswordPath:         'http://localhost:3001/auth',
+      resetPasswordPath:          'http://localhost:3001/auth/password',
+      resetPasswordCallback:      window.location.href,
+
+      oAuthBase:                  window.location.origin,
+      oAuthPaths: {
+          github:                 'http://localhost:3001/auth/github'
+      },
+      oAuthCallbackPath:          'http://localhost:3001/oauth_callback',
+      oAuthWindowType:            'http://localhost:3001/newWindow',
+      oAuthWindowOptions:         null,
+
+      userTypes:                  null,
+
+      globalOptions: {
+          headers: {
+              'Content-Type':     'application/json',
+              'Accept':           'application/json'
+          }
+      }
+    });
+  }
 
   logIn(email: string, password: string): Observable<Response> {
     return this.tokenService.signIn({
@@ -21,18 +59,18 @@ export class AuthenticationService {
     });
   }
 
-  registerAccount(email: string, password: string): Observable<Response> {
+  registerAccount(name: string, email: string, password: string, passwordConfirmation: string): Observable<Response> {
     return this.tokenService.registerAccount({
+      name: name,
       email: email,
       password: password,
-      passwordConfirmation: password
+      passwordConfirmation: passwordConfirmation
     });
   }
 
-  logOut(): void {
+  logOut(): Observable<Response> {
     this.redirectUrl = undefined;
-    this.tokenService.signOut();
-    this.router.navigate(['/']);
+    return this.tokenService.signOut()
   }
 
   isLoggedIn(): boolean {
