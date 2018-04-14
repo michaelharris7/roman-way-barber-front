@@ -43,9 +43,6 @@ import { RegisterComponent } from './authentication/register/register.component'
 import { FormTestsComponent } from './authentication/form-tests/form-tests.component';
 
 
-import { ValidateTokenComponent } from './validate-token';
-
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -86,8 +83,7 @@ import { ValidateTokenComponent } from './validate-token';
     AuthLinksComponent,
 
     RegisterComponent,
-    FormTestsComponent,
-    ValidateTokenComponent
+    FormTestsComponent
   ],
   providers: [
     ArticleService,

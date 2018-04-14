@@ -5,8 +5,11 @@ import { Response } from '@angular/http';
 import { Angular2TokenService } from 'angular2-token';
 import { Observable } from 'rxjs/Observable';
 
+// import { RegisterData } from '../register-data';
+
 @Injectable()
 export class AuthenticationService {
+  // registerData: RegisterData = <RegisterData>{};
   redirectUrl: string;
 
   constructor(
@@ -59,14 +62,12 @@ export class AuthenticationService {
     });
   }
 
-  registerAccount(name: string, email: string, password: string, passwordConfirmation: string): Observable<Response> {
-    return this.tokenService.registerAccount({
-      name: name,
-      email: email,
-      password: password,
-      passwordConfirmation: passwordConfirmation
-    });
+  registerAccount(registerData): Observable<Response> {
+    return this.tokenService.registerAccount(registerData);
   }
+
+
+
 
   logOut(): Observable<Response> {
     this.redirectUrl = undefined;

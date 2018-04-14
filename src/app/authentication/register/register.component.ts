@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../user'
+import { User } from '../user';
 
 import { AuthenticationService } from '../authentication.service';
-
+// import { RegisterDataExtended } from '../../register-data-extended';
+// import { RegisterData } from 'angular2-token';
 
 @Component({
   selector: 'account-register',
@@ -12,7 +13,9 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  user = new User;
+  user = new User
+  // user = new UserService(this.user)
+  // registerData: RegisterData = <RegisterData>{}
   submitted: boolean;
   registerForm: FormGroup;
 
@@ -39,6 +42,7 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+
 //   this._tokenService.registerAccount({
 //     email:                'example@example.org',
 //     password:             'secretPassword',
@@ -54,9 +58,9 @@ export class RegisterComponent implements OnInit {
   //         .catch(this.handleError);
   // }
 
-  signUp(user) {
+  signUp() {
     this.submitted = true;
-    this.authService.registerAccount(user.name, user.email, user.password, user.passwordConfirmation)
+    this.authService.registerAccount(this.user)
         .subscribe(
           data => { return true },
           error => {
@@ -65,6 +69,7 @@ export class RegisterComponent implements OnInit {
           }
         );
   }
+
 
   afterFailedRegister(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;

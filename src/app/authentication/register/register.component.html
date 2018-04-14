@@ -23,26 +23,24 @@
 
             <!-- <div class="account-position"> -->
               <!-- <div class="account-size mt-4 mx-auto"> -->
-
             <div class="card card-shadow-hard pt-4 pb-2 px-2 mb-5">
               <div class="container">
-                <form (ngSubmit)="signUp(user)" #registerForm="ngForm">
-                  <div class="row">
+                <form (ngSubmit)="signUp()" #registerForm="ngForm">
+                  <!-- <div class="row">
                     <div class="form-group col-lg-6">
-                      <label for="name">First Name</label>
+                      <label for="name">Name</label>
                       <div [hidden]="name.valid || name.pristine" class = 'alert alert-danger'>
                         A first name is required
                       </div>
                       <input type="text"
                              class="form-control"
                              id="name"
-                             required
                              name="name"
                              #name='ngModel'
                              [(ngModel)]="user.name"
                       >
                     </div>
-                  </div>
+                  </div> -->
                   <div class="row">
                     <div class="form-group col-lg-6 pb-4">
                       <label for="email">Email Address</label>
@@ -87,7 +85,7 @@
                              required
                              name="passwordConfirm"
                              #passwordConfirm='ngModel'
-                             [(ngModel)]="user.passwordConfirm"
+                             [(ngModel)]="user.passwordConfirmation"
                       >
                     </div>
                   </div>
