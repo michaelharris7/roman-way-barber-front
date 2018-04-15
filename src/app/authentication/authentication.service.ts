@@ -1,15 +1,15 @@
+import { OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Response } from '@angular/http';
-
 import { Angular2TokenService } from 'angular2-token';
 import { Observable } from 'rxjs/Observable';
 
-// import { RegisterData } from '../register-data';
 
 @Injectable()
-export class AuthenticationService {
-  // registerData: RegisterData = <RegisterData>{};
+export class AuthenticationService implements OnInit{
+  // user: RegisterDataExtended = <RegisterDataExtended>{};
+  // user = new User;
   redirectUrl: string;
 
   constructor(
@@ -55,6 +55,11 @@ export class AuthenticationService {
     });
   }
 
+  ngOnInit() {
+    // this.user.userType = 'user';
+    // this.user.name = 'User';
+  }
+
   logIn(email: string, password: string): Observable<Response> {
     return this.tokenService.signIn({
       email: email,
@@ -62,12 +67,18 @@ export class AuthenticationService {
     });
   }
 
-  registerAccount(registerData): Observable<Response> {
-    return this.tokenService.registerAccount(registerData);
+  // registerAccount(user): Observable<Response> {
+  //   return this.tokenService.registerAccount(this.user);
+  // }
+
+  registerAccount(user): Observable<Response> {
+    return this.tokenService.registerAccount(
+    {
+      email: user.email,
+      password: user.password,
+      passwordConfirmation: user.password
+    });
   }
-
-
-
 
   logOut(): Observable<Response> {
     this.redirectUrl = undefined;
