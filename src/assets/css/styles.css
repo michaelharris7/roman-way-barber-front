@@ -28,7 +28,7 @@ body {
   background-size: cover;
 }
 .back-gradient {
-  background: linear-gradient(rgba(85, 105, 129, .8), rgba(15, 19, 23, .8)) no-repeat;
+  background: linear-gradient(rgba(85, 105, 129, .2), rgba(15, 19, 23, .2)) no-repeat;
   height: 100%;
 }
 .back-darken {
@@ -43,10 +43,10 @@ body {
   /*background-color: rgba(96, 32, 18, .5);*/
   /*background-color: rgba(205, 167, 135, .5);*/
     /*Mom'e preference:*/
-  background-color: rgba(244, 205, 172, .8);
+  /*background-color: rgba(244, 205, 172, .8);*/
   /*background-color: rgba(253, 213, 179, .5);*/
   /*background-color: rgba(255, 241, 207, .5);*/
-  /*background-color: rgba(255, 255, 255, .9);*/
+  background-color: rgba(255, 255, 255, .9);
   /*color: #c0c0c0;*/
   color: #000;
   border: 1px solid #ccc;
@@ -55,41 +55,44 @@ body {
 }
 .main-content a {
   text-decoration: none;
-  color: #d3e7ff;
+  color: #2020a0;
 }
 .main-content a:hover {
   text-decoration: underline;
-  text-shadow: none;
+  /*text-shadow: none;*/
 }
 .main-content a:active {
-  color: #ffffd3;
-  text-shadow: none;
+  color: #c02000;
+  /*text-shadow: none;*/
 }
 .main-content img {
-  border: 1px solid #999999;
+  border: 1px solid #585968;
   border-radius: 5px;
   margin: 10px;
-  box-shadow: 1px 1px 2px #202020;
+  /*box-shadow: 2px 2px 5px #808080;*/
+  /*box-shadow: 5px 5px 10px rgba(11, 22, 78, .1);*/
+  box-shadow: 2px 2px 4px rgba(78, 78, 78, .3);
 }
 .main-content a img {
-  border: 1px solid #d3e7ff;
+  border: 1px solid #2020a0;
 }
 .main-content a img:hover {
-  border: 1px solid #d3e7ff;
-  box-shadow: 0 0 0 1px #d3e7ff;
+  border: 1px solid #2020a0;
+  box-shadow: 0 0 0 1px #2020a0;
 }
 .main-content a img:active {
-  border: 1px solid #ffffd3;
-  box-shadow: 0 0 0 1px #ffffd3;
+  border: 1px solid #c02000;
+  box-shadow: 0 0 0 1px #c02000;
 }
 
 
 
 .page-heading {
   color: white;
-  text-shadow: 2px 2px 2px #000000;
+  text-shadow: 2px 2px 4px #000000;
   padding: 10px 10px 20px 40px;
   font-family: 'Alegreya Sans SC', sans-serif;
+  font-size: 3em;
   font-weight: 800;
 }
 .page-content-focus {
@@ -113,10 +116,12 @@ h6 {
 }
 
 
-h2,
-h3 {
+
+.main-content h2,
+.main-content h3,
+.main-content h4 {
   color: #0b164e;
-  text-shadow: 1px 1px 2px #404040;
+  text-shadow: 1px 1px 2px rgba(11, 22, 78, .35);
 }
 
 
