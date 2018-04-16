@@ -24,9 +24,8 @@
             <div class="card card-shadow-hard pt-4 pb-2 px-2 mb-5">
               <div class="container">
                 <form (ngSubmit)="submit(user)" #registerForm="ngForm">
-                  {{registerForm.valid}}
                   <div class="row">
-                    <div class="form-group col-lg-6 pb-4">
+                    <div class="form-group col-lg-8 pb-3">
                       <label for="email">Email Address</label>
                       <input type="text"
                              class="form-control"
@@ -49,7 +48,7 @@
                     </div>
                   </div>
                   <hr>
-                  <div class="row mt-4 mb-5">
+                  <div class="row mt-4 mb-3">
                     <div class="form-group col-lg-6">
                       <label for="password">Password</label>
                       <input type="text"
@@ -57,10 +56,13 @@
                              id="password"
                              required
                              name="password"
-                             pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()]{8,20}$'
+                             pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d/!@#$%^&*()]{8,20}$'
                              #password='ngModel'
                              [(ngModel)]="user.password"
                       >
+                      <small id="passwordHelpBlock" class="form-text text-muted">
+                        Must be 8-20 characters long with letters and numbers. Adding symbols are recommended.
+                      </small>
                       <div class="form-group alert alert-danger mt-3" *ngIf="password.errors?.required && (!password.pristine || password.touched)">
                         A password is required
                       </div>
@@ -99,13 +101,8 @@
 
                   <div [hidden]="!submitted">
                     <p class="alert alert-success mt-4" role="alert">
-                      User account created
+                      User account created. Redirecting to homepage.
                     </p>
-                    <div>
-                      <a class="alert-link" routerLink="/news">
-                        <button class="btn btn-primary w-100 mb-3">Comment on news articles</button>
-                      </a>
-                    </div>
                   </div>
                 </form>
               </div>

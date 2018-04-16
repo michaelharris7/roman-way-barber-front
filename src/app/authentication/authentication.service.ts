@@ -8,8 +8,6 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthenticationService implements OnInit{
-  // user: RegisterDataExtended = <RegisterDataExtended>{};
-  // user = new User;
   redirectUrl: string;
 
   constructor(
@@ -56,8 +54,6 @@ export class AuthenticationService implements OnInit{
   }
 
   ngOnInit() {
-    // this.user.userType = 'user';
-    // this.user.name = 'User';
   }
 
   logIn(email: string, password: string): Observable<Response> {
@@ -67,17 +63,17 @@ export class AuthenticationService implements OnInit{
     });
   }
 
-  // registerAccount(user): Observable<Response> {
-  //   return this.tokenService.registerAccount(this.user);
-  // }
+  registerAccount(registerAccount): Observable<Response> {
+    return this.tokenService.registerAccount(registerAccount);
+    // {
+    //   email: user.email,
+    //   password: user.password,
+    //   passwordConfirmation: user.password
+    // });
+  }
 
-  registerAccount(user): Observable<Response> {
-    return this.tokenService.registerAccount(
-    {
-      email: user.email,
-      password: user.password,
-      passwordConfirmation: user.password
-    });
+  resetPassword(resetPassword): Observable<Response> {
+    return this.tokenService.resetPassword(resetPassword);
   }
 
   logOut(): Observable<Response> {

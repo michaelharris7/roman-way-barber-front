@@ -20,9 +20,6 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { AccountComponent } from './account/account.component';
 
 
-// import { ValidateTokenComponent } from './validate-token/validate-token.component';
-
-
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
@@ -43,7 +40,6 @@ const routes: Routes = [
   { path: 'testimonials', component: TestimonialsComponent },
 
   { path: 'account', component: AccountComponent }
-  // { path: 'auth/validate_token', component: ValidateTokenComponent }
 ]
 
 @NgModule({

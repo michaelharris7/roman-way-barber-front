@@ -37,8 +37,18 @@ body {
 }
 
 .main-content {
-  background-color: rgba(85, 105, 129, .5);
-  color: #c0c0c0;
+  /*background-color: rgba(85, 105, 129, .5);*/
+  /*background-color: rgba(129, 105, 85, .25);*/
+  /*background-color: rgba(82, 45, 37, .25);*/
+  /*background-color: rgba(96, 32, 18, .5);*/
+  /*background-color: rgba(205, 167, 135, .5);*/
+    /*Mom'e preference:*/
+  background-color: rgba(244, 205, 172, .8);
+  /*background-color: rgba(253, 213, 179, .5);*/
+  /*background-color: rgba(255, 241, 207, .5);*/
+  /*background-color: rgba(255, 255, 255, .9);*/
+  /*color: #c0c0c0;*/
+  color: #000;
   border: 1px solid #ccc;
   padding-left: 50px;
   padding-right: 50px;
@@ -100,6 +110,13 @@ h6 {
   text-shadow: 1px 1px 2px #000000;
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 800;
+}
+
+
+h2,
+h3 {
+  color: #0b164e;
+  text-shadow: 1px 1px 2px #404040;
 }
 
 

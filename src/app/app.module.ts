@@ -40,7 +40,7 @@ import { AuthLinksComponent } from './authentication/auth-links.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 
 import { RegisterComponent } from './authentication/register/register.component';
-import { FormTestsComponent } from './authentication/form-tests/form-tests.component';
+
 
 
 @NgModule({
@@ -82,8 +82,7 @@ import { FormTestsComponent } from './authentication/form-tests/form-tests.compo
     AccountComponent,
     AuthLinksComponent,
 
-    RegisterComponent,
-    FormTestsComponent
+    RegisterComponent
   ],
   providers: [
     ArticleService,
