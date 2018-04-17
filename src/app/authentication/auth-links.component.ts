@@ -93,7 +93,7 @@ export class AuthLinksComponent {
     case'/home':
     case'/services':
     case'/services/haircut':
-    case'/services/shave':
+    case'/services/razorcut':
     case'/services/trim':
     case'/about':
     case'/contact':

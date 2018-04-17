@@ -17,7 +17,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 
 import { ServicesComponent } from './services/services.component';
 import { HaircutComponent } from './services/haircut/haircut.component';
-import { ShaveComponent } from './services/shave/shave.component';
+import { RazorCutComponent } from './services/razorcut/razorcut.component';
 import { TrimComponent } from './services/trim/trim.component';
 
 import { AboutComponent } from './about/about.component';
@@ -65,7 +65,7 @@ import { RegisterComponent } from './authentication/register/register.component'
 
     ServicesComponent,
     HaircutComponent,
-    ShaveComponent,
+    RazorCutComponent,
     TrimComponent,
 
     AboutComponent,
