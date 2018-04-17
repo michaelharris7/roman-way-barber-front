@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
-import { User } from '../user'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
+import { SignInData } from 'angular2-token';
 
 
 @Component({
@@ -10,8 +10,9 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user = new User;
+  user: SignInData = <SignInData>{};
   submitted: boolean = false;
+  failedLogin: boolean = false;
   loginForm: FormGroup;
 
   constructor(
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.submitted = false;
+    this.failedLogin = false;
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -29,12 +31,17 @@ export class LoginComponent implements OnInit {
 
   submit(value: any) {
     this.submitted = true;
-    if (!this.loginForm.valid) { return; }
 
     this.authService.logIn(value.email, value.password).subscribe(
       this.authService.redirectAfterLogin.bind(this.authService),
       this.afterFailedLogin.bind(this)
     );
+
+    if (!this.loginForm.valid) {
+      this.failedLogin = true;
+      this.submitted = false;
+      return;
+    }
   }
 
   afterFailedLogin(errors: any) {

@@ -15,79 +15,86 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-8 mx-auto">
           <div class="container">
             <h2 class="text-center pb-3">
-              User account Login:
+              User account creation: {{loginForm.valid}}
             </h2>
 
             <div class="card card-shadow-hard pt-4 pb-2 px-2 mb-5">
               <div class="container">
-                <form (ngSubmit)="createUser(user)" #loginForm="ngForm">
-<!--                   <div class='form-group' [class.has-error]='email.invalid && email.touched'>
-                    <label for='email' class='control-label'>Email</label>
-                    <input id='email'
-                           required
-                           [email]='user.email!==""'
-                           type='text'
-                           class='form-control'
-                           name='email'
-                           [(ngModel)]='user.email'
-                           #email='ngModel'
-                    >
-                    <span class='help-block' *ngIf='email.errors?.required && email.touched'>
-                      Email is required
-                    </span>
-                    <span class='help-block' *ngIf='email.errors?.email && email.touched'>
-                      Email is invalid
-                    </span>
-                  </div> -->
-                  <!-- <div class="form-group" [class.invalid]='email.invalid && email.touched'> -->
-                  <div class="form-group">
-                    <label for="email">Email Address</label>
+                <form (ngSubmit)="submit(user)" #loginForm="ngForm">
+                  <div class="row">
+                    <div class="form-group col-lg-8 pb-3">
+                      <label for="email">Email Address</label>
+                      <input type="text"
+                             class="form-control"
+                             id="email"
+                             placeholder="user@example.com"
+                             required
+                             email
+                             name="email"
+                             pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+                             #email='ngModel'
+                             [(ngModel)]="user.email"
+                      >
+                      <div class="form-group alert alert-danger mt-3" *ngIf="email.errors?.required && (!email.pristine || email.touched)">
+                        An email address is required
+                      </div>
+                      <div class="form-group alert alert-danger mt-3" *ngIf="email.errors?.pattern && (email.pristine || email.touched)">
+                        Please enter a valid email address
+                      </div>
 
-
-                    <!-- <div [hidden]="email.valid || email.pristine" class = 'alert alert-danger'> -->
-
-
-                    <div *ngIf="email.errors?.required && email.touched" class='alert alert-danger'>
-                      An email address is required
                     </div>
-                    <div *ngIf="email.errors?.pattern && email.touched" class='alert alert-danger'>
-                      Please enter a valid email address
-                    </div>
-                    <input type="text"
-                           class="form-control"
-                           id="email"
-                           placeholder="user@example.com"
-                           required
-                           pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-                           name="email"
-                           #email='ngModel'
-                           [(ngModel)]="user.email"
-                    >
                   </div>
-                  <div class="form-group mb-5">
-                    <label for="password">Password</label>
-                    <div *ngIf="password.errors?.required && password.touched" class='alert alert-danger'>
-                      A password is required
+                  <hr>
+                  <div class="row mt-4 mb-3">
+                    <div class="form-group col-lg-6">
+                      <label for="password">Password</label>
+                      <input type="text"
+                             class="form-control"
+                             id="password"
+                             required
+                             name="password"
+                             pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d/!@#$%^&*()]{8,20}$'
+                             #password='ngModel'
+                             [(ngModel)]="user.password"
+                      >
+                      <small id="passwordHelpBlock" class="form-text text-muted">
+                        Must be 8-20 characters long with letters and numbers. Adding symbols are recommended.
+                      </small>
+                      <div class="form-group alert alert-danger mt-3" *ngIf="password.errors?.required && (!password.pristine || password.touched)">
+                        A password is required
+                      </div>
+                      <div class="form-group alert alert-danger mt-3" *ngIf="password.errors?.pattern && (password.pristine || password.touched)">
+                        Password must include letters and numbers at least 8 characters long
+                      </div>
                     </div>
-                    <div *ngIf="password.errors?.pattern && password.touched" class='alert alert-danger'>
-                      Your password must be between 8 and 20 characters long
+
+                    <div class="form-group col-lg-6">
+                      <label for="passwordConfirmation">Confirm Password</label>
+                      <input type="text"
+                             class="form-control"
+                             id="passwordConfirmation"
+                             required
+                             name="passwordConfirmation"
+                             pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()]{8,20}$'
+                             #passwordConfirmation='ngModel'
+                             [(ngModel)]="user.passwordConfirmation"
+                      >
+                      <div class="form-group alert alert-danger mt-3" *ngIf="passwordConfirmation.errors?.required && (!passwordConfirmation.pristine || passwordConfirmation.touched)">
+                        A confirming password is required
+                      </div>
+                      <div class="form-group alert alert-danger mt-3" *ngIf="password.value !== passwordConfirmation.value && passwordConfirmation.touched">
+                        Both passwords must match
+                      </div>
                     </div>
-                    <input type="password"
-                           class="form-control"
-                           aria-describedby="passwordHelpBlock"
-                           id="password"
-                           required
-                           pattern="(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,./?0-9])(?=.*[a-zA-Z]).{8,20}"
-                           name="password"
-                           #password='ngModel'
-                           [(ngModel)]="user.password"
-                    >
-                    <small id="passwordHelpBlock" class="form-text text-muted">
-                      Your password must be 8-20 characters long and must contain a number or special character, but not contain emojis.
-                    </small>
+                  </div>
+
+                  <div [hidden]="!failedLogin">
+                    <p class="alert alert-danger" role="alert">
+                      Incorrect email address or password.
+                    </p>
                   </div>
 
                   <button type="submit"
@@ -95,25 +102,20 @@
                     [disabled]="!loginForm.form.valid"
                     [hidden]="submitted"
                   >
-                    Register Account
+                    Login
                   </button>
 
                   <div [hidden]="!submitted">
                     <p class="alert alert-success mt-4" role="alert">
-                      Logged in successfully
+                      User account logged in successfully. Redirecting to homepage.
                     </p>
-                    <div>
-                      <a class="alert-link" routerLink="/news">
-                        <button class="btn btn-primary w-100 mb-3">Comment on news articles</button>
-                      </a>
-                    </div>
                   </div>
                 </form>
               </div>
             </div>
+
           </div>
         </div>
-
       </div>
     </div>
   </div>
