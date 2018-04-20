@@ -53,11 +53,11 @@
                 </span>
 
                 <!-- TODO: Refactor to show only for admin user -->
-                <span>
-                  <a (click)="deleteArticle(article.id)" class="new-link">
-                    <button class="btn btn-danger new-show-btn mb-3">Delete Article</button>
-                  </a>
-                </span>
+                  <span *ngIf="user && (user.email === 'michaeljh7@gmail.com')">
+                    <a (click)="deleteArticle(article.id)" class="new-link">
+                      <button class="btn btn-danger new-show-btn mb-3">Delete Article</button>
+                    </a>
+                  </span>
                 <!-- TODO: Refactor to show only for admin user -->
               </div>
             </div>

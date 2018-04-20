@@ -51,7 +51,7 @@
                   <div class="row mt-4 mb-3">
                     <div class="form-group col-lg-6">
                       <label for="password">Password</label>
-                      <input type="text"
+                      <input type="password"
                              class="form-control"
                              id="password"
                              required
@@ -73,12 +73,12 @@
 
                     <div class="form-group col-lg-6">
                       <label for="passwordConfirmation">Confirm Password</label>
-                      <input type="text"
+                      <input type="password"
                              class="form-control"
                              id="passwordConfirmation"
                              required
                              name="passwordConfirmation"
-                             pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()]{8,20}$'
+                             pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d/!@#$%^&*()]{8,20}$'
                              #passwordConfirmation='ngModel'
                              [(ngModel)]="user.passwordConfirmation"
                       >

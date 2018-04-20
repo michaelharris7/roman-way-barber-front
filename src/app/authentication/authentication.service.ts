@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Response } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Angular2TokenService } from 'angular2-token';
 import { Observable } from 'rxjs/Observable';
 
@@ -11,65 +11,74 @@ export class AuthenticationService implements OnInit{
   redirectUrl: string;
 
   constructor(
+    private http: Http,
     private router: Router,
     private tokenService: Angular2TokenService
   ) {
     this.tokenService.init({
-      apiBase:                    null,
+      apiBase:                    'http://localhost:3000',
       apiPath:                    null,
 
-      signInPath:                 'http://localhost:3001/auth/sign_in',
+      signInPath:                 'sign_in',
       signInRedirect:             null,
       signInStoredUrlStorageKey:  null,
 
-      signOutPath:                'http://localhost:3001/auth/sign_out',
-      validateTokenPath:          'http://localhost:3001/auth/validate_token',
+      signOutPath:                'sign_out',
+      validateTokenPath:          'validate_token',
       signOutFailedValidate:      false,
 
-      registerAccountPath:        'http://localhost:3001/auth/',
-      deleteAccountPath:          'http://localhost:3001/auth',
+      registerAccountPath:        '',
+      deleteAccountPath:          '',
       registerAccountCallback:    window.location.href,
 
-      updatePasswordPath:         'http://localhost:3001/auth',
-      resetPasswordPath:          'http://localhost:3001/auth/password',
+      updatePasswordPath:         '',
+      resetPasswordPath:          'password',
       resetPasswordCallback:      window.location.href,
 
       oAuthBase:                  window.location.origin,
       oAuthPaths: {
-          github:                 'http://localhost:3001/auth/github'
+          github:                 'github'
       },
-      oAuthCallbackPath:          'http://localhost:3001/oauth_callback',
-      oAuthWindowType:            'http://localhost:3001/newWindow',
+      oAuthCallbackPath:          'oauth_callback',
+      oAuthWindowType:            'newWindow',
       oAuthWindowOptions:         null,
 
-      userTypes:                  null,
+      userTypes: [
+        { name: 'ADMIN', path: 'admin_auth' },
+        { name: 'USER', path: 'auth' }
+      ],
 
       globalOptions: {
           headers: {
               'Content-Type':     'application/json',
               'Accept':           'application/json'
           }
-      }
+      },
     });
   }
 
   ngOnInit() {
   }
 
-  logIn(email: string, password: string): Observable<Response> {
+  // logIn(email: string, password: string): Observable<Response> {
+  // logIn(userData): Observable<Response> {
+  logIn(email, password): Observable<Response> {
+    // return this.tokenService.signIn(userData);
+
     return this.tokenService.signIn({
       email: email,
-      password: password
+      password: password,
+      userType: 'USER'
     });
   }
 
   registerAccount(registerAccount): Observable<Response> {
-    return this.tokenService.registerAccount(registerAccount);
-    // {
-    //   email: user.email,
-    //   password: user.password,
-    //   passwordConfirmation: user.password
-    // });
+    return this.tokenService.registerAccount({
+      email: registerAccount.email,
+      password: registerAccount.password,
+      passwordConfirmation: registerAccount.password,
+      userType: 'USER'
+    });
   }
 
   resetPassword(resetPassword): Observable<Response> {
@@ -90,4 +99,8 @@ export class AuthenticationService implements OnInit{
     this.redirectUrl = undefined;
     this.router.navigate([redirectTo]);
   }
+
+  // findProfile() {
+  //   return this.http.get('/api/user/profile.json');
+  // }
 }

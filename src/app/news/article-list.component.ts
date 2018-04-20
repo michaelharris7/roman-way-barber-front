@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Article } from './article';
+import { Angular2TokenService, UserData } from 'angular2-token';
 import { ArticleService } from './article.service';
 
 @Component({
@@ -12,12 +13,14 @@ import { ArticleService } from './article.service';
 })
 
 export class ArticleListComponent implements OnInit {
+  user: UserData = <UserData>{};
   articles: Article[];
   article: Article;
   errorMessage: string;
   mode = "Observable";
 
   constructor(
+    private tokenService: Angular2TokenService,
     private articleService: ArticleService,
     private router: Router
   ) {}
@@ -25,6 +28,7 @@ export class ArticleListComponent implements OnInit {
   ngOnInit() {
     let timer = Observable.timer(0, 5000);
     timer.subscribe(() => this.getArticles());
+    this.user = this.tokenService.currentUserData;
   }
 
   getArticles() {
@@ -50,4 +54,9 @@ export class ArticleListComponent implements OnInit {
     let link = ['/news/article', article.id];
     this.router.navigate(link);
   }
+
+  // isAdmin() {
+  //   if (this.user.userType === 'AdminUser')
+  //   return this.user.email
+  // }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MarkdownService } from 'angular2-markdown';
-import { Angular2TokenService } from 'angular2-token';
-import { environment } from '../environments/environment';
+// import { Angular2TokenService } from 'angular2-token';
+// import { environment } from '../environments/environment';
 
 
 @Component({
@@ -13,9 +13,9 @@ import { environment } from '../environments/environment';
 export class AppComponent implements OnInit {
   constructor(
     private _markdown: MarkdownService,
-    private _tokenService: Angular2TokenService
+    // private _tokenService: Angular2TokenService
   ) {
-    this._tokenService.init();
+    // this._tokenService.init();
   }
 
   ngOnInit() {

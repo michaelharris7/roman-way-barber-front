@@ -21,24 +21,31 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.submitted = false;
+    // this.user.name = 'Mike';
   }
 
   submit(user) {
     this.submitted = true;
     this.authService.registerAccount(user).subscribe(
-      this.authService.redirectAfterLogin.bind(this.authService),
-      this.afterFailedRegister.bind(this)
+      // this.authService.redirectAfterLogin.bind(this.authService).
+      // this.afterFailedRegister.bind(this));
+      res => {
+        this.authService.redirectAfterLogin.bind(this.authService)
+        // this.afterFailedRegister.bind(this));
+      },
+      error =>    console.log(error)
     );
   }
 
-  afterFailedRegister(errors: any) {
-    let parsed_errors = JSON.parse(errors._body).errors;
-    for(let attribute in this.registerForm.controls) {
-      if (parsed_errors[attribute]) {
-        this.registerForm.controls[attribute]
-            .setErrors(parsed_errors[attribute]);
-      }
-    }
-    this.registerForm.setErrors(parsed_errors);
-  }
+//   afterFailedRegister(errors: any) {
+//     // return console.warn(errors.responseText);
+//     let parsed_errors = JSON.parse(errors._body).errors;
+//     for(let attribute in this.registerForm.controls) {
+//       if (parsed_errors[attribute]) {
+//         this.registerForm.controls[attribute]
+//             .setErrors(parsed_errors[attribute]);
+//       }
+//     }
+//     this.registerForm.setErrors(parsed_errors);
+//   }
 }

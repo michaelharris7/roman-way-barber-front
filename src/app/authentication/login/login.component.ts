@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
 
   submit(value: any) {
     this.submitted = true;
-
     this.authService.logIn(value.email, value.password).subscribe(
       this.authService.redirectAfterLogin.bind(this.authService),
       this.afterFailedLogin.bind(this)

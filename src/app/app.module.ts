@@ -40,6 +40,9 @@ import { AuthLinksComponent } from './authentication/auth-links.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 
 import { RegisterComponent } from './authentication/register/register.component';
+import { LoginTestComponent } from './authentication/login-test/login-test.component';
+import { ControlMessagesComponenet } from './authentication/login-test/control-messages.component';
+import { ValidationService } from './authentication/validation.service';
 
 
 
@@ -82,12 +85,15 @@ import { RegisterComponent } from './authentication/register/register.component'
     AccountComponent,
     AuthLinksComponent,
 
-    RegisterComponent
+    RegisterComponent,
+    LoginTestComponent,
+    ControlMessagesComponenet
   ],
   providers: [
     ArticleService,
     Angular2TokenService,
-    AuthenticationService
+    AuthenticationService,
+    ValidationService
   ],
   bootstrap: [
     AppComponent
