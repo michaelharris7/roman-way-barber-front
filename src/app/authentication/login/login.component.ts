@@ -35,10 +35,22 @@ export class LoginComponent {
   submit(value: any) {
     this.submitted = true;
     this.authService.logIn(value.email, value.password).subscribe(
-      this.authService.redirectAfterLogin.bind(this.authService),
-      this.afterFailedLogin.bind(this));
+      suc => this.authService.redirectAfterLogin(),
+      err => this.afterFailedUserLogin(value),
+      () => console.log(value));
+      // ,
+      // this.afterFailedLogin.bind(value));
+
+
   }
-  afterFailedLogin(errors: any) {
+
+  afterFailedUserLogin(value: any) {
+    this.authService.logInAdmin(value.email, value.password).subscribe(
+      this.authService.redirectAfterLogin.bind(this.authService),
+      this.afterFailedAdminLogin.bind(this));
+  }
+
+  afterFailedAdminLogin(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
 
     this.failedLogin = true;
@@ -69,6 +81,6 @@ export class LoginComponent {
   resetSubmit() {
     setTimeout(() => {
       this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account logged in successfully. Redirecting to homepage.</p>";
-    }, 5000)
+    }, 5000);
   }
 }

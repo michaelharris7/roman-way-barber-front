@@ -63,12 +63,17 @@ export class AuthenticationService implements OnInit{
   // logIn(email: string, password: string): Observable<Response> {
   // logIn(userData): Observable<Response> {
   logIn(email, password): Observable<Response> {
-    // return this.tokenService.signIn(userData);
-
     return this.tokenService.signIn({
       email: email,
       password: password,
       userType: 'USER'
+    });
+  }
+  logInAdmin(email, password): Observable<Response> {
+    return this.tokenService.signIn({
+      email: email,
+      password: password,
+      userType: 'ADMIN'
     });
   }
 
