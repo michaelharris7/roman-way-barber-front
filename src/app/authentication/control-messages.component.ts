@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ValidationService } from '../validation.service';
+import { ValidationService } from './validation.service';
 
 @Component({
   selector: 'control-messages',
-  template: `<div class="form-group alert alert-danger mt-3" *ngIf="errorMessage !== null">{{errorMessage}}</div>`
+  template: `<div class="form-group alert alert-danger mt-3" *ngIf="errorMessage">{{errorMessage}}</div>`
 })
 export class ControlMessagesComponenet {
   // errorMessage: string;
@@ -20,4 +20,14 @@ export class ControlMessagesComponenet {
 
     return null;
   }
+  // get customErrorMessage() {
+  //   for (let propertyName in this.control.errors) {
+  //     if ((propertyName == 'unmatchedPassword') && this.control.touched) {
+  //       console.log('true');
+  //       return ValidationService.getValidatorErrorMessage(propertyName,this.control.errors[propertyName]);
+  //     }
+  //   }
+
+  //   return null;
+  // }
 }

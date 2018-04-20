@@ -41,7 +41,8 @@ import { AuthenticationModule } from './authentication/authentication.module';
 
 import { RegisterComponent } from './authentication/register/register.component';
 import { LoginTestComponent } from './authentication/login-test/login-test.component';
-import { ControlMessagesComponenet } from './authentication/login-test/control-messages.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { ControlMessagesComponenet } from './authentication/control-messages.component';
 import { ValidationService } from './authentication/validation.service';
 
 
@@ -87,6 +88,7 @@ import { ValidationService } from './authentication/validation.service';
 
     RegisterComponent,
     LoginTestComponent,
+    LoginComponent,
     ControlMessagesComponenet
   ],
   providers: [

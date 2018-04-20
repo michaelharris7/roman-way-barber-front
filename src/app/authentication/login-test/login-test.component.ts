@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '../validation.service';
-import { ControlMessagesComponenet } from './control-messages.component'
+import { ControlMessagesComponenet } from '../control-messages.component'
 import { SignInData } from 'angular2-token';
 import { AuthenticationService } from '../authentication.service';
 
 
 @Component({
   selector: 'login-test',
-  // templateUrl: './login-test.component.html'
   templateUrl: 'login-test.component.html'
 
   // `
@@ -58,11 +57,11 @@ export class LoginTestComponent implements OnInit {
   user: SignInData = <SignInData>{};
   submitted: boolean;
   failedLogin: boolean;
-  loginForm: FormGroup;
+  loginTestForm: FormGroup;
 // export class LoginTestComponent {
 //   submitted: boolean = false;
 //   failedLogin: boolean = false;
-//   loginForm: any;
+//   loginTestForm: any;
 
   constructor(
     private authService: AuthenticationService,
@@ -74,7 +73,7 @@ export class LoginTestComponent implements OnInit {
   ngOnInit() {
     this.submitted = false;
     this.failedLogin = false;
-    this.loginForm = this.formBuilder.group({
+    this.loginTestForm = this.formBuilder.group({
       'email': ['', [ValidationService.emailRequired, ValidationService.emailValidator]],
       'password': ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]],
       'passwordConfirmation': ['', [ValidationService.passwordRequired, ValidationService.passwordValidator, ValidationService]]
@@ -82,11 +81,11 @@ export class LoginTestComponent implements OnInit {
   }
 
   // saveUser() {
-  //   if (this.loginForm.dirty && this.loginForm.valid) {
-  //     alert(`Name: ${this.loginForm.value.email} Email: ${this.loginForm.value.password}`);
+  //   if (this.loginTestForm.dirty && this.loginTestForm.valid) {
+  //     alert(`Name: ${this.loginTestForm.value.email} Email: ${this.loginTestForm.value.password}`);
   //     this.submitted = true;
   //   }
-  //   if (!this.loginForm.valid) {
+  //   if (!this.loginTestForm.valid) {
   //     this.failedLogin = true;
   //     this.submitted = false;
   //     return;
@@ -104,7 +103,7 @@ export class LoginTestComponent implements OnInit {
   //     this.afterFailedLogin.bind(this)
   //   );
 
-  //   if (!this.loginForm.valid) {
+  //   if (!this.loginTestForm.valid) {
   //     this.failedLogin = true;
   //     this.submitted = false;
   //     return;
@@ -127,7 +126,7 @@ export class LoginTestComponent implements OnInit {
     this.authService.logIn(value.email, value.password).subscribe(this.authService.redirectAfterLogin.bind(this.authService),this.afterFailedLogin.bind(this));
   }
 
-    // if (!this.loginForm.valid) {
+    // if (!this.loginTestForm.valid) {
     //   this.failedLogin = true;
     //   this.submitted = false;
     //   return;
@@ -143,11 +142,11 @@ export class LoginTestComponent implements OnInit {
   //   this.failedLogin = true;
   //   this.submitted = false;
     // console.log(parsed_errors);
-  //   for(let attribute in this.loginForm.controls) {
+  //   for(let attribute in this.loginTestForm.controls) {
   //     if (parsed_errors[attribute]) {
-  //       this.loginForm.controls[attribute]
+  //       this.loginTestForm.controls[attribute]
   //           .setErrors(parsed_errors[attribute]);
   //     }
   }
-  //   this.loginForm.setErrors(parsed_errors);
+  //   this.loginTestForm.setErrors(parsed_errors);
 }
