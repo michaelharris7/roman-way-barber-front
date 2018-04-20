@@ -18,7 +18,7 @@
         <div class="col-md-8 mx-auto">
           <div class="container">
             <h2 class="text-center pb-3">
-              User account creation: {{loginForm.valid}}
+              User account creation:
             </h2>
 
             <div class="card card-shadow-hard pt-4 pb-2 px-2 mb-5">
@@ -56,18 +56,18 @@
                              id="password"
                              required
                              name="password"
-                             pattern='^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9-_+=[\]{}\|:,?\/\\`~"();.!@#$%^&*]{6,100}$'
+                             pattern='^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9-_+=[\]{}\|:,?\/\\`~"();.!@#$%^&*]{8,20}$'
                              #password='ngModel'
                              [(ngModel)]="user.password"
                       >
                       <small id="passwordHelpBlock" class="form-text text-muted">
-                        Must be 6-20 characters long with letters and numbers. Adding symbols are recommended.
+                        Must be 8-20 characters long with letters and numbers. Adding symbols are recommended.
                       </small>
                       <div class="form-group alert alert-danger mt-3" *ngIf="password.errors?.required && (!password.pristine || password.touched)">
                         A password is required
                       </div>
                       <div class="form-group alert alert-danger mt-3" *ngIf="password.errors?.pattern && (password.pristine || password.touched)">
-                        Password must include letters and numbers at least 6 characters long
+                        Password must include letters and numbers at least 8 characters long
                       </div>
                     </div>
 
@@ -78,7 +78,7 @@
                              id="passwordConfirmation"
                              required
                              name="passwordConfirmation"
-                             pattern='^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9-_+=[\]{}\|:,?\/\\`~"();.!@#$%^&*]{6,100}$'
+                             pattern='^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9-_+=[\]{}\|:,?\/\\`~"();.!@#$%^&*]{8,20}$'
                              #passwordConfirmation='ngModel'
                              [(ngModel)]="user.passwordConfirmation"
                       >

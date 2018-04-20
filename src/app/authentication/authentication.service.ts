@@ -72,11 +72,11 @@ export class AuthenticationService implements OnInit{
     });
   }
 
-  registerAccount(registerAccount): Observable<Response> {
+  registerAccount(email, password): Observable<Response> {
     return this.tokenService.registerAccount({
-      email: registerAccount.email,
-      password: registerAccount.password,
-      passwordConfirmation: registerAccount.password,
+      email: email,
+      password: password,
+      passwordConfirmation: password,
       userType: 'USER'
     });
   }

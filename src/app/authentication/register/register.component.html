@@ -56,7 +56,7 @@
                              id="password"
                              required
                              name="password"
-                             pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d/!@#$%^&*()]{8,20}$'
+                             pattern='^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9-_+=[\]{}\|:,?\/\\`~"();.!@#$%^&*]{8,20}$'
                              #password='ngModel'
                              [(ngModel)]="user.password"
                       >
@@ -78,7 +78,7 @@
                              id="passwordConfirmation"
                              required
                              name="passwordConfirmation"
-                             pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d/!@#$%^&*()]{8,20}$'
+                             pattern='^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9-_+=[\]{}\|:,?\/\\`~"();.!@#$%^&*]{8,20}$'
                              #passwordConfirmation='ngModel'
                              [(ngModel)]="user.passwordConfirmation"
                       >
@@ -91,6 +91,12 @@
                     </div>
                   </div>
 
+                  <div [hidden]="!failedRegister">
+                    <p class="alert alert-danger" role="alert">
+                      Incorrect email address or password.
+                    </p>
+                  </div>
+
                   <button type="submit"
                     class="btn btn-primary btn-lg w-100 mt-4 mb-3"
                     [disabled]="!registerForm.form.valid"
@@ -101,7 +107,7 @@
 
                   <div [hidden]="!submitted">
                     <p class="alert alert-success mt-4" role="alert">
-                      User account created. Redirecting to homepage.
+                      User account created successfully. Redirecting to homepage.
                     </p>
                   </div>
                 </form>

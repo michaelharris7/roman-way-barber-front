@@ -9,6 +9,7 @@ import { SignInData } from 'angular2-token';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
   user: SignInData = <SignInData>{};
   submitted: boolean = false;

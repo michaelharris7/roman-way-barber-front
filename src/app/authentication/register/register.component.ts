@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
 import { RegisterData } from 'angular2-token';
 
+
 @Component({
   selector: 'account-register',
   templateUrl: './register.component.html'
@@ -12,6 +13,7 @@ import { RegisterData } from 'angular2-token';
 export class RegisterComponent implements OnInit {
   user: RegisterData = <RegisterData>{};
   submitted: boolean;
+  failedRegister: boolean = false;
   registerForm: FormGroup;
 
   constructor(
@@ -21,31 +23,42 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.submitted = false;
-    // this.user.name = 'Mike';
+    this.failedRegister = false;
+    this.registerForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
-  submit(user) {
+  submit(value: any) {
     this.submitted = true;
-    this.authService.registerAccount(user).subscribe(
-      // this.authService.redirectAfterLogin.bind(this.authService).
-      // this.afterFailedRegister.bind(this));
-      res => {
-        this.authService.redirectAfterLogin.bind(this.authService)
-        // this.afterFailedRegister.bind(this));
-      },
-      error =>    console.log(error)
+    this.authService.registerAccount(value.email, value.password).subscribe(
+      this.authService.redirectAfterLogin.bind(this.authService),
+      this.afterFailedRegister.bind(this)
     );
-  }
 
-//   afterFailedRegister(errors: any) {
-//     // return console.warn(errors.responseText);
-//     let parsed_errors = JSON.parse(errors._body).errors;
-//     for(let attribute in this.registerForm.controls) {
-//       if (parsed_errors[attribute]) {
-//         this.registerForm.controls[attribute]
-//             .setErrors(parsed_errors[attribute]);
-//       }
-//     }
-//     this.registerForm.setErrors(parsed_errors);
-//   }
+    if (!this.registerForm.valid) {
+      this.failedRegister = true;
+      this.submitted = false;
+      return;
+    }
+  }
+      // res => {
+      //   this.authService.redirectAfterLogin.bind(this.authService)
+        // this.afterFailedRegister.bind(this));
+    //   },
+    //   error =>    console.log(error)
+    // );
+  // }
+
+  afterFailedRegister(errors: any) {
+    let parsed_errors = JSON.parse(errors._body).errors;
+    for(let attribute in this.registerForm.controls) {
+      if (parsed_errors[attribute]) {
+        this.registerForm.controls[attribute]
+            .setErrors(parsed_errors[attribute]);
+      }
+    }
+    this.registerForm.setErrors(parsed_errors);
+  }
 }
