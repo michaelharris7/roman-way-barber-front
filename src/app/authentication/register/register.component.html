@@ -91,11 +91,18 @@
                     </div>
                   </div>
 
-                  <div [hidden]="!failedRegister">
+                  <div *ngIf="failedRegister">
                     <p class="alert alert-danger" role="alert">
-                      Incorrect email address or password.
+                      That email address already exists
+                      <!-- {{registerForm.form.markAsUntouched()}} -->
                     </p>
                   </div>
+<!--                   <div *ngIf="registerForm.form.touched && failedRegister">{{resetRegisterFail()}}
+                  </div> -->
+
+                  Submitted = {{submitted}}<br/>
+                  Failed to Register = {{failedRegister}}<br/>
+                  {{registerForm.form.touched}}
 
                   <button type="submit"
                     class="btn btn-primary btn-lg w-100 mt-4 mb-3"

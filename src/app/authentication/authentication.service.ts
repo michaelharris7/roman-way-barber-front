@@ -74,6 +74,7 @@ export class AuthenticationService implements OnInit{
 
   registerAccount(email, password): Observable<Response> {
     return this.tokenService.registerAccount({
+      name: 'Anonymous',
       email: email,
       password: password,
       passwordConfirmation: password,
