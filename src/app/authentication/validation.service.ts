@@ -1,6 +1,7 @@
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {AbstractControl} from '@angular/forms';
 
+
 export class ValidationService {
   static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
     let config = {
@@ -31,14 +32,9 @@ export class ValidationService {
       null : { 'invalidPassword': true };
   }
   static passwordMatch(AC: AbstractControl) {
-   let password = AC.get('password').value; // to get value in input tag
-   let passwordConfirmation = AC.get('passwordConfirmation').value; // to get value in input tag
-   // return (password == passwordConfirmation) ?
-   //   null : { 'unmatchedPassword': true };
-    if(password != passwordConfirmation) {
-      AC.get('passwordConfirmation').setErrors( {'passwordMatch': true} )
-    } else {
-      return null
-    }
+    let password = AC.get('password').value;
+    let passwordConfirmation = AC.get('passwordConfirmation').value;
+    return (password === passwordConfirmation) ?
+      null : AC.get('passwordConfirmation').setErrors( {'passwordMismatch': true} )
   }
 }

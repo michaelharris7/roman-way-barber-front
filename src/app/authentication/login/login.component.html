@@ -23,7 +23,6 @@
 
             <div class="card card-shadow-hard pt-4 pb-2 px-2 mb-5">
               <div class="container">
-                <!-- #loginForm="ngForm" -->
                 <form [formGroup]="loginForm" (submit)="submit(loginForm.value)">
                   <div class="row">
                     <div class="form-group col-lg-8 pb-3">
@@ -60,15 +59,9 @@
                              formControlName="passwordConfirmation"
                       >
                       <control-messages [control]="loginForm.controls.passwordConfirmation"></control-messages>
-                      <div class="form-group alert alert-danger mt-3" *ngIf="loginForm.controls.passwordConfirmation.errors?.passwordMatch">
+                      <div class="form-group alert alert-danger mt-3" *ngIf="loginForm.controls.passwordConfirmation.errors?.passwordMismatch">
                         Both passwords must match
                       </div>
-                      <!-- <div class="form-group alert alert-danger mt-3" *ngIf="loginForm.controls.password.value !== loginForm.controls.passwordConfirmation.value && loginForm.controls.passwordConfirmation.touched">
-                        Both passwords must match
-                      </div> -->
-                      <!-- <div class="form-group alert alert-danger mt-3" *ngIf="loginForm.controls.passwordConfirmation.errors?.passwordMatch">
-                        Both passwords must match
-                      </div> -->
                     </div>
                   </div>
 
@@ -84,12 +77,6 @@
                     {{resetFailedLogin()}}
                   </div>
 
-                  Submitted = {{submitted}}<br/>
-                  Failed to Login = {{failedLogin}}<br/>
-                  Login Reset = {{loginReset}}<br/>
-                  {{loginForm.touched}}<br/>
-                  {{loginForm.valid}}
-
                   <button type="submit"
                     class="btn btn-primary btn-lg w-100 mt-4 mb-3"
                     [disabled]="!loginForm.valid"
@@ -98,10 +85,9 @@
                     Login
                   </button>
 
-                  <div [hidden]="!submitted">
-                    <p class="alert alert-success mt-4" role="alert">
-                      User account logged in successfully. Redirecting to homepage.
-                    </p>
+                  <div *ngIf="submitted && !failedLogin">
+                    {{resetSubmit()}}
+                    <p [innerHTML]="resetString"></p>
                   </div>
                 </form>
               </div>
