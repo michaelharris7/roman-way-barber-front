@@ -23,7 +23,7 @@
 
             <div class="card card-shadow-hard pt-4 pb-2 px-2 mb-5">
               <div class="container">
-                <form [formGroup]="loginForm" (submit)="submit(loginForm.value)">
+                <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)">
                   <div class="row">
                     <div class="form-group col-lg-8 pb-3">
                       <label for="email">Email Address</label>
@@ -36,7 +36,9 @@
                       <control-messages [control]="loginForm.controls.email"></control-messages>
                     </div>
                   </div>
+
                   <hr>
+
                   <div class="row mt-4 mb-3">
                     <div class="form-group col-lg-6">
                       <label for="password">Password</label>

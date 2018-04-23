@@ -23,52 +23,44 @@
 
             <div class="card card-shadow-hard pt-4 pb-2 px-2 mb-5">
               <div class="container">
-                <form (ngSubmit)="submit(user)" #registerForm="ngForm">
+                <form [formGroup]="registerForm" (ngSubmit)="submit(registerForm.value)">
                   <div class="row">
-                    <div class="form-group col-lg-8 pb-3">
+                    <div class="form-group col-lg-5 pb-3">
+                      <label for="name">Name</label>
+                      <input type="text"
+                             class="form-control"
+                             id="name"
+                             placeholder="John Doe"
+                             formControlName="name"
+                      >
+                    </div>
+
+                    <div class="form-group col-lg-7 pb-3">
                       <label for="email">Email Address</label>
                       <input type="text"
                              class="form-control"
                              id="email"
                              placeholder="user@example.com"
-                             required
-                             email
-                             name="email"
-                             pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
-                             #email='ngModel'
-                             [(ngModel)]="user.email"
+                             formControlName="email"
                       >
-                      <div class="form-group alert alert-danger mt-3" *ngIf="email.errors?.required && (!email.pristine || email.touched)">
-                        An email address is required
-                      </div>
-                      <div class="form-group alert alert-danger mt-3" *ngIf="email.errors?.pattern && (email.pristine || email.touched)">
-                        Please enter a valid email address
-                      </div>
-
+                      <control-messages [control]="registerForm.controls.email"></control-messages>
                     </div>
                   </div>
+
                   <hr>
+
                   <div class="row mt-4 mb-3">
                     <div class="form-group col-lg-6">
                       <label for="password">Password</label>
                       <input type="password"
                              class="form-control"
                              id="password"
-                             required
-                             name="password"
-                             pattern='^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9-_+=[\]{}\|:,?\/\\`~"();.!@#$%^&*]{8,20}$'
-                             #password='ngModel'
-                             [(ngModel)]="user.password"
+                             formControlName="password"
                       >
+                      <control-messages [control]="registerForm.controls.password"></control-messages>
                       <small id="passwordHelpBlock" class="form-text text-muted">
                         Must be 8-20 characters long with letters and numbers. Adding symbols are recommended.
                       </small>
-                      <div class="form-group alert alert-danger mt-3" *ngIf="password.errors?.required && (!password.pristine || password.touched)">
-                        A password is required
-                      </div>
-                      <div class="form-group alert alert-danger mt-3" *ngIf="password.errors?.pattern && (password.pristine || password.touched)">
-                        Password must include letters and numbers at least 8 characters long
-                      </div>
                     </div>
 
                     <div class="form-group col-lg-6">
@@ -76,16 +68,10 @@
                       <input type="password"
                              class="form-control"
                              id="passwordConfirmation"
-                             required
-                             name="passwordConfirmation"
-                             pattern='^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9-_+=[\]{}\|:,?\/\\`~"();.!@#$%^&*]{8,20}$'
-                             #passwordConfirmation='ngModel'
-                             [(ngModel)]="user.passwordConfirmation"
+                             formControlName="passwordConfirmation"
                       >
-                      <div class="form-group alert alert-danger mt-3" *ngIf="passwordConfirmation.errors?.required && (!passwordConfirmation.pristine || passwordConfirmation.touched)">
-                        A confirming password is required
-                      </div>
-                      <div class="form-group alert alert-danger mt-3" *ngIf="password.value !== passwordConfirmation.value && passwordConfirmation.touched">
+                      <control-messages [control]="registerForm.controls.passwordConfirmation"></control-messages>
+                      <div class="form-group alert alert-danger mt-3" *ngIf="registerForm.controls.passwordConfirmation.errors?.passwordMismatch">
                         Both passwords must match
                       </div>
                     </div>
@@ -94,28 +80,30 @@
                   <div *ngIf="failedRegister">
                     <p class="alert alert-danger" role="alert">
                       That email address already exists
-                      <!-- {{registerForm.form.markAsUntouched()}} -->
                     </p>
                   </div>
-<!--                   <div *ngIf="registerForm.form.touched && failedRegister">{{resetRegisterFail()}}
-                  </div> -->
+                  <div *ngIf="failedRegister && registerForm.touched">
+                    {{resetTouch()}}
+                  </div>
+                  <div *ngIf="registerReset && registerForm.touched">
+                    {{resetFailedRegister()}}
+                  </div>
 
                   Submitted = {{submitted}}<br/>
                   Failed to Register = {{failedRegister}}<br/>
-                  {{registerForm.form.touched}}
+                  {{registerForm.touched}}
 
                   <button type="submit"
                     class="btn btn-primary btn-lg w-100 mt-4 mb-3"
-                    [disabled]="!registerForm.form.valid"
+                    [disabled]="!registerForm.valid"
                     [hidden]="submitted"
                   >
                     Register Account
                   </button>
 
-                  <div [hidden]="!submitted">
-                    <p class="alert alert-success mt-4" role="alert">
-                      User account created successfully. Redirecting to homepage.
-                    </p>
+                  <div *ngIf="submitted && !failedRegister">
+                    {{resetSubmit()}}
+                    <p [innerHTML]="resetString"></p>
                   </div>
                 </form>
               </div>

@@ -5,7 +5,7 @@ import { AuthenticationService } from '../authentication.service';
 
 
 @Component({
-  selector: 'login',
+  selector: 'account-login',
   templateUrl: './login.component.html'
 })
 
@@ -35,13 +35,9 @@ export class LoginComponent {
   submit(value: any) {
     this.submitted = true;
     this.authService.logIn(value.email, value.password).subscribe(
-      suc => this.authService.redirectAfterLogin(),
+      res => this.authService.redirectAfterLogin(),
       err => this.afterFailedUserLogin(value),
       () => console.log(value));
-      // ,
-      // this.afterFailedLogin.bind(value));
-
-
   }
 
   afterFailedUserLogin(value: any) {
@@ -81,6 +77,6 @@ export class LoginComponent {
   resetSubmit() {
     setTimeout(() => {
       this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account logged in successfully. Redirecting to homepage.</p>";
-    }, 5000);
+    }, 100);
   }
 }
