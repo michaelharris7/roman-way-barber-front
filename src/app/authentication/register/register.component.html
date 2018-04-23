@@ -89,10 +89,6 @@
                     {{resetFailedRegister()}}
                   </div>
 
-                  Submitted = {{submitted}}<br/>
-                  Failed to Register = {{failedRegister}}<br/>
-                  {{registerForm.touched}}
-
                   <button type="submit"
                     class="btn btn-primary btn-lg w-100 mt-4 mb-3"
                     [disabled]="!registerForm.valid"
@@ -104,6 +100,10 @@
                   <div *ngIf="submitted && !failedRegister">
                     {{resetSubmit()}}
                     <p [innerHTML]="resetString"></p>
+                  </div>
+
+                  <div class="my-2">
+                    <a routerLink="/login">Login to your account</a>
                   </div>
                 </form>
               </div>

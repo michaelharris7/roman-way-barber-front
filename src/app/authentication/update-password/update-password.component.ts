@@ -23,13 +23,17 @@ export class ForgotPasswordComponent {
     fb: FormBuilder
   ) {
       this.forgotPasswordForm = fb.group({
-        email: ['', [ValidationService.emailRequired, ValidationService.emailValidator]]
-      }, {})
+        email: ['', [ValidationService.emailRequired, ValidationService.emailValidator]],
+        password: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]],
+        passwordConfirmation: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]]
+      }, {
+        validator: ValidationService.passwordMatch
+      })
   }
 
   submit(value: any) {
     this.submitted = true;
-    this.authService.resetPassword(value.email).subscribe(
+    this.authService.resetPassword(value).subscribe(
       this.authService.redirectAfterLogin.bind(this.authService),
       this.afterFailedReset.bind(this)
     );
@@ -65,7 +69,7 @@ export class ForgotPasswordComponent {
   }
   resetSubmit() {
     setTimeout(() => {
-      this.resetString = "<p class='alert alert-success mt-4' role='alert'>Reset password email successfully sent. Redirecting to homepage.</p>";
+      this.resetString = "<p class='alert alert-success mt-4' role='alert'>Password reset successfully. Redirecting to homepage.</p>";
     }, 100);
   }
 }

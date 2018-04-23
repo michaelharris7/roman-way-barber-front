@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-
-// import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -16,7 +13,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     ReactiveFormsModule
   ],
   declarations: [
-    ForgotPasswordComponent
     // RegisterComponent
   ],
   providers: [

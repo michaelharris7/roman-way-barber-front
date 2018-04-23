@@ -40,8 +40,8 @@ import { AuthLinksComponent } from './authentication/auth-links.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 
 import { RegisterComponent } from './authentication/register/register.component';
-import { LoginTestComponent } from './authentication/login-test/login-test.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { ControlMessagesComponenet } from './authentication/control-messages.component';
 import { ValidationService } from './authentication/validation.service';
 
@@ -87,8 +87,8 @@ import { ValidationService } from './authentication/validation.service';
     AuthLinksComponent,
 
     RegisterComponent,
-    LoginTestComponent,
     LoginComponent,
+    ForgotPasswordComponent,
     ControlMessagesComponenet
   ],
   providers: [

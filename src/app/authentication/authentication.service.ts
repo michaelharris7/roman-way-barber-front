@@ -87,8 +87,11 @@ export class AuthenticationService implements OnInit{
     });
   }
 
-  resetPassword(resetPassword): Observable<Response> {
-    return this.tokenService.resetPassword(resetPassword);
+  resetPassword(email): Observable<Response> {
+    return this.tokenService.resetPassword({
+      email: email,
+      userType: 'USER'
+    });
   }
 
   logOut(): Observable<Response> {
