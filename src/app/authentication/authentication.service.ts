@@ -95,13 +95,6 @@ export class AuthenticationService implements OnInit{
       userType: 'USER'
     });
   }
-  updatePassword(newPassword, oldPassword): Observable<Response> {
-    return this.tokenService.updatePassword({
-      password:             'newPassword',
-      passwordConfirmation: 'newPassword',
-      passwordCurrent:      'oldPassword',
-    });
-  }
 
   logOut(): Observable<Response> {
     this.redirectUrl = undefined;
@@ -121,5 +114,12 @@ export class AuthenticationService implements OnInit{
   updateUserData(data): Observable<Response> {
     let body = JSON.stringify(data);
     return this.tokenService.put('auth', body);
+  }
+
+  updatePassword(data): Observable<Response> {
+    return this.tokenService.updatePassword({
+      password:             data.password,
+      passwordConfirmation: data.password
+    })
   }
 }

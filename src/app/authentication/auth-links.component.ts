@@ -12,19 +12,19 @@ import { Observable } from 'rxjs/Observable';
         [class.nav-styles-new]=isNewLayout()>
       <div class="nav" [class.nav-new]=isNewLayout()>
 
-        <div class="">
+        <div>
           <a class="nav-link nav-link-new nav-account" routerLink="/register" routerLinkActive="active" *ngIf="isLoggedOut()">Register</a>
         </div>
 
-        <div class="">
+        <div>
           <a class="nav-link nav-link-new nav-account" routerLink="/login" routerLinkActive="active" *ngIf="isLoggedOut()">Login</a>
         </div>
 
-        <div class="">
+        <div>
           <a class="nav-link nav-link-new nav-account" routerLink="/account" routerLinkActive="active" *ngIf="isLoggedIn()">Account</a>
         </div>
 
-        <div class="">
+        <div>
           <a class="nav-link nav-link-new nav-account" (click)="logOut()" *ngIf="isLoggedIn()">Logout</a>
         </div>
 

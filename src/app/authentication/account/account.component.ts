@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Angular2TokenService, UserData, AuthData } from 'angular2-token';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ValidationService } from '../validation.service';
 import { AuthenticationService } from '../authentication.service';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthenticationService } from '../authentication.service';
 })
 
 
-export class AccountComponent {
+export class AccountComponent implements OnInit {
   userData: UserData = <UserData>{};
   authData: AuthData = <AuthData>{};
   formReset: boolean = false;
@@ -19,9 +20,7 @@ export class AccountComponent {
   accountReset: boolean = false;
   accountFormBasic: FormGroup;
   accountFormPassword: FormGroup;
-  // accountForm: FormGroup;
   resetString: string;
-  error: string;
   formData: string = '';
   formBasicSet: boolean = true;
 
@@ -36,14 +35,12 @@ export class AccountComponent {
 
       this.accountFormBasic = fb.group({
         name: [this.userData.name],
-        email: [this.userData.email, [ValidationService.emailRequired, ValidationService.emailValidator]],
-        passwordCurrent: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]]
+        email: [this.userData.email, [ValidationService.emailRequired, ValidationService.emailValidator]]
       }, {});
 
       this.accountFormPassword = fb.group({
         name: [this.userData.name],
         email: [this.userData.email, [ValidationService.emailRequired, ValidationService.emailValidator]],
-        passwordCurrent: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]],
         password: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]],
         passwordConfirmation: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]]
       }, {
@@ -51,36 +48,19 @@ export class AccountComponent {
       });
   }
 
+  ngOnInit() {
+    this.tokenService.validateToken().subscribe(
+      res =>          console.log(res),
+      error =>        console.log(error)
+    );
+  }
+
+
   submit(value: any) {
     this.submitted = true;
-    // if(this.accountForm.controls.password.value === '' && this.accountForm.controls.passwordConfirmation.value === '') {
-    //   this.accountFormBasic.controls.name = this.accountForm.controls.name;
-    //   this.accountFormBasic.controls.email = this.accountForm.controls.email;
-    //   this.accountFormBasic.controls.passwordCurrent = this.accountForm.controls.passwordCurrent;
-    //   setTimeout(() => {
-    //     this.formBasicSet = true;
-    //     console.log('success 1');
-    //     if(this.formBasicSet == true) {
-    //       setTimeout(() => {
-    //         this.accountForm = this.accountFormBasic;
-    //         // this.accountForm.controls.password;
-    //         // this.accountForm.controls.passwordConfirmation;
-    //         this.accountForm.removeControl("password");
-    //         this.accountForm.removeControl("passwordConfirmation");
-    //         console.log('success 2');
-    //         if(this.accountForm == this.accountFormBasic && !this.accountForm.contains('passwordConfirmation')) {
-    //           setTimeout(() => {
-    //             this.saveUserData(value);
-    //             console.log('success 3');
-    //           }, 500);
-    //         }
-    //       }, 500);
-    //     }
-    //   }, 500);
-    // } else {
-      this.saveUserData(value);
-      console.log('success 4');
-    // }
+    this.saveUserData(value);
+
+
 
 
     // this.authService.resetPassword(value).subscribe(
@@ -89,41 +69,6 @@ export class AccountComponent {
     // );
   }
 
-  // updateCurrentData(name, email) {
-  //   this.userData = name
-  // }
-
-// formChange(value: any) {
-//   if(this.accountForm !== this.accountFormPassword) {
-//     this.accountFormPassword.controls.name = this.accountForm.controls.name;
-//     this.accountFormPassword.controls.email = this.accountForm.controls.email;
-//     this.accountFormPassword.controls.passwordCurrent = this.accountForm.controls.passwordCurrent;
-//     this.accountFormPassword.controls.password = this.accountForm.controls.password;
-//     this.accountFormPassword.controls.passwordConfirmation = this.accountForm.controls.passwordConfirmation;
-//     setTimeout(() => {
-//       this.accountForm = this.accountFormPassword;
-//       setTimeout(() => {
-//         this.accountForm.updateValueAndValidity();
-//         this.formReset = true;
-//         console.log(1);
-//         // this.accountForm.markAsUntouched();
-//       });
-//     });
-//   } else if(value.controls.password.value == '') {
-//     setTimeout(() => {
-//       this.accountFormNoPassword.controls.name = this.accountForm.controls.name;
-//       this.accountFormNoPassword.controls.email = this.accountForm.controls.email;
-//       this.accountFormNoPassword.controls.passwordCurrent = this.accountForm.controls.passwordCurrent;
-//       this.accountFormNoPassword.controls.password = this.accountForm.controls.password;
-//       this.accountFormNoPassword.controls.passwordConfirmation = this.accountForm.controls.passwordConfirmation;
-//       this.accountForm = this.accountFormNoPassword;
-//       this.accountForm.updateValueAndValidity();
-//       this.formReset = true;
-//       console.log(2);
-//       // this.accountForm.markAsUntouched();
-//     });
-//   }
-// }
 
 formChangeRefresh(value: any) {
   setTimeout(() => {
@@ -138,30 +83,52 @@ formChangeRefresh(value: any) {
 }
 
 saveUserData(value: any) {
-  this.authService.updateUserData(value)
-    .subscribe(
-      data => {
-        this.error = '';
-        // if (!value.password) {
-        //   value.password = this.tokenService.UpdatePasswordData.password;
-        // }
-        if (value.name != this.tokenService.currentUserData.name) {
-          this.tokenService.currentUserData.name = value.name;
-          this.tokenService.currentUserData.uid = value.name;
-          this.tokenService.currentAuthData.uid = value.name;
-          localStorage.setItem('uid', value.name);
-        }
-        if (value.email != this.tokenService.currentUserData.email) {
-          this.tokenService.currentUserData.email = value.email;
+  // if(this.formBasicSet) {
+    this.authService.updateUserData(value)
+      .subscribe(
+        data => {
+          if (value.name != this.tokenService.currentUserData.name) {
+            this.tokenService.currentUserData.name = value.name;
+          if (value.email != this.tokenService.currentUserData.email) {
+            this.tokenService.currentUserData.email = value.email;
+          }
           this.tokenService.currentUserData.uid = value.email;
-          this.tokenService.currentAuthData.uid = value.email;
-          localStorage.setItem('uid', value.email);
+            this.tokenService.currentAuthData.uid = value.email;
+            localStorage.setItem('uid', value.email);
+          }
+          if(!this.formBasicSet) {
+            this.authService.updatePassword(value)
+            .subscribe(
+                data => {
+                  setTimeout(() => {
+                      this.authService.redirectAfterLogin();
+                    },200);
+                },
+                error => {
+                  this.afterFailedUpdate.bind(this);
+                }
+              );
+           }
+          setTimeout(() => {
+            this.authService.redirectAfterLogin();
+          },200);
+        },
+        error => {
+          this.afterFailedUpdate.bind(this);
         }
-      },
-      error => {
-        console.log('Error saving user ' + error);
-      }
-    );
+      );
+  // } else {
+    // this.authService.updatePassword(value).subscribe(
+    //   data => {
+    //     setTimeout(() => {
+    //         this.authService.redirectAfterLogin();
+    //       },200);
+    //   },
+    //   error => {
+    //     this.afterFailedUpdate.bind(this);
+    //   }
+    // );
+  // }
   // this.authService.updatePassword(value.password, value.passwordCurrent).subscribe(
   //     res =>      this.authService.redirectAfterLogin.bind(this.authService),
   //     error =>    this.afterFailedUpdate.bind(this)
@@ -216,6 +183,18 @@ saveUserData(value: any) {
   resetSubmit() {
     setTimeout(() => {
       this.resetString = "<p class='alert alert-success mt-4' role='alert'>Account updated successfully.</p>";
-    }, 100);
+    });
+  }
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+  logOut() {
+    this.authService.logOut().subscribe(
+        data => { return true },
+        error => {
+          console.log("Error logging out");
+          return Observable.throw(error);
+        }
+      );
   }
 }
