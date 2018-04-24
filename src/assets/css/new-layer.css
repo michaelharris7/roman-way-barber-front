@@ -35,7 +35,6 @@
 }
 .new-back a:hover {
   color: #007bff !important;
-  text-decoration: underline !important;
 }
 .new-back a:active {
   color: #0056b3 !important;
@@ -71,6 +70,9 @@
   position: absolute;
   bottom: 20px;
   right: 20px;
+}
+.corner-bottom-right a:hover {
+  text-decoration: underline !important;
 }
 
 

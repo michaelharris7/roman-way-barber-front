@@ -122,4 +122,8 @@ export class AuthenticationService implements OnInit{
       passwordConfirmation: data.password
     })
   }
+
+  deleteAccount(): Observable<Response> {
+    return this.tokenService.deleteAccount();
+  }
 }

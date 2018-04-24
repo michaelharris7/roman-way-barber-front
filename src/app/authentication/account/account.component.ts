@@ -190,11 +190,24 @@ saveUserData(value: any) {
   }
   logOut() {
     this.authService.logOut().subscribe(
-        data => { return true },
+        data => { this.authService.redirectAfterLogin(); },
         error => {
+          this.afterFailedUpdate.bind(this);
           console.log("Error logging out");
           return Observable.throw(error);
         }
       );
+  }
+  cancelAccount() {
+    this.authService.deleteAccount().subscribe(
+    res =>      {
+      this.authService.logOut();
+      this.authService.redirectAfterLogin();
+    },
+    error =>    {
+      this.afterFailedUpdate.bind(this);
+      console.log(error);
+      }
+    );
   }
 }
