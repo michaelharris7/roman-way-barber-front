@@ -5,7 +5,6 @@ import { AuthenticationService } from '../authentication.service';
 
 
 @Component({
-  selector: 'account-login',
   templateUrl: './login.component.html'
 })
 

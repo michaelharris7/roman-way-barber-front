@@ -5,7 +5,6 @@ import { ValidationService } from '../validation.service';
 
 
 @Component({
-  selector: 'account-register',
   templateUrl: './register.component.html'
 })
 

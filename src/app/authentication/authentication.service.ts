@@ -1,14 +1,17 @@
-import { OnInit } from '@angular/core';
-import { Injectable } from '@angular/core';
+import { OnInit, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Angular2TokenService } from 'angular2-token';
+import { Angular2TokenService, Angular2TokenOptions, UserData, AuthData, UpdatePasswordData } from 'angular2-token';
 import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
 export class AuthenticationService implements OnInit{
   redirectUrl: string;
+  userData: UserData = <UserData>{};
+  authData: AuthData = <AuthData>{};
+  updatePasswordData: UpdatePasswordData = <UpdatePasswordData>{};
+  atOptions: Angular2TokenOptions;
 
   constructor(
     private http: Http,
@@ -60,8 +63,7 @@ export class AuthenticationService implements OnInit{
   ngOnInit() {
   }
 
-  // logIn(email: string, password: string): Observable<Response> {
-  // logIn(userData): Observable<Response> {
+
   logIn(email, password): Observable<Response> {
     return this.tokenService.signIn({
       email: email,
@@ -93,6 +95,13 @@ export class AuthenticationService implements OnInit{
       userType: 'USER'
     });
   }
+  updatePassword(newPassword, oldPassword): Observable<Response> {
+    return this.tokenService.updatePassword({
+      password:             'newPassword',
+      passwordConfirmation: 'newPassword',
+      passwordCurrent:      'oldPassword',
+    });
+  }
 
   logOut(): Observable<Response> {
     this.redirectUrl = undefined;
@@ -109,7 +118,8 @@ export class AuthenticationService implements OnInit{
     this.router.navigate([redirectTo]);
   }
 
-  // findProfile() {
-  //   return this.http.get('/api/user/profile.json');
-  // }
+  updateUserData(data): Observable<Response> {
+    let body = JSON.stringify(data);
+    return this.tokenService.put('auth', body);
+  }
 }

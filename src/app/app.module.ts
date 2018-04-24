@@ -35,13 +35,13 @@ import { TruncatePipe } from './app.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthRoutingModule } from './authentication/auth-routing.module';
 
-import { AccountComponent } from './account/account.component';
 import { AuthLinksComponent } from './authentication/auth-links.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 
 import { RegisterComponent } from './authentication/register/register.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
+import { AccountComponent } from './authentication/account/account.component';
 import { ControlMessagesComponenet } from './authentication/control-messages.component';
 import { ValidationService } from './authentication/validation.service';
 
@@ -83,12 +83,12 @@ import { ValidationService } from './authentication/validation.service';
 
     TruncatePipe,
 
-    AccountComponent,
     AuthLinksComponent,
 
     RegisterComponent,
     LoginComponent,
     ForgotPasswordComponent,
+    AccountComponent,
     ControlMessagesComponenet
   ],
   providers: [

@@ -5,7 +5,6 @@ import { AuthenticationService } from '../authentication.service';
 
 
 @Component({
-  selector: 'forgot-password',
   templateUrl: './forgot-password.component.html',
 })
 

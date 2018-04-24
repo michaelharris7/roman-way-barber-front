@@ -12,16 +12,20 @@ import { Observable } from 'rxjs/Observable';
         [class.nav-styles-new]=isNewLayout()>
       <div class="nav" [class.nav-new]=isNewLayout()>
 
-        <div class="nav-item">
+        <div class="">
           <a class="nav-link nav-link-new nav-account" routerLink="/register" routerLinkActive="active" *ngIf="isLoggedOut()">Register</a>
         </div>
 
-        <div class="nav-item">
-          <a class="nav-link nav-link-new nav-account" type="submit" routerLink="/login" routerLinkActive="active" *ngIf="isLoggedOut()">Login</a>
+        <div class="">
+          <a class="nav-link nav-link-new nav-account" routerLink="/login" routerLinkActive="active" *ngIf="isLoggedOut()">Login</a>
         </div>
 
-        <div class="nav-item">
-          <a class="nav-link nav-link-new nav-account" type="submit" (click)="logOut()" *ngIf="isLoggedIn()">Logout</a>
+        <div class="">
+          <a class="nav-link nav-link-new nav-account" routerLink="/account" routerLinkActive="active" *ngIf="isLoggedIn()">Account</a>
+        </div>
+
+        <div class="">
+          <a class="nav-link nav-link-new nav-account" (click)="logOut()" *ngIf="isLoggedIn()">Logout</a>
         </div>
 
       </div>
@@ -29,6 +33,8 @@ import { Observable } from 'rxjs/Observable';
   `,
   styleUrls: ['./auth-links.component.css']
 })
+
+// type="submit"
 
 export class AuthLinksComponent {
   public currentPath: string = "";
@@ -48,19 +54,9 @@ export class AuthLinksComponent {
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
-
   isLoggedOut(): boolean {
     return !this.authService.isLoggedIn();
   }
-
-  // onSubmit() {
-  //   this._tokenService.signOut().subscribe(
-  //       res =>      console.log(res),
-  //       error =>    console.log(error)
-  //   );
-  // }
-
-
   logOut() {
     this.authService.logOut().subscribe(
         data => { return true },
@@ -70,20 +66,6 @@ export class AuthLinksComponent {
         }
       );
   }
-
-  // .subscribe(
-  //         data => { return true },
-  //         error => {
-  //           console.log("Error saving user");
-  //           return Observable.throw(error);
-  //         }
-  //       );
-
-
-  // LogOut(): void {
-  //   this.authService.logOut();
-  // }
-
 
   isNewLayout() {
     switch (this.currentPath)
