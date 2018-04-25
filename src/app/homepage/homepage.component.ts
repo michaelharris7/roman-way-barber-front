@@ -22,22 +22,29 @@ export class HomepageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.user = this.tokenService.currentUserData;
-    this.userType = this.tokenService.currentUserType;
-    console.log(this.tokenService.currentUserData);
-  }
-
-
-  refreshUser() {
     if(this.isLoggedIn() && !this.userReset) {
       this.tokenService.validateToken().subscribe(
-        res => {console.log(res);},
-        err => {console.log(err);}
+        res => {
+          this.user = this.tokenService.currentUserData;
+          this.userType = this.tokenService.currentUserType;
+          console.log(this.tokenService.currentUserData);
+        },
+        err => {
+          console.log(err);
+          this.logOut();
+        }
       );
       this.userReset = true;
     }
   }
+
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
+  }
+  logOut() {
+    this.authService.logOut().subscribe(
+        res => { console.log('User signed out successfully'); },
+        err => { console.log(err); }
+      );
   }
 }

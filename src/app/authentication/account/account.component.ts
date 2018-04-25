@@ -201,7 +201,7 @@ saveUserData(value: any) {
   cancelAccount() {
     this.authService.deleteAccount().subscribe(
     res =>      {
-      this.authService.logOut();
+      // this.authService.logOut();
       this.authService.redirectAfterLogin();
     },
     error =>    {

@@ -36,8 +36,11 @@ export class RegisterComponent {
       value.name = 'Anonymous';
     }
     this.authService.registerAccount(value.name, value.email, value.password).subscribe(
-      this.authService.redirectAfterLogin.bind(this.authService),
-      this.afterFailedRegister.bind(this)
+      res => {
+        this.authService.logIn(value.email, value.password);
+        this.authService.redirectAfterLogin();
+      },
+      err => this.afterFailedRegister.bind(this)
     );
   }
 
