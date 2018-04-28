@@ -23,14 +23,16 @@ export class AccountComponent implements OnInit {
   resetString: string;
   formData: string = '';
   formBasicSet: boolean = true;
+  userType: string;
 
   constructor(
     private tokenService: Angular2TokenService,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
-    fb: FormBuilder
+    private fb: FormBuilder
   ) {
-      this.userData = this.tokenService.currentUserData;
+      this.userData.name = '';
+      this.userData.email = 'test@test.com';
       this.authData = this.tokenService.currentAuthData;
 
       this.accountFormBasic = fb.group({
@@ -50,11 +52,29 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.tokenService.validateToken().subscribe(
-      res =>          console.log(res),
-      error =>        console.log(error)
-    );
+      res => {
+        this.userData = this.tokenService.currentUserData;
+        this.userType = this.tokenService.currentUserType;
+        this.createForm();
+      },
+      err => console.log(err));
   }
 
+  createForm() {
+    this.accountFormBasic = this.fb.group({
+        name: [this.userData.name],
+        email: [this.userData.email, [ValidationService.emailRequired, ValidationService.emailValidator]]
+      }, {});
+
+      this.accountFormPassword = this.fb.group({
+        name: [this.userData.name],
+        email: [this.userData.email, [ValidationService.emailRequired, ValidationService.emailValidator]],
+        password: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]],
+        passwordConfirmation: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]]
+      }, {
+        validator: ValidationService.passwordMatch
+      });
+  }
 
   submit(value: any) {
     this.submitted = true;

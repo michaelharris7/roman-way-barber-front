@@ -1,13 +1,14 @@
 import { OnInit, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Angular2TokenService, Angular2TokenOptions, UserData, AuthData, UpdatePasswordData } from 'angular2-token';
+import { Angular2TokenService, Angular2TokenOptions, SignInData, UserData, AuthData, UpdatePasswordData } from 'angular2-token';
 import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
-export class AuthenticationService implements OnInit{
+export class AuthenticationService {
   redirectUrl: string;
+  signInData: SignInData = <SignInData>{};
   userData: UserData = <UserData>{};
   authData: AuthData = <AuthData>{};
   updatePasswordData: UpdatePasswordData = <UpdatePasswordData>{};
@@ -23,7 +24,7 @@ export class AuthenticationService implements OnInit{
       apiPath:                    null,
 
       signInPath:                 'sign_in',
-      signInRedirect:             null,
+      signInRedirect:             'home',
       signInStoredUrlStorageKey:  null,
 
       signOutPath:                'sign_out',
@@ -58,11 +59,8 @@ export class AuthenticationService implements OnInit{
           }
       },
     });
-  }
 
-  ngOnInit() {
   }
-
 
   logIn(email, password): Observable<Response> {
     return this.tokenService.signIn({

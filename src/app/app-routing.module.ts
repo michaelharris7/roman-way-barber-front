@@ -17,9 +17,14 @@ import { ArticleShowComponent } from './news/article-show.component';
 
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 
+import { AccountComponent } from './authentication/account/account.component';
+
 
 const routes: Routes = [
-  { path: '', component: HomepageComponent, pathMatch: 'full' },
+  { path: '',
+    component: HomepageComponent,
+    pathMatch: 'full'
+  },
   { path: 'home', component: HomepageComponent },
   { path: 'logout', component: HomepageComponent },
 
@@ -37,6 +42,7 @@ const routes: Routes = [
 
   { path: 'testimonials', component: TestimonialsComponent },
 ]
+
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

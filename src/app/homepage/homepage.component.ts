@@ -14,7 +14,6 @@ import { LoginComponent } from '../authentication/login/login.component';
 export class HomepageComponent implements OnInit {
   user: UserData = <UserData>{};
   userType: string;
-  userReset: boolean = false;
 
   constructor (
     private tokenService: Angular2TokenService,
@@ -22,7 +21,7 @@ export class HomepageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if(this.isLoggedIn() && !this.userReset) {
+    if(this.isLoggedIn()) {
       this.tokenService.validateToken().subscribe(
         res => {
           this.user = this.tokenService.currentUserData;
@@ -34,7 +33,6 @@ export class HomepageComponent implements OnInit {
           this.logOut();
         }
       );
-      this.userReset = true;
     }
   }
 
