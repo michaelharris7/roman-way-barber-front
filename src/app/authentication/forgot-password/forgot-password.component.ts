@@ -11,8 +11,6 @@ import { AuthenticationService } from '../authentication.service';
 
 export class ForgotPasswordComponent {
   submitted: boolean = false;
-  failedForgotPassword: boolean = false;
-  forgotPasswordReset: boolean = false;
   forgotPasswordForm: FormGroup;
   resetString: string;
 
@@ -29,15 +27,18 @@ export class ForgotPasswordComponent {
   submit(value: any) {
     this.submitted = true;
     this.authService.resetPassword(value.email).subscribe(
-      this.authService.redirectAfterLogin.bind(this.authService),
-      this.afterFailedReset.bind(this)
-    );
+        res => {
+          setTimeout(() => {
+            this.authService.redirectAfterLogin();
+          },1000);
+        },
+        err => this.afterFailedReset(err)
+      );
   }
 
   afterFailedReset(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
 
-    this.failedForgotPassword = true;
     this.submitted = false;
     this.forgotPasswordForm.markAsUntouched();
 
@@ -50,21 +51,9 @@ export class ForgotPasswordComponent {
     this.forgotPasswordForm.setErrors(parsed_errors);
   }
 
-  resetTouch() {
-    setTimeout(() => {
-      this.forgotPasswordForm.markAsUntouched();
-      this.forgotPasswordReset = true;
-    });
-  }
-  resetFailedForgotPassword() {
-    setTimeout(() => {
-      this.failedForgotPassword = false;
-      this.forgotPasswordReset = false;
-    });
-  }
   resetSubmit() {
     setTimeout(() => {
       this.resetString = "<p class='alert alert-success mt-4' role='alert'>Reset password email successfully sent. Redirecting to homepage.</p>";
-    }, 100);
+    });
   }
 }
