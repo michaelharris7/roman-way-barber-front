@@ -38,6 +38,7 @@
                                  id="name"
                                  placeholder="John Doe"
                                  formControlName="name"
+                                 (change)="updateForm()"
                           >
                         </div>
 
@@ -48,6 +49,7 @@
                                  id="email"
                                  placeholder="user@example.com"
                                  formControlName="email"
+                                 (change)="updateForm()"
                           >
                           <control-messages [control]="accountFormBasic.controls.email"></control-messages>
                         </div>

@@ -76,17 +76,19 @@ export class AccountComponent implements OnInit {
       });
   }
 
+  updateForm() {
+    if(this.formBasicSet) {
+      this.accountFormPassword.controls.name = this.accountFormBasic.controls.name;
+      this.accountFormPassword.controls.email = this.accountFormBasic.controls.email;
+    } else {
+      this.accountFormBasic.controls.name = this.accountFormPassword.controls.name;
+      this.accountFormBasic.controls.email = this.accountFormPassword.controls.email;
+    }
+  }
+
   submit(value: any) {
     this.submitted = true;
     this.saveUserData(value);
-
-
-
-
-    // this.authService.resetPassword(value).subscribe(
-    //   this.authService.redirectAfterLogin.bind(this.authService),
-    //   this.afterFailedReset.bind(this)
-    // );
   }
 
 
@@ -95,15 +97,10 @@ formChangeRefresh(value: any) {
     value.controls.password.markAsPristine();
     this.formReset = false;
     console.log(3);
-    // if(value.controls.password.untouched) {
-    //   this.formReset = false;
-    //   value.controls.password.markAsUntouched();
-    // }
   });
 }
 
 saveUserData(value: any) {
-  // if(this.formBasicSet) {
     this.authService.updateUserData(value)
       .subscribe(
         data => {
@@ -137,22 +134,6 @@ saveUserData(value: any) {
           this.afterFailedUpdate.bind(this);
         }
       );
-  // } else {
-    // this.authService.updatePassword(value).subscribe(
-    //   data => {
-    //     setTimeout(() => {
-    //         this.authService.redirectAfterLogin();
-    //       },200);
-    //   },
-    //   error => {
-    //     this.afterFailedUpdate.bind(this);
-    //   }
-    // );
-  // }
-  // this.authService.updatePassword(value.password, value.passwordCurrent).subscribe(
-  //     res =>      this.authService.redirectAfterLogin.bind(this.authService),
-  //     error =>    this.afterFailedUpdate.bind(this)
-  // );
 }
 
   afterFailedUpdate(errors: any) {
