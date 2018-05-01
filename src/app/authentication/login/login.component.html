@@ -67,16 +67,10 @@
                     </div>
                   </div>
 
-                  <div *ngIf="failedLogin">
+                  <div *ngIf="loginForm.errors">
                     <p class="alert alert-danger" role="alert">
-                      Incorrect email address or password.
+                      {{loginForm.errors}}
                     </p>
-                  </div>
-                  <div *ngIf="failedLogin && loginForm.touched">
-                    {{resetTouch()}}
-                  </div>
-                  <div *ngIf="loginReset && loginForm.touched">
-                    {{resetFailedLogin()}}
                   </div>
 
                   <button type="submit"
@@ -87,7 +81,7 @@
                     Login
                   </button>
 
-                  <div *ngIf="submitted && !failedLogin">
+                  <div *ngIf="submitted && !loginForm.errors">
                     {{resetSubmit()}}
                     <p [innerHTML]="resetString"></p>
                   </div>

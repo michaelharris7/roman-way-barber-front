@@ -8,11 +8,8 @@ import { AuthenticationService } from '../authentication.service';
   templateUrl: './login.component.html'
 })
 
-
 export class LoginComponent {
   submitted: boolean = false;
-  failedLogin: boolean = false;
-  loginReset: boolean = false;
   loginForm: FormGroup;
   resetString: string;
 
@@ -30,25 +27,31 @@ export class LoginComponent {
       })
   }
 
-
   submit(value: any) {
     this.submitted = true;
     this.authService.logIn(value.email, value.password).subscribe(
-      res => this.authService.redirectAfterLogin(),
-      err => this.afterFailedUserLogin(value),
-      () => console.log(value));
+        res => {
+          setTimeout(() => {
+            this.authService.redirectAfterLogin();
+          },1000);
+        },
+        err => this.afterFailedUserLogin(value)
+      );
   }
 
   afterFailedUserLogin(value: any) {
     this.authService.logInAdmin(value.email, value.password).subscribe(
-      this.authService.redirectAfterLogin.bind(this.authService),
-      this.afterFailedAdminLogin.bind(this));
+        res => {
+          setTimeout(() => {
+            this.authService.redirectAfterLogin();
+          },1000);
+        },
+        err => this.afterFailedAdminLogin(err)
+      );
   }
 
   afterFailedAdminLogin(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
-
-    this.failedLogin = true;
     this.submitted = false;
 
     for(let attribute in this.loginForm.controls) {
@@ -60,22 +63,9 @@ export class LoginComponent {
     this.loginForm.setErrors(parsed_errors);
   }
 
-
-  resetTouch() {
-    setTimeout(() => {
-      this.loginForm.markAsUntouched();
-      this.loginReset = true;
-    });
-  }
-  resetFailedLogin() {
-    setTimeout(() => {
-      this.failedLogin = false;
-      this.loginReset = false;
-    });
-  }
   resetSubmit() {
     setTimeout(() => {
       this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account logged in successfully. Redirecting to homepage.</p>";
-    }, 100);
+    });
   }
 }
