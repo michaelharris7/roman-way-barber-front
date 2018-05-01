@@ -77,16 +77,10 @@
                     </div>
                   </div>
 
-                  <div *ngIf="failedRegister">
+                  <div *ngIf="registerForm.errors">
                     <p class="alert alert-danger" role="alert">
-                      That email address already exists
+                      The email address '{{registerForm.controls.email.value}}' {{registerForm.controls.email.errors}}. Please enter a different email address.
                     </p>
-                  </div>
-                  <div *ngIf="failedRegister && registerForm.touched">
-                    {{resetTouch()}}
-                  </div>
-                  <div *ngIf="registerReset && registerForm.touched">
-                    {{resetFailedRegister()}}
                   </div>
 
                   <button type="submit"
@@ -97,7 +91,7 @@
                     Register Account
                   </button>
 
-                  <div *ngIf="submitted && !failedRegister">
+                  <div *ngIf="submitted && !registerForm.errors">
                     {{resetSubmit()}}
                     <p [innerHTML]="resetString"></p>
                   </div>

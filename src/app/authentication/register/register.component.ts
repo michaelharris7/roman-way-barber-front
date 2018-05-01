@@ -10,8 +10,6 @@ import { ValidationService } from '../validation.service';
 
 export class RegisterComponent {
   submitted: boolean = false;
-  failedRegister: boolean = false;
-  registerReset: boolean = false;
   registerForm: FormGroup;
   resetString: string;
 
@@ -38,18 +36,17 @@ export class RegisterComponent {
     this.authService.registerAccount(value.name, value.email, value.password).subscribe(
       res => {
         this.authService.logIn(value.email, value.password);
-        this.authService.redirectAfterLogin();
+        setTimeout(() => {
+          this.authService.redirectAfterLogin();
+        },1000);
       },
-      err => this.afterFailedRegister.bind(this)
+      err => this.afterFailedRegister(err)
     );
   }
 
   afterFailedRegister(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
-
-    this.failedRegister = true;
     this.submitted = false;
-    this.registerForm.markAsUntouched();
 
     for(let attribute in this.registerForm.controls) {
       if (parsed_errors[attribute]) {
@@ -60,21 +57,9 @@ export class RegisterComponent {
     this.registerForm.setErrors(parsed_errors);
   }
 
-  resetTouch() {
-    setTimeout(() => {
-      this.registerForm.markAsUntouched();
-      this.registerReset = true;
-    });
-  }
-  resetFailedRegister() {
-    setTimeout(() => {
-      this.failedRegister = false;
-      this.registerReset = false;
-    });
-  }
   resetSubmit() {
     setTimeout(() => {
       this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account created successfully. Redirecting to homepage.</p>";
-    }, 100);
+    });
   }
 }
