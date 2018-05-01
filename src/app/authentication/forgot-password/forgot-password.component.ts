@@ -38,9 +38,7 @@ export class ForgotPasswordComponent {
 
   afterFailedReset(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
-
     this.submitted = false;
-    this.forgotPasswordForm.markAsUntouched();
 
     for(let attribute in this.forgotPasswordForm.controls) {
       if (parsed_errors[attribute]) {
