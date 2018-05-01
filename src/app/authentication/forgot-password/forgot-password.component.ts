@@ -8,7 +8,6 @@ import { AuthenticationService } from '../authentication.service';
   templateUrl: './forgot-password.component.html',
 })
 
-
 export class ForgotPasswordComponent {
   submitted: boolean = false;
   forgotPasswordForm: FormGroup;
