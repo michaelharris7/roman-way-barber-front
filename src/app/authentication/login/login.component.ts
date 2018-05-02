@@ -28,12 +28,13 @@ export class LoginComponent {
   }
 
   submit(value: any) {
-    this.submitted = true;
     this.authService.logIn(value.email, value.password).subscribe(
         res => {
           setTimeout(() => {
             this.authService.redirectAfterLogin();
           },1000);
+
+          this.submitted = true;
         },
         err => this.afterFailedUserLogin(value)
       );
@@ -52,7 +53,6 @@ export class LoginComponent {
 
   afterFailedAdminLogin(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
-    this.submitted = false;
 
     for(let attribute in this.loginForm.controls) {
       if (parsed_errors[attribute]) {
@@ -61,6 +61,8 @@ export class LoginComponent {
       }
     }
     this.loginForm.setErrors(parsed_errors);
+
+    this.submitted = false;
   }
 
   resetSubmit() {

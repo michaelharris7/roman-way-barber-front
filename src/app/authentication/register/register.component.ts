@@ -29,7 +29,6 @@ export class RegisterComponent {
   }
 
   submit(value: any) {
-    this.submitted = true;
     if(!value.name) {
       value.name = 'Anonymous';
     }
@@ -39,6 +38,8 @@ export class RegisterComponent {
         setTimeout(() => {
           this.authService.redirectAfterLogin();
         },1000);
+
+        this.submitted = true;
       },
       err => this.afterFailedRegister(err)
     );
@@ -46,7 +47,6 @@ export class RegisterComponent {
 
   afterFailedRegister(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
-    this.submitted = false;
 
     for(let attribute in this.registerForm.controls) {
       if (parsed_errors[attribute]) {
@@ -55,6 +55,8 @@ export class RegisterComponent {
       }
     }
     this.registerForm.setErrors(parsed_errors);
+
+    this.submitted = false;
   }
 
   resetSubmit() {

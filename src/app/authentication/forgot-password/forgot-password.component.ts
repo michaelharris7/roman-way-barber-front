@@ -24,12 +24,13 @@ export class ForgotPasswordComponent {
   }
 
   submit(value: any) {
-    this.submitted = true;
     this.authService.resetPassword(value.email).subscribe(
         res => {
           setTimeout(() => {
             this.authService.redirectAfterLogin();
           },1000);
+
+          this.submitted = true;
         },
         err => this.afterFailedReset(err)
       );
@@ -37,7 +38,6 @@ export class ForgotPasswordComponent {
 
   afterFailedReset(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
-    this.submitted = false;
 
     for(let attribute in this.forgotPasswordForm.controls) {
       if (parsed_errors[attribute]) {
@@ -46,6 +46,8 @@ export class ForgotPasswordComponent {
       }
     }
     this.forgotPasswordForm.setErrors(parsed_errors);
+
+    this.submitted = false;
   }
 
   resetSubmit() {
