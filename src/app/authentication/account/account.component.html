@@ -55,6 +55,12 @@
                         </div>
                       </div>
 
+                      <div *ngIf="accountFormBasic.errors">
+                        <p class="alert alert-danger" role="alert">
+                          The email address '{{accountFormBasic.controls.email.value}}' already exists on another account. Please enter a different email address.
+                        </p>
+                      </div>
+
                       <button type="button"
                         class="btn btn-outline-secondary btn-lg w-100 mt-4 mb-2"
                         (click)="formBasicSet = false"
@@ -70,7 +76,7 @@
                         Update Account
                       </button>
 
-                      <div *ngIf="submitted && !failedAccount">
+                      <div *ngIf="submitted && !accountFormBasic.errors">
                         {{resetSubmit()}}
                         <p [innerHTML]="resetString"></p>
                       </div>
@@ -91,6 +97,7 @@
                                  id="name"
                                  placeholder="John Doe"
                                  formControlName="name"
+                                 (change)="updateForm()"
                           >
                         </div>
 
@@ -101,6 +108,7 @@
                                  id="email"
                                  placeholder="user@example.com"
                                  formControlName="email"
+                                 (change)="updateForm()"
                           >
                           <control-messages [control]="accountFormPassword.controls.email"></control-messages>
                         </div>
@@ -139,16 +147,10 @@
                         </div>
                       </div>
 
-                      <div *ngIf="failedAccount">
+                      <div *ngIf="accountFormPassword.errors">
                         <p class="alert alert-danger" role="alert">
-                          That email address already exists
+                          The email address '{{accountFormBasic.controls.email.value}}' already exists on another account. Please enter a different email address.
                         </p>
-                      </div>
-                      <div *ngIf="failedAccount && accountForm.touched">
-                        {{resetTouch()}}
-                      </div>
-                      <div *ngIf="accountReset && accountForm.touched">
-                        {{resetfailedAccount()}}
                       </div>
                       <button type="button"
                         class="btn btn-outline-secondary btn-lg w-100 mt-4 mb-2"
@@ -165,7 +167,7 @@
                         Update Account
                       </button>
 
-                      <div *ngIf="submitted && !failedAccount">
+                      <div *ngIf="submitted && !accountFormPassword.errors">
                         {{resetSubmit()}}
                         <p [innerHTML]="resetString"></p>
                       </div>
