@@ -46,6 +46,8 @@ export class LoginComponent {
           setTimeout(() => {
             this.authService.redirectAfterLogin();
           },1000);
+
+          this.submitted = true;
         },
         err => this.afterFailedAdminLogin(err)
       );
