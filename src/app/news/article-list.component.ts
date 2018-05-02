@@ -63,7 +63,7 @@ export class ArticleListComponent implements OnInit {
     return this.authService.isLoggedIn();
   }
 
-  isAdmin() {
+  isAdmin(): boolean {
     return (this.isLoggedIn() && this.userType === 'ADMIN');
   }
 }

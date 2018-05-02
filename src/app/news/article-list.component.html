@@ -52,11 +52,17 @@
                   </a>
                 </span>
 
-                  <span *ngIf="isAdmin()">
-                    <a (click)="deleteArticle(article.id)" class="new-link">
-                      <button class="btn btn-danger new-show-btn mb-3">Delete Article</button>
-                    </a>
-                  </span>
+                <span *ngIf="isLoggedIn()" class="pr-3">
+                  <a (click)="goToShow(article)" class="new-link">
+                    <button class="btn btn-secondary new-show-btn mb-3">Leave Comment</button>
+                  </a>
+                </span>
+
+                <span *ngIf="isAdmin()">
+                  <a (click)="deleteArticle(article.id)" class="new-link">
+                    <button class="btn btn-danger new-show-btn mb-3">Delete Article</button>
+                  </a>
+                </span>
               </div>
             </div>
 
