@@ -4,6 +4,7 @@ import { Angular2TokenService } from 'angular2-token';
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs/Observable';
 
+
 @Component({
   selector: 'auth-links',
   template: `
@@ -33,8 +34,6 @@ import { Observable } from 'rxjs/Observable';
   `,
   styleUrls: ['./auth-links.component.css']
 })
-
-// type="submit"
 
 export class AuthLinksComponent {
   public currentPath: string = "";
