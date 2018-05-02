@@ -3,8 +3,11 @@
   <div class="new-header">
     <div *ngIf="article" class="container">
       <h1>
-        {{ article.title }}
+        The latest news:
       </h1>
+      <h4>
+        News media, recent events, and other fun stuff
+      </h4>
       <p class="mt-3">
         <a routerLink="/news">Back to news articles</a>
       </p>
@@ -16,7 +19,7 @@
       <div class="row">
         <div class="col-md-9 col-sm-7 col-6">
           <div *ngIf="article">
-            <div class="card card-box-shadows py-2 mb-5" [hidden]="!editBtnClicked">
+            <div class="card card-box-shadows py-2 mb-5" *ngIf="isAdmin() && editBtnClicked">
               <div class="container">
                 <form #articleForm="ngForm">
                   <div class="form-group">
@@ -74,6 +77,9 @@
 
 
             <div class="container card card-box-shadows pt-4 pb-1 mb-4">
+              <h2 class="mb-4">
+                {{ article.title }}
+              </h2>
               <p class="new-markdown">
                 <markdown data="{{ article.content }}"></markdown>
               </p>
@@ -82,18 +88,21 @@
               </p>
             </div>
 
-            <div class="container mb-5" [hidden]="editBtnClicked">
-              <span class="pr-3">
-                <a (click)="update(article)" class="new-link">
-                  <button class="btn btn-primary new-show-btn mb-3">Edit</button>
-                </a>
-              </span>
+            <div *ngIf="isAdmin()" class="container mb-5">
+              <div [hidden]="editBtnClicked">
+                <span class="pr-3">
+                  <a (click)="update(article)" class="new-link">
+                    <button class="btn btn-primary new-show-btn mb-3">Edit</button>
+                  </a>
+                </span>
 
-              <span class="pr-3">
-                <a (click)="delete(article)" class="new-link">
-                  <button class="btn btn-danger new-show-btn mb-3">Delete</button>
-                </a>
-              </span>
+                <span *ngIf="isAdmin()" class="pr-3">
+                  <a (click)="delete(article)" class="new-link">
+                    <button class="btn btn-danger new-show-btn mb-3">Delete</button>
+                  </a>
+                </span>
+              </div>
+              <br [hidden]="!editBtnClicked" />
             </div>
 
           </div>

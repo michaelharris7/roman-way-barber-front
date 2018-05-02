@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Http } from '@angular/http';
-// import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { Angular2TokenService } from 'angular2-token';
+import { AuthenticationService } from '../authentication/authentication.service';
 import { ArticleService } from './article.service';
 import { Article } from './article';
 
@@ -10,11 +11,11 @@ import { Article } from './article';
   selector: 'article-show',
   templateUrl: 'article-show.component.html',
   styleUrls: ['article.component.css']
-  // providers: [ ArticleService ]
 })
 
 export class ArticleShowComponent implements OnInit {
   id: number;
+  userType: any;
   routeId: any;
   errorMessage: any;
   returnUrl: string;
@@ -24,6 +25,8 @@ export class ArticleShowComponent implements OnInit {
     private http: Http,
     private route: ActivatedRoute,
     private router: Router,
+    private tokenService: Angular2TokenService,
+    private authService: AuthenticationService,
     private articleService: ArticleService
   ) {}
 
@@ -35,11 +38,12 @@ export class ArticleShowComponent implements OnInit {
       params => {
         this.id = +params['id'];
       }
-    )
+    );
     let articleRequest = this.route.params
         .flatMap((params: Params) =>
           this.articleService.getArticle(+params['id']));
     articleRequest.subscribe(response => this.article = response.json());
+    this.userType = this.tokenService.currentUserType;
   }
 
   update(article: Article) {
@@ -59,5 +63,13 @@ export class ArticleShowComponent implements OnInit {
         this.router.navigate([this.returnUrl]);
       },
         error => this.errorMessage = error);
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  isAdmin() {
+    return (this.isLoggedIn() && this.userType === 'ADMIN');
   }
 }

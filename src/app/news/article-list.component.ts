@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Article } from './article';
 import { Angular2TokenService, UserData } from 'angular2-token';
+import { AuthenticationService } from '../authentication/authentication.service';
 import { ArticleService } from './article.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { ArticleService } from './article.service';
 
 export class ArticleListComponent implements OnInit {
   user: UserData = <UserData>{};
+  userType: string;
   articles: Article[];
   article: Article;
   errorMessage: string;
@@ -21,6 +23,7 @@ export class ArticleListComponent implements OnInit {
 
   constructor(
     private tokenService: Angular2TokenService,
+    private authService: AuthenticationService,
     private articleService: ArticleService,
     private router: Router
   ) {}
@@ -29,6 +32,7 @@ export class ArticleListComponent implements OnInit {
     let timer = Observable.timer(0, 5000);
     timer.subscribe(() => this.getArticles());
     this.user = this.tokenService.currentUserData;
+    this.userType = this.tokenService.currentUserType;
   }
 
   getArticles() {
@@ -55,8 +59,11 @@ export class ArticleListComponent implements OnInit {
     this.router.navigate(link);
   }
 
-  // isAdmin() {
-  //   if (this.user.userType === 'AdminUser')
-  //   return this.user.email
-  // }
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  isAdmin() {
+    return (this.isLoggedIn() && this.userType === 'ADMIN');
+  }
 }
