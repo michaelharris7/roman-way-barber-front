@@ -178,17 +178,44 @@
                     <h3 class="new-sub-heading">
                       Cancel the account?
                     </h3>
-                    <p>
-                      Are you sure you want to cancel your account? Canceling the account will perminantly delete your account information.
-                    </p>
-                    <button type="button"
-                      class="btn btn-danger btn-lg w-100 mt-2"
-                      (click)="cancelAccount()"
-                    >
-                      Cancel Account
-                    </button>
+
+                    <div [hidden]="deleteConfirm">
+                      <p>
+                        Are you sure you want to cancel your account? Canceling the account will perminantly delete your account information.
+                      </p>
+                      <button type="button"
+                        class="btn btn-danger btn-lg w-100 mt-2"
+                        (click)="deleteConfirm = true"
+                      >
+                        Cancel Account
+                      </button>
+                    </div>
+
+                    <div [hidden]="!deleteConfirm">
+                      <p class="mt-2 text-danger">
+                        Are you sure you want to cancel your account? Your account information will be perminantly deleted if you cancel it.
+                      </p>
+                      <button type="buttn"
+                        class="btn btn-danger btn-lg mx-2"
+                        (click)="cancelAccount()"
+                      >
+                        Yes
+                      </button>
+                      <button type="buttn"
+                        class="btn btn-primary btn-lg mx-2"
+                        (click)="deleteConfirm = false"
+                      >
+                        No
+                      </button>
+                      <div *ngIf="deleteConfirmed">
+                        <p class='alert alert-success mt-4' role='alert'>
+                          Account deleted successfully. Redirecting to home page.
+                        </p>
+                      </div>
+                    </div>
+
                     <div class="corner-bottom-right">
-                      <a (click)="logOut()" *ngIf="isLoggedIn()">Logout</a>
+                      <a (click)="logOut()" *ngIf="isLoggedIn() && !deleteConfirmed">Logout</a>
                     </div>
                   </div>
                 </div>

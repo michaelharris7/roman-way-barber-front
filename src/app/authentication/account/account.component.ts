@@ -17,6 +17,8 @@ export class AccountComponent implements OnInit {
   accountFormPassword: FormGroup;
   resetString: string;
   formBasicSet: boolean = true;
+  deleteConfirm: boolean = false;
+  deleteConfirmed: boolean = false;
 
   constructor(
     private tokenService: Angular2TokenService,
@@ -124,7 +126,7 @@ export class AccountComponent implements OnInit {
 
   resetSubmit() {
     setTimeout(() => {
-      this.resetString = "<p class='alert alert-success mt-4' role='alert'>Account updated successfully.</p>";
+      this.resetString = "<p class='alert alert-success mt-4' role='alert'>Account updated successfully. Redirecting to homepage.</p>";
     });
   }
 
@@ -146,9 +148,15 @@ export class AccountComponent implements OnInit {
   cancelAccount() {
     this.authService.deleteAccount()
     .subscribe(
-      res => this.authService.redirectAfterLogin(),
+      res => {
+        this.deleteConfirmed = true;
+        setTimeout(() => {
+          this.authService.redirectAfterLogin();
+        },1000);
+      },
       err => {
         console.log("Error deleting account");
+        this.deleteConfirm = false;
         return Observable.throw(err);
       }
     );
