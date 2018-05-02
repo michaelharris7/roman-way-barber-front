@@ -111,7 +111,13 @@ export class AuthenticationService {
 
   updateUserData(data): Observable<Response> {
     let body = JSON.stringify(data);
-    return this.tokenService.put('auth', body);
+    let userType = this.tokenService.currentUserType;
+
+    if(userType === 'ADMIN') {
+      return this.tokenService.put('admin_auth', body);
+    } else {
+      return this.tokenService.put('auth', body);
+    }
   }
 
   updatePassword(data): Observable<Response> {
