@@ -89,11 +89,11 @@ export class ArticleService {
   }
 
 
+  // General data extraction
   private extractData(res: Response) {
       let body = res.json();
       return body || {};
   }
-
   private handleError (error: any): Promise<any> {
     console.error('An error occured ', error);
     return Promise.reject(error.message || error);
