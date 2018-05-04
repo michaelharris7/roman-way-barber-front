@@ -36,6 +36,9 @@ export class RegisterComponent {
         validator: ValidationService.passwordMatch
       })
   }
+
+
+  //Register functions
   submit(value: any) {
     if(!value.name) {
       value.name = 'Anonymous';
@@ -93,15 +96,7 @@ export class RegisterComponent {
         this.articleService.createCommentUser(this.commentUser).subscribe(
           res => {
             console.log('Comment User created successfully');
-            this.articleService.getCommentUsers().subscribe(
-              commentUsers => {
-                this.commentUsers = commentUsers;
-                for(let commentUser of this.commentUsers) {
-                  console.log(commentUser);
-                }
-              },
-              err => console.log(err)
-            );
+            console.log(this.commentUser);
           },
           err => console.log(err)
           );

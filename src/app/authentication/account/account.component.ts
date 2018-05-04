@@ -184,16 +184,6 @@ export class AccountComponent implements OnInit {
         .subscribe(
           res => {
             console.log('Comment User updated successfully');
-            // this.articleService.getCommentUsers().subscribe(
-            //   commentUsers => {
-            //     this.commentUsers = commentUsers;
-            //     for(let commentUser of this.commentUsers) {
-            //       console.log(commentUser);
-            //     }
-            //   },
-            //   err => console.log(err)
-            //   );
-            // return true;
             console.log(this.commentUser);
           },
           err => {
