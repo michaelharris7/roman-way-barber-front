@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Article } from './article';
@@ -20,6 +20,7 @@ export class ArticleListComponent implements OnInit {
   article: Article;
   errorMessage: string;
   mode = "Observable";
+  private timerStopper;
 
   constructor(
     private tokenService: Angular2TokenService,
@@ -30,9 +31,13 @@ export class ArticleListComponent implements OnInit {
 
   ngOnInit() {
     let timer = Observable.timer(0, 5000);
-    timer.subscribe(() => this.getArticles());
+    this.timerStopper = timer.subscribe(() => this.getArticles());
     this.user = this.tokenService.currentUserData;
     this.userType = this.tokenService.currentUserType;
+  }
+
+  ngOnDestroy() {
+    this.timerStopper.unsubscribe();
   }
 
   getArticles() {
