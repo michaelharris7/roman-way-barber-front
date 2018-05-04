@@ -104,14 +104,14 @@ export class AccountComponent implements OnInit {
             res => {
               this.userData = this.tokenService.currentUserData;
               this.userType = this.tokenService.currentUserType;
-              this.getCommentUsers();
+              this.getUpdateCommentUser();
             },
             err => this.afterFailedUpdate()
           );
         }
         this.userData = this.tokenService.currentUserData;
         this.userType = this.tokenService.currentUserType;
-        this.getCommentUsers();
+        this.getUpdateCommentUser();
 
         this.submitted = true;
       },
@@ -147,14 +147,17 @@ export class AccountComponent implements OnInit {
       }
     );
   }
-  cancelAccount() {
+  deleteAccount() {
+    this.userData = this.tokenService.currentUserData;
+    this.userType = this.tokenService.currentUserType;
+    this.getDeleteCommentUser();
+  }
+  deleteAccountData() {
     this.authService.deleteAccount()
     .subscribe(
       res => {
         this.deleteConfirmed = true;
-        setTimeout(() => {
-          this.authService.redirectAfterLogin();
-        },1000);
+        this.redirectAfterLogin();
       },
       err => {
         console.log("Error deleting account");
@@ -195,13 +198,37 @@ export class AccountComponent implements OnInit {
       this.redirectAfterLogin();
     }
   }
+  deleteCommentUser() {
+    if(this.commentUsers) {
+      if(this.findCommentUserId(this.userData.id, this.userType))
+      {
+        let commentUser:CommentUser;
+        this.commentUser.id = this.findCommentUserId(this.userData.id, this.userType);
+        this.commentUser.user_id = this.userData.id;
+        this.commentUser.user_type = this.userType;
+        this.commentUser.user_name = this.userData.name;
+        console.log('8');
+        this.articleService.deleteCommentUser(this.commentUser.id).subscribe(
+          res => {
+            console.log('Comment User deleted successfully');
+            console.log(this.commentUser);
+            this.deleteAccountData();
+          },
+          err => {
+            console.log(err);
+            return Observable.throw(err);
+          }
+        );
+      }
+    }
+  }
   findCommentUserId(user_id:number, user_type:string):number {
     for(let commentUser of this.commentUsers) {
       if((commentUser.user_id === user_id) && (commentUser.user_type === user_type))
         return commentUser.id;
     }
   }
-  getCommentUsers() {
+  getUpdateCommentUser() {
     this.articleService.getCommentUsers()
     .subscribe(
       commentUsers => {
@@ -209,6 +236,19 @@ export class AccountComponent implements OnInit {
 
         if(this.commentUsers)
           this.updateCommentUser();
+      },
+      err => console.log(err)
+    );
+  }
+  getDeleteCommentUser() {
+    this.articleService.getCommentUsers()
+    .subscribe(
+      commentUsers =>
+      {
+        console.log(commentUsers);
+        this.commentUsers = commentUsers;
+        if(this.commentUsers)
+          this.deleteCommentUser();
       },
       err => console.log(err)
     );
