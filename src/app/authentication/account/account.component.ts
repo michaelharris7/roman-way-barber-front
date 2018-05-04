@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Angular2TokenService, UserData } from 'angular2-token';
+import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidationService } from '../validation.service';
 import { AuthenticationService } from '../authentication.service';
-import { Observable } from 'rxjs/Observable';
+import { ArticleService } from '../../news/article.service';
+import { Angular2TokenService, UserData } from 'angular2-token';
+import { CommentUser } from '../../news/comment-user';
 
 
 @Component({
@@ -12,6 +14,9 @@ import { Observable } from 'rxjs/Observable';
 
 export class AccountComponent implements OnInit {
   userData: UserData = <UserData>{};
+  userType: string;
+  commentUser: CommentUser = <CommentUser>{};
+  commentUsers: CommentUser[];
   submitted: boolean = false;
   accountFormBasic: FormGroup;
   accountFormPassword: FormGroup;
@@ -21,6 +26,7 @@ export class AccountComponent implements OnInit {
   deleteConfirmed: boolean = false;
 
   constructor(
+    private articleService: ArticleService,
     private tokenService: Angular2TokenService,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
@@ -53,6 +59,8 @@ export class AccountComponent implements OnInit {
       err => console.log(err));
   }
 
+
+  //Form functions
   createForm() {
     this.accountFormBasic = this.fb.group({
         name: [this.userData.name],
@@ -68,7 +76,6 @@ export class AccountComponent implements OnInit {
         validator: ValidationService.passwordMatch
       });
   }
-
   updateForm() {
     if(this.formBasicSet) {
       this.accountFormPassword.controls.name = this.accountFormBasic.controls.name;
@@ -79,6 +86,8 @@ export class AccountComponent implements OnInit {
     }
   }
 
+
+  //Account functions
   submit(value: any) {
   this.authService.updateUserData(value)
     .subscribe(
@@ -89,22 +98,20 @@ export class AccountComponent implements OnInit {
         if (value.email != this.tokenService.currentUserData.email) {
           this.tokenService.currentUserData.email = value.email;
         }
-
         if(!this.formBasicSet) {
           this.authService.updatePassword(value)
           .subscribe(
             res => {
-              setTimeout(() => {
-                this.authService.redirectAfterLogin();
-              },1000);
+              this.userData = this.tokenService.currentUserData;
+              this.userType = this.tokenService.currentUserType;
+              this.getCommentUsers();
             },
             err => this.afterFailedUpdate()
           );
         }
-
-        setTimeout(() => {
-          this.authService.redirectAfterLogin();
-        },1000);
+        this.userData = this.tokenService.currentUserData;
+        this.userType = this.tokenService.currentUserType;
+        this.getCommentUsers();
 
         this.submitted = true;
       },
@@ -112,7 +119,6 @@ export class AccountComponent implements OnInit {
       err => this.afterFailedUpdate()
     );
   }
-
   afterFailedUpdate() {
     if(this.formBasicSet) {
       this.accountFormBasic.controls.email.setErrors({'notUnique': true});
@@ -123,17 +129,14 @@ export class AccountComponent implements OnInit {
     }
     this.submitted = false;
   }
-
   resetSubmit() {
     setTimeout(() => {
       this.resetString = "<p class='alert alert-success mt-4' role='alert'>Account updated successfully. Redirecting to homepage.</p>";
     });
   }
-
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
-
   logOut() {
     this.authService.logOut()
     .subscribe(
@@ -144,7 +147,6 @@ export class AccountComponent implements OnInit {
       }
     );
   }
-
   cancelAccount() {
     this.authService.deleteAccount()
     .subscribe(
@@ -159,6 +161,66 @@ export class AccountComponent implements OnInit {
         this.deleteConfirm = false;
         return Observable.throw(err);
       }
+    );
+  }
+  redirectAfterLogin() {
+    setTimeout(() => {
+      this.authService.redirectAfterLogin();
+    },1000);
+  }
+
+
+  //CommentUser functions
+  updateCommentUser() {
+    if(this.commentUsers) {
+      if(this.findCommentUserId(this.userData.id, this.userType))
+      {
+        let commentUser:CommentUser;
+        this.commentUser.id = this.findCommentUserId(this.userData.id, this.userType);
+        this.commentUser.user_id = this.userData.id;
+        this.commentUser.user_type = this.userType;
+        this.commentUser.user_name = this.userData.name;
+        this.articleService.updateCommentUser(this.commentUser)
+        .subscribe(
+          res => {
+            console.log('Comment User updated successfully');
+            // this.articleService.getCommentUsers().subscribe(
+            //   commentUsers => {
+            //     this.commentUsers = commentUsers;
+            //     for(let commentUser of this.commentUsers) {
+            //       console.log(commentUser);
+            //     }
+            //   },
+            //   err => console.log(err)
+            //   );
+            // return true;
+            console.log(this.commentUser);
+          },
+          err => {
+            console.log(err);
+            return Observable.throw(err);
+          }
+        );
+      }
+      this.redirectAfterLogin();
+    }
+  }
+  findCommentUserId(user_id:number, user_type:string):number {
+    for(let commentUser of this.commentUsers) {
+      if((commentUser.user_id === user_id) && (commentUser.user_type === user_type))
+        return commentUser.id;
+    }
+  }
+  getCommentUsers() {
+    this.articleService.getCommentUsers()
+    .subscribe(
+      commentUsers => {
+        this.commentUsers = commentUsers;
+
+        if(this.commentUsers)
+          this.updateCommentUser();
+      },
+      err => console.log(err)
     );
   }
 }
