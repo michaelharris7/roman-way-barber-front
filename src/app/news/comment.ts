@@ -1,3 +1,6 @@
+// import { CommentUser } from './comment-user';
+// import { Article } from './article';
+
 export class Comment {
   constructor(
     public id?: number,

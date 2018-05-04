@@ -48,7 +48,7 @@
 
                 <span class="pr-3">
                   <a (click)="goToShow(article)" class="new-link">
-                    <button class="btn btn-secondary new-show-btn mb-3">See Comments</button>
+                    <button class="btn btn-primary new-show-btn mb-3">See Comments</button>
                   </a>
                 </span>
 
@@ -73,7 +73,7 @@
           <div class="container">
             <div class="new-sidebar card-box-shadows pt-4">
               <p *ngIf="!isLoggedIn()">
-                <a routerLink="/login" routerLinkActive="active">Login</a> or <a routerLink="/register" routerLinkActive="active">register</a> to comment on news posts.
+                <a routerLink="/login">Login</a> or <a routerLink="/register">register</a> to comment on news posts.
               </p>
             </div>
           </div>

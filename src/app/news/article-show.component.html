@@ -65,7 +65,7 @@
                   </div>
 
                   <button type="submit"
-                    (click)="update(article)"
+                    (click)="updateArticle(article)"
                     class="btn btn-outline-primary btn-lg w-100 mt-4 mb-3"
                     [disabled]="!articleForm.form.valid"
                   >
@@ -88,22 +88,79 @@
               </p>
             </div>
 
-            <div *ngIf="isAdmin()" class="container mb-5">
-              <div [hidden]="editBtnClicked">
-                <span class="pr-3">
-                  <a (click)="update(article)" class="new-link">
-                    <button class="btn btn-primary new-show-btn mb-3">Edit</button>
-                  </a>
-                </span>
 
-                <span *ngIf="isAdmin()" class="pr-3">
-                  <a (click)="delete(article)" class="new-link">
-                    <button class="btn btn-danger new-show-btn mb-3">Delete</button>
-                  </a>
-                </span>
+            <div class="card card-box-shadows py-2 mb-5" *ngIf="createCommentClicked">
+              <div class="container">
+                <form (ngSubmit)="createComment(comment); commentForm.reset()" #commentForm="ngForm">
+                  <div class="form-group">
+                    <label for="content">Comment</label>
+                    <div [hidden]="content.valid || content.pristine" class='alert alert-danger'>
+                      Content is required
+                    </div>
+                    <textarea rows="10"
+                              class="form-control"
+                              id="content"
+                              placeholder="Comment content"
+                              required
+                              name="content"
+                              #content='ngModel'
+                              [(ngModel)]="comment.content"
+                    ></textarea>
+                  </div>
+
+                  <button type="submit"
+                    (click)="updateComment(comment)"
+                    class="btn btn-outline-primary btn-lg w-100 mt-4 mb-3"
+                    [disabled]="!commentForm.form.valid"
+                  >
+                    Leave Comment
+                  </button>
+                </form>
               </div>
-              <br [hidden]="!editBtnClicked" />
             </div>
+
+            <div class="container mb-5">
+              <span *ngIf="isLoggedIn() && !createCommentClicked" class="pr-3">
+                <a (click)="showCommentForm()" class="new-link">
+                  <button class="btn btn-primary new-show-btn mb-3">Leave Comment</button>
+                </a>
+              </span>
+
+              <span *ngIf="isAdmin()">
+                <span [hidden]="editBtnClicked">
+                  <span class="pr-3">
+                    <a (click)="updateArticle(article)" class="new-link">
+                      <button class="btn btn-primary new-show-btn mb-3">Edit</button>
+                    </a>
+                  </span>
+
+                  <span *ngIf="isAdmin()" class="pr-3">
+                    <a (click)="deleteArticle(article)" class="new-link">
+                      <button class="btn btn-danger new-show-btn mb-3">Delete</button>
+                    </a>
+                  </span>
+                </span>
+                <br [hidden]="!editBtnClicked" />
+              </span>
+
+            </div>
+
+            {{commentUsers}}
+
+
+            <div *ngIf="comments">
+              <div *ngFor="let comment of comments; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'comment_' + comment.id">
+                <div class="container new-post">
+                  <p class="new-markdown">
+                    <markdown data="{{ comment.content }}"></markdown>
+                  </p>
+                  <p>
+                    <small>Last Updated by: {{comment.user_name}} on: {{comment.updated_at | date:'medium'}}</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+
 
           </div>
         </div>
@@ -111,8 +168,8 @@
         <div class="col-md-3 col-sm-5 col-6">
           <div class="container">
             <div class="new-sidebar card-box-shadows pt-4">
-              <p>
-                <a routerLink="/login" routerLinkActive="active">Login</a> or <a routerLink="/register" routerLinkActive="active">register</a> to comment on news posts.
+              <p *ngIf="!isLoggedIn()">
+                <a routerLink="/login">Login</a> or <a routerLink="/register">register</a> to comment on news posts.
               </p>
             </div>
           </div>

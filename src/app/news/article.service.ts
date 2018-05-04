@@ -4,8 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { Article } from './article';
-import { Comment } from './comment';
 import { CommentUser } from './comment-user';
+import { Comment } from './comment';
 
 
 @Injectable()
@@ -13,8 +13,8 @@ export class ArticleService {
   headers: Headers;
   options: RequestOptions;
   private articlesUrl = 'http://localhost:3001/articles';
-  private commentsUrl = 'http://localhost:3001/comments';
   private commentUsersUrl = 'http://localhost:3001/comment_users';
+  private commentsUrl = 'http://localhost:3001/comments';
 
   constructor(
     private http: Http,
@@ -22,6 +22,7 @@ export class ArticleService {
     this.headers = new Headers({ 'Content-Type': 'application/json' });
     this.options = new RequestOptions({ headers: this.headers });
   }
+
 
   // Article functions
   getArticles(): Observable<Article[]> {
@@ -37,17 +38,17 @@ export class ArticleService {
       this.options).map(this.extractData)
           .catch(this.handleError);
   }
-  deleteArticle(id: number): Observable<Article> {
-    const url = `${this.articlesUrl}/${id}`;
-    return this.http.delete(url, this.options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
   updateArticle(article: Article): Observable<Article> {
     const url = `${this.articlesUrl}/${article.id}`;
     return this.http.put(url, JSON.stringify(article),
       this.options).map((this.extractData))
           .catch(this.handleError);
+  }
+  deleteArticle(id: number): Observable<Article> {
+    const url = `${this.articlesUrl}/${id}`;
+    return this.http.delete(url, this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
 
@@ -60,9 +61,15 @@ export class ArticleService {
   getCommentUser(id: number) {
     return this.http.get(this.commentUsersUrl + "/" + id + ".json");
   }
-  createCommentUser(commentUser:CommentUser): Observable<CommentUser> {
+  createCommentUser(commentUser: CommentUser): Observable<CommentUser> {
     return this.http.post(this.commentUsersUrl, JSON.stringify(commentUser),
       this.options).map(this.extractData)
+          .catch(this.handleError);
+  }
+  updateCommentUser(commentUser: CommentUser): Observable<CommentUser> {
+    const url = `${this.commentUsersUrl}/${commentUser.id}`;
+    return this.http.put(url, JSON.stringify(commentUser),
+      this.options).map((this.extractData))
           .catch(this.handleError);
   }
   deleteCommentUser(id: number): Observable<CommentUser> {
@@ -71,21 +78,25 @@ export class ArticleService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-  updateCommentUser(commentUser: CommentUser): Observable<CommentUser> {
-    const url = `${this.commentUsersUrl}/${commentUser.id}`;
-    return this.http.put(url, JSON.stringify(commentUser),
-      this.options).map((this.extractData))
-          .catch(this.handleError);
-  }
 
 
   // Comment functions
-  createComment(commentUserId:number, articleId:number, comment:Comment): Observable<Comment> {
-    comment.comment_user_id = commentUserId;
-    comment.article_id = articleId;
+  createComment(comment: Comment): Observable<Comment> {
     return this.http.post(this.commentsUrl, JSON.stringify(comment),
       this.options).map(this.extractData)
           .catch(this.handleError);
+  }
+  updateComment(comment: Comment): Observable<Comment> {
+    const url = `${this.commentsUrl}/${comment.id}`;
+    return this.http.put(url, JSON.stringify(comment),
+      this.options).map((this.extractData))
+          .catch(this.handleError);
+  }
+  deleteComment(id: number): Observable<Comment> {
+    const url = `${this.commentsUrl}/${id}`;
+    return this.http.delete(url, this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
 
