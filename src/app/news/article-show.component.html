@@ -149,14 +149,14 @@
 
 
             <div *ngIf="comments">
-              <div *ngFor="let comment of comments; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'comment_' + comment.id">
-                <div class="container new-post">
+              <div *ngFor="let comment of comments">
+                <div class="container new-comment">
                   <p class="new-markdown">
                     <markdown data="{{ comment.content }}"></markdown>
                   </p>
-                  <p>
-                    <small>Last Updated by: {{comment.user_name}} on: {{comment.updated_at | date:'medium'}}</small>
-                  </p>
+                  <div>
+                    <small><em>Comment posted by <strong>{{comment.comment_user.user_name}}</strong> {{comment.article.updated_at | timeAgo }}.</em></small>
+                  </div>
                 </div>
               </div>
             </div>

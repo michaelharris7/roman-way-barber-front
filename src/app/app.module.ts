@@ -30,6 +30,7 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 
 
 import { TruncatePipe } from './app.pipe';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { Angular2TokenService } from 'angular2-token';
 import { AuthenticationService } from './authentication/authentication.service';
@@ -69,7 +70,8 @@ import { ArticleService } from './news/article.service';
     ArticleShowComponent,
     TestimonialsComponent,
 
-    TruncatePipe
+    TruncatePipe,
+    TimeAgoPipe
   ],
   providers: [
     Angular2TokenService,

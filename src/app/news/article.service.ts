@@ -81,6 +81,11 @@ export class ArticleService {
 
 
   // Comment functions
+  getComments(): Observable<Article[]> {
+    return this.http.get(this.commentsUrl)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
   createComment(comment: Comment): Observable<Comment> {
     return this.http.post(this.commentsUrl, JSON.stringify(comment),
       this.options).map(this.extractData)

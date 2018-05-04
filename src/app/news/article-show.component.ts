@@ -22,12 +22,14 @@ export class ArticleShowComponent implements OnInit {
   userData: UserData = <UserData>{};
   commentUser: CommentUser = <CommentUser>{};
   commentUsers: CommentUser[];
+  comments: Comment[];
   comment = new Comment;
   routeId: any;
   errorMessage: any;
   returnUrl: string;
   editBtnClicked: boolean = false;
   createCommentClicked: boolean = false;
+  private timerStopper;
   // commentSubmitted: boolean = false;
 
   constructor(
@@ -41,7 +43,10 @@ export class ArticleShowComponent implements OnInit {
 
   @Input() article: Article;
 
+
   ngOnInit() {
+    let timer = Observable.timer(0, 5000);
+    this.timerStopper = timer.subscribe(() => this.getComments());
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/news';
     this.routeId = this.route.params.subscribe(
       params => {
@@ -52,6 +57,9 @@ export class ArticleShowComponent implements OnInit {
         .flatMap((params: Params) =>
           this.articleService.getArticle(+params['id']));
     articleRequest.subscribe(response => this.article = response.json());
+  }
+  ngOnDestroy() {
+    this.timerStopper.unsubscribe();
   }
 
 
@@ -108,6 +116,16 @@ export class ArticleShowComponent implements OnInit {
 
 
   //Comment Functions
+  getComments() {
+    this.articleService.getComments()
+    .subscribe(
+      comments => this.comments = comments,
+      error => {
+        this.errorMessage = <any>error;
+        console.log(error);
+      }
+    );
+  }
   showCommentForm() {
     this.createCommentClicked = !this.createCommentClicked;
     this.getCommentUsers();
