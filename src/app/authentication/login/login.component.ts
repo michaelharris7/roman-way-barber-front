@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidationService } from '../validation.service';
 import { AuthenticationService } from '../authentication.service';
@@ -83,6 +82,11 @@ export class LoginComponent {
       this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account logged in successfully. Redirecting to homepage.</p>";
     });
   }
+  redirectAfterLogin() {
+    setTimeout(() => {
+      this.authService.redirectAfterLogin();
+    },1000);
+  }
 
 
   //CommentUser functions
@@ -109,9 +113,7 @@ export class LoginComponent {
           err => console.log(err)
           );
       }
-      setTimeout(() => {
-        this.authService.redirectAfterLogin();
-      },1000);
+      this.redirectAfterLogin();
     }
   }
   searchCommentUser(user_id:number, user_type:string):boolean {
