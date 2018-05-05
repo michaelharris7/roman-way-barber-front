@@ -23,14 +23,15 @@ export class ArticleShowComponent implements OnInit {
   commentUser: CommentUser = <CommentUser>{};
   commentUsers: CommentUser[];
   comments: Comment[];
-  comment = new Comment;
+  newComment = new Comment;
+  oldComment: Comment = <Comment>{};
   routeId: any;
   errorMessage: any;
   returnUrl: string;
   editBtnClicked: boolean = false;
   createCommentClicked: boolean = false;
+  commentUserLoaded: boolean = false;
   private timerStopper;
-  // commentSubmitted: boolean = false;
 
   constructor(
     private http: Http,
@@ -45,6 +46,16 @@ export class ArticleShowComponent implements OnInit {
 
 
   ngOnInit() {
+    this.oldComment.id = 0;
+    if(this.isLoggedIn()) {
+      this.tokenService.validateToken().subscribe(
+        res => {
+          this.userData = this.tokenService.currentUserData;
+          this.getCommentUsers();
+        },
+        err => console.log(err));
+      this.userType = this.tokenService.currentUserType;
+    }
     let timer = Observable.timer(0, 5000);
     this.timerStopper = timer.subscribe(() => this.getComments());
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/news';
@@ -100,8 +111,7 @@ export class ArticleShowComponent implements OnInit {
     );
   }
   getCommentUsers() {
-    this.userData = this.tokenService.currentUserData;
-    this.userType = this.tokenService.currentUserType;
+    // this.userData = this.tokenService.currentUserData;
     this.articleService.getCommentUsers()
     .subscribe(
       commentUsers => {
@@ -127,7 +137,7 @@ export class ArticleShowComponent implements OnInit {
     );
   }
   showCommentForm() {
-    this.createCommentClicked = !this.createCommentClicked;
+    // this.createCommentClicked = !this.createCommentClicked;
     this.getCommentUsers();
   }
   createComment(comment) {
@@ -136,23 +146,30 @@ export class ArticleShowComponent implements OnInit {
     comment.article_id = this.article.id;
     this.articleService.createComment(comment)
     .subscribe(
-      res => { console.log(res);
-      return true; },
+      res => {
+        console.log(res);
+        this.getComments();
+      },
       err => {
         console.log(err);
         return Observable.throw(err);
       }
     );
   }
+  editComment(comment: Comment) {
+    this.oldComment = comment;
+    this.newComment = comment;
+  }
   updateComment(comment: Comment) {
-    // this.editBtnClicked = !this.editBtnClicked;
-    // this.articleService.updateComment(comment)
-    //   .subscribe(data => {
-    //     return true
-    //   }, error => {
-    //     console.log('Error edditing Article');
-    //     return Observable.throw(error);
-    //   })
+    if((this.oldComment.id !== 0) && (this.oldComment.id === comment.id))
+    {
+      console.log(this.oldComment.id);
+      console.log(comment.id);
+      console.log('Update Comment');
+      this.oldComment.id = 0;
+    } else {
+      this.createComment(comment);
+    }
   }
   deleteComment(comment: Comment) {
     // this.articleService.deleteComment(this.comment.id)

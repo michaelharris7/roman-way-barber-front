@@ -17,7 +17,7 @@
   <div class="new-main">
     <div class="container">
       <div class="row">
-        <div class="col-md-9 col-sm-7 col-6">
+        <div class="col-md-9 col-sm-7 col-6 mb-5">
           <div *ngIf="article">
             <div class="card card-box-shadows py-2 mb-5" *ngIf="isAdmin() && editBtnClicked">
               <div class="container">
@@ -86,82 +86,78 @@
               <p>
                 {{ article.ref_source_url }}
               </p>
+
+              <div class="d-flex justify-content-end">
+                <span *ngIf="isAdmin()">
+                  <span [hidden]="editBtnClicked">
+                    <span class="pr-3">
+                      <a (click)="updateArticle(article)" class="new-link">
+                        <button class="btn btn-primary new-show-btn mb-3">Edit</button>
+                      </a>
+                    </span>
+
+                    <span *ngIf="isAdmin()" class="pr-3">
+                      <a (click)="deleteArticle(article)" class="new-link">
+                        <button class="btn btn-danger new-show-btn mb-3">Delete</button>
+                      </a>
+                    </span>
+                  </span>
+                  <br [hidden]="!editBtnClicked" />
+                </span>
+              </div>
             </div>
 
-
-            <div class="card card-box-shadows py-2 mb-5" *ngIf="createCommentClicked">
+            <div class="card card-box-shadows py-2 mb-3">
               <div class="container">
-                <form (ngSubmit)="createComment(comment); commentForm.reset()" #commentForm="ngForm">
+                <form (ngSubmit)="updateComment(newComment); commentForm.reset()" #commentForm="ngForm">
                   <div class="form-group">
-                    <label for="content">Comment</label>
-                    <div [hidden]="content.valid || content.pristine" class='alert alert-danger'>
+                    <label for="content">Leave a comment?</label>
+<!--                     <div [hidden]="content.valid || content.pristine" class='alert alert-danger'>
                       Content is required
-                    </div>
-                    <textarea rows="10"
+                    </div> -->
+                    <textarea rows="4"
                               class="form-control"
                               id="content"
                               placeholder="Comment content"
                               required
                               name="content"
                               #content='ngModel'
-                              [(ngModel)]="comment.content"
+                              [(ngModel)]="newComment.content"
                     ></textarea>
                   </div>
 
                   <button type="submit"
-                    (click)="updateComment(comment)"
-                    class="btn btn-outline-primary btn-lg w-100 mt-4 mb-3"
+                    class="btn btn-primary mb-3"
                     [disabled]="!commentForm.form.valid"
                   >
-                    Leave Comment
+                    Post Comment
                   </button>
                 </form>
               </div>
             </div>
 
-            <div class="container mb-5">
-              <span *ngIf="isLoggedIn() && !createCommentClicked" class="pr-3">
-                <a (click)="showCommentForm()" class="new-link">
-                  <button class="btn btn-primary new-show-btn mb-3">Leave Comment</button>
-                </a>
-              </span>
-
-              <span *ngIf="isAdmin()">
-                <span [hidden]="editBtnClicked">
-                  <span class="pr-3">
-                    <a (click)="updateArticle(article)" class="new-link">
-                      <button class="btn btn-primary new-show-btn mb-3">Edit</button>
-                    </a>
-                  </span>
-
-                  <span *ngIf="isAdmin()" class="pr-3">
-                    <a (click)="deleteArticle(article)" class="new-link">
-                      <button class="btn btn-danger new-show-btn mb-3">Delete</button>
-                    </a>
-                  </span>
-                </span>
-                <br [hidden]="!editBtnClicked" />
-              </span>
-
-            </div>
-
-            {{commentUsers}}
-
+            {{oldComment.id}}
 
             <div *ngIf="comments">
               <div *ngFor="let comment of comments">
                 <div class="container new-comment">
-                  <p class="new-markdown">
+                  <p class="new-markdown ml-3">
                     <markdown data="{{ comment.content }}"></markdown>
                   </p>
-                  <div>
+                  <div class="ml-4 pl-2">
                     <small><em>Comment posted by <strong>{{comment.comment_user.user_name}}</strong> {{comment.article.updated_at | timeAgo }}.</em></small>
+                  </div>
+
+                  <div *ngIf="commentUser.id === comment.comment_user.id" class="ml-4 pt-3">
+                    <hr>
+                    <a (click)="editComment(comment)">
+                      <button class="btn btn-primary btn-sm mr-2">Edit</button>
+                    </a>
+                    <button class="btn btn-danger btn-sm">Delete</button>
                   </div>
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
 
