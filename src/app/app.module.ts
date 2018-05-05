@@ -37,6 +37,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Angular2TokenService } from 'angular2-token';
 import { AuthenticationService } from './authentication/authentication.service';
 import { ArticleService } from './news/article.service';
+import { TestimonialService } from './testimonials/testimonial.service';
 
 
 
@@ -81,7 +82,8 @@ import { ArticleService } from './news/article.service';
   providers: [
     Angular2TokenService,
     AuthenticationService,
-    ArticleService
+    ArticleService,
+    TestimonialService
   ],
   bootstrap: [
     AppComponent
