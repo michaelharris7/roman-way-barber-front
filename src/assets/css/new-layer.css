@@ -177,3 +177,20 @@
   text-shadow: none;
   color: black;
 }
+
+
+.pagination-bottom {
+  margin-top: 20px;
+  border-top: 1px solid #b5cad9;
+  background: linear-gradient(#f6f6ff, #fafaff);
+  padding-top: 20px;
+}
+.pagination-top {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #b5cad9;
+  background: linear-gradient(#fafaff, #f6f6ff);
+  padding-bottom: 20px;
+}
+pagination-controls {
+  text-align: center;
+}

@@ -22,7 +22,20 @@
         <div class="col-md-9 col-sm-7 col-6">
           <div class="container pb-5">
 
-            <div *ngFor="let article of articles; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
+            <pagination-controls id="paginate"
+                      (pageChange)="p = $event"
+                      maxSize="9"
+                      directionLinks="true"
+                      autoHide="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+            <div class="pagination-bottom"></div>
+
+            <div *ngFor="let article of articles | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
               <div class="container new-post">
                 <a pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
                   <h3 class="py-3 new-title">
@@ -51,6 +64,21 @@
                 </span>
               </div>
             </div>
+
+            <div class="pagination-top"></div>
+            <pagination-controls id="paginate"
+                      (pageChange)="p = $event"
+                      maxSize="9"
+                      directionLinks="true"
+                      autoHide="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+
+            <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
 
           </div>
         </div>

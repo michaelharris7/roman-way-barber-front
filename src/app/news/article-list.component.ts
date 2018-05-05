@@ -6,6 +6,7 @@ import { FeaturedArticle } from './featured-article';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { ArticleService } from './article.service';
+import { OrderPipe } from 'ngx-order-pipe';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class ArticleListComponent implements OnInit {
   errorMessage: string;
   mode = "Observable";
   private timerStopper;
-  articleShow: string;
+  order: string = 'updated_at';
+  paginationTotal: number;
 
   constructor(
     private tokenService: Angular2TokenService,
@@ -55,7 +57,10 @@ export class ArticleListComponent implements OnInit {
   getArticles() {
     this.articleService.getArticles()
         .subscribe(
-          articles => this.articles = articles,
+          articles => {
+            this.articles = articles;
+            this.paginationTotal = this.articles.length+1;
+          },
           error => this.errorMessage = <any>error
         );
   }

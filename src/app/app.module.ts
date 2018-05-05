@@ -32,6 +32,7 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { TruncatePipe } from './app.pipe';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { OrderModule } from 'ngx-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { Angular2TokenService } from 'angular2-token';
 import { AuthenticationService } from './authentication/authentication.service';
@@ -54,7 +55,8 @@ import { ArticleService } from './news/article.service';
     AppRoutingModule,
     AuthRoutingModule,
 
-    OrderModule
+    OrderModule,
+    NgxPaginationModule
   ],
   declarations: [
     AppComponent,
