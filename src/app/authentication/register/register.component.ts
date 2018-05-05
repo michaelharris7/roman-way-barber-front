@@ -43,7 +43,7 @@ export class RegisterComponent {
   }
 
 
-  //Register functions
+  // Register functions
   submit(value: any) {
     if(!value.name) {
       value.name = 'Anonymous';
@@ -91,7 +91,7 @@ export class RegisterComponent {
   }
 
 
-  //CommentUser functions
+  // CommentUser functions
   createCommentUserIfNull() {
     if(this.commentUsers) {
       if(!this.searchCommentUser(this.userData.id, this.userType)) {
@@ -101,8 +101,8 @@ export class RegisterComponent {
         this.commentUser.user_name = this.userData.name;
         this.articleService.createCommentUser(this.commentUser).subscribe(
           res => {
-            console.log('Comment User created successfully');
             console.log(this.commentUser);
+            console.log('Comment User created successfully');
           },
           err => console.log(err)
           );
@@ -131,7 +131,7 @@ export class RegisterComponent {
   }
 
 
-  //testimonialUser functions
+  // testimonialUser functions
   createTestimonialUserIfNull() {
     if(this.testimonialUsers) {
       if(!this.searchTestimonialUser(this.userData.id, this.userType)) {
@@ -141,8 +141,8 @@ export class RegisterComponent {
         this.testimonialUser.user_name = this.userData.name;
         this.testimonialService.createTestimonialUser(this.testimonialUser).subscribe(
           res => {
-            console.log('Testimonial User created successfully');
             console.log(this.testimonialUser);
+            console.log('Testimonial User created successfully');
           },
           err => console.log(err)
           );

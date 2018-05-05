@@ -42,7 +42,7 @@ export class LoginComponent {
   }
 
 
-  //Login functions
+  // Login functions
   submit(value: any) {
     this.authService.logIn(value.email, value.password)
     .subscribe(
@@ -96,7 +96,7 @@ export class LoginComponent {
   }
 
 
-  //CommentUser functions
+  // CommentUser functions
   createCommentUserIfNull() {
     if(this.commentUsers) {
       if(!this.searchCommentUser(this.userData.id, this.userType)) {
@@ -106,8 +106,8 @@ export class LoginComponent {
         this.commentUser.user_name = this.userData.name;
         this.articleService.createCommentUser(this.commentUser).subscribe(
           res => {
-            console.log('Comment User created successfully');
             console.log(this.commentUser);
+            console.log('Comment User created successfully');
           },
           err => console.log(err)
           );
@@ -138,7 +138,7 @@ export class LoginComponent {
   }
 
 
-  //testimonialUser functions
+  // TestimonialUser functions
   createTestimonialUserIfNull() {
     if(this.testimonialUsers) {
       if(!this.searchTestimonialUser(this.userData.id, this.userType)) {
@@ -148,8 +148,8 @@ export class LoginComponent {
         this.testimonialUser.user_name = this.userData.name;
         this.testimonialService.createTestimonialUser(this.testimonialUser).subscribe(
           res => {
-            console.log('Testimonial User created successfully');
             console.log(this.testimonialUser);
+            console.log('Testimonial User created successfully');
           },
           err => console.log(err)
           );
