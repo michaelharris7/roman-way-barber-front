@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Article } from './article';
+import { FeaturedArticle } from './featured-article';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { ArticleService } from './article.service';
-import { DOCUMENT} from '@angular/common';
+
 
 @Component({
   selector: 'article-list',
@@ -19,6 +20,7 @@ export class ArticleListComponent implements OnInit {
   userType: string;
   articles: Article[];
   article: Article;
+  featuredArticles: FeaturedArticle[];
   errorMessage: string;
   mode = "Observable";
   private timerStopper;
@@ -35,8 +37,12 @@ export class ArticleListComponent implements OnInit {
   //General Functions
   ngOnInit() {
     this.getArticles();
+    this.getFeaturedArticles();
     let timer = Observable.timer(0, 5000);
-    this.timerStopper = timer.subscribe(() => this.getArticles());
+    this.timerStopper = timer.subscribe(() => {
+      this.getArticles();
+      this.getFeaturedArticles();
+    });
     this.user = this.tokenService.currentUserData;
     this.userType = this.tokenService.currentUserType;
   }
@@ -66,6 +72,19 @@ export class ArticleListComponent implements OnInit {
   goToShow(article: Article): void {
     let link = ['/news/article/', article.id];
     this.router.navigate(link);
+  }
+
+  getFeaturedArticles() {
+    this.articleService.getFeaturedArticles()
+    .subscribe(
+      featuredArticles => {
+        this.featuredArticles = featuredArticles
+      },
+      error => {
+        this.errorMessage = <any>error;
+        console.log(error);
+      }
+    );
   }
 
 

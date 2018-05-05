@@ -6,6 +6,7 @@ import { Angular2TokenService, UserData } from 'angular2-token';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { ArticleService } from './article.service';
 import { Article } from './article';
+import { FeaturedArticle } from './featured-article';
 import { CommentUser } from './comment-user';
 import { Comment } from './comment';
 import { OrderPipe } from 'ngx-order-pipe';
@@ -26,6 +27,8 @@ export class ArticleShowComponent implements OnInit {
   comments: Comment[];
   newComment = new Comment;
   oldComment: Comment = <Comment>{};
+  featuredArticle = new FeaturedArticle;
+  featuredArticles: FeaturedArticle[];
   routeId: any;
   errorMessage: any;
   returnUrl: string;
@@ -60,7 +63,10 @@ export class ArticleShowComponent implements OnInit {
       this.userType = this.tokenService.currentUserType;
     }
     let timer = Observable.timer(0, 5000);
-    this.timerStopper = timer.subscribe(() => this.getComments());
+    this.timerStopper = timer.subscribe(() => {
+         this.getComments();
+         this.getFeaturedArticles();
+        });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/news';
     this.routeId = this.route.params.subscribe(
       params => {
@@ -94,6 +100,74 @@ export class ArticleShowComponent implements OnInit {
         this.router.navigate([this.returnUrl]);
       },
         error => this.errorMessage = error);
+  }
+
+
+  // Featured Article Functions
+  getFeaturedArticles() {
+    this.articleService.getFeaturedArticles()
+    .subscribe(
+      featuredArticles => {
+        this.featuredArticles = featuredArticles
+      },
+      error => {
+        this.errorMessage = <any>error;
+        console.log(error);
+      }
+    );
+  }
+  updateFeaturedArticles(featuredArticle: FeaturedArticle) {
+    let featuredArticleId = this.searchFeaturedArticles(this.article.id);
+    console.log(featuredArticleId);
+    if(featuredArticleId > 0) {
+      this.deleteFeaturedArticle(featuredArticleId);
+    } else if(this.featuredArticles.length < 3) {
+      this.createFeaturedArticle(this.featuredArticle);
+    } else {
+      console.log('There are too many articles featured right now.');
+    }
+  }
+  searchFeaturedArticles(articleId:number): number {
+    for(let featuredArticle of this.featuredArticles) {
+      if(featuredArticle.article_id === articleId) {
+        return featuredArticle.id;
+      }
+    }
+    return 0;
+  }
+  createFeaturedArticle(featuredArticle: FeaturedArticle) {
+    featuredArticle.article_id = this.article.id;
+    featuredArticle.title = this.article.title;
+    featuredArticle.content = this.article.content;
+
+    this.articleService.createFeaturedArticle(featuredArticle)
+        .subscribe(
+          res => {
+            console.log(res);
+            setTimeout(() => {
+              this.getFeaturedArticles();
+            });
+          },
+          err => {
+            console.log(err);
+            return Observable.throw(err);
+          }
+        );
+  }
+  deleteFeaturedArticle(id:number) {
+    this.articleService.deleteFeaturedArticle(id)
+      .subscribe(
+        res => {
+          console.log(res)
+          setTimeout(() => {
+            this.getFeaturedArticles();
+          });
+        },
+        err => {
+          this.errorMessage = err;
+          console.log(err);
+        }
+      );
   }
 
 

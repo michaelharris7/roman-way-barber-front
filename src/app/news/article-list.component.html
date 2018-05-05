@@ -24,7 +24,6 @@
 
             <div *ngFor="let article of articles; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
               <div class="container new-post">
-                <!-- <a pageScroll [pageScrollOffset]="20" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" (click)="goToShow(article)" href="#article"> -->
                 <a pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
                   <h3 class="py-3 new-title">
                     {{ article.title }}
@@ -59,9 +58,28 @@
         <div class="col-md-3 col-sm-5 col-6">
           <div class="container">
             <div class="new-sidebar card-box-shadows pt-4">
-              <p *ngIf="!isLoggedIn()">
-                <a routerLink="/login">Login</a> or <a routerLink="/register">register</a> to comment on news posts.
-              </p>
+              <div *ngIf="!isLoggedIn()">
+                <p>
+                  <a routerLink="/login">Login</a> or <a routerLink="/register">register</a> to comment on news posts.
+                </p>
+                <hr>
+              </div>
+
+              <h5 class="mb-3">Featured Articles</h5>
+              <div *ngFor="let featuredArticle of featuredArticles; let first = first; let last = last" [class.new-separator]="!last" [class.pb-2]="!last" [class.pt-2]="!first" [attr.id]="'featuredArticle_' + featuredArticle.id">
+                <div class="container new-feature">
+                  <a pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article">
+                    <h6 class="py-1 new-title">
+                      {{ featuredArticle.title }}
+                    </h6>
+                    <p class="new-markdown">
+                      <markdown data="{{ featuredArticle.content | truncate:[50] }}"></markdown>
+                    </p>
+                    <button class="btn btn-outline-secondary btn-sm mt-2 float-right mr-3">Read More</button>
+                  </a>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

@@ -89,14 +89,14 @@
 
 .new-title {
   cursor: pointer;
-  color: #007bff;
+  color: #005cbf !important;
 }
 .new-title:hover {
-  color: #007bff;
+  color: #005cbf !important;
   text-decoration: underline;
 }
 .new-title:active {
-  color: #0056b3
+  color: #007bff !important;
 }
 .new-show-btn {
   width: 200px;
@@ -111,7 +111,7 @@
   border: 1px solid transparent;
 }
 .new-post > a {
-  padding: 10px 0 10px 20px;
+  padding: 10px;
   text-decoration: none;
   color: black;
   display: inline-block;
@@ -124,11 +124,36 @@
 }
 .new-post:active {
   background-color: #ebeaf1;
+  border: 1px solid #e6e6e6;
 }
 .new-separator {
   border-bottom: 1px solid #d9d9d9;
 }
 
+
+.new-feature {
+  padding: 0;
+  border: 1px solid transparent;
+}
+.new-feature p {
+  margin: 0;
+}
+.new-feature > a {
+  padding: 5px;
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+}
+.new-feature:hover {
+  background-color: #ebeaf1;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  box-shadow: 2px 2px 3px #f0f0f0;
+}
+.new-feature:active {
+  background-color: #e0dfe5;
+  border: 1px solid #dcdcdc;
+}
 
 .new-comment {
   padding: 20px;

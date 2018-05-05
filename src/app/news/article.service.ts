@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { Article } from './article';
+import { FeaturedArticle } from './featured-article';
 import { CommentUser } from './comment-user';
 import { Comment } from './comment';
 
@@ -13,6 +14,7 @@ export class ArticleService {
   headers: Headers;
   options: RequestOptions;
   private articlesUrl = 'http://localhost:3001/articles';
+  private featuredArticlesUrl = 'http://localhost:3001/featured_articles';
   private commentUsersUrl = 'http://localhost:3001/comment_users';
   private commentsUrl = 'http://localhost:3001/comments';
 
@@ -46,6 +48,25 @@ export class ArticleService {
   }
   deleteArticle(id: number): Observable<Article> {
     const url = `${this.articlesUrl}/${id}`;
+    return this.http.delete(url, this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+
+  // Featured Article functions
+  getFeaturedArticles(): Observable<FeaturedArticle[]> {
+    return this.http.get(this.featuredArticlesUrl)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+  createFeaturedArticle(featuredArticle: FeaturedArticle): Observable<FeaturedArticle> {
+    return this.http.post(this.featuredArticlesUrl, JSON.stringify(featuredArticle),
+      this.options).map(this.extractData)
+          .catch(this.handleError);
+  }
+  deleteFeaturedArticle(id: number): Observable<FeaturedArticle> {
+    const url = `${this.featuredArticlesUrl}/${id}`;
     return this.http.delete(url, this.options)
       .map(this.extractData)
       .catch(this.handleError);

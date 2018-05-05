@@ -19,6 +19,15 @@
     <div class="container">
       <div class="row">
         <div class="col-md-9 col-sm-7 col-6 mb-5">
+
+          <div [hidden]="!editBtnClicked">
+            <div class="d-flex justify-content-end">
+              <a class="new-link" pageScroll [pageScrollOffset]="60" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#articlePreview">
+                <button class="btn btn-primary new-show-btn mb-3">To Preview</button>
+              </a>
+            </div>
+          </div>
+
           <div *ngIf="article">
             <div class="card card-box-shadows py-2 mb-5" *ngIf="isAdmin() && editBtnClicked">
               <div class="container">
@@ -76,6 +85,15 @@
               </div>
             </div>
 
+            <div [hidden]="!editBtnClicked">
+              <div class="d-flex justify-content-end">
+                <a class="new-link" pageScroll [pageScrollOffset]="-260" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#article">
+                  <button class="btn btn-primary new-show-btn mb-3">To Edit Article</button>
+                </a>
+              </div>
+            </div>
+
+            <div id="articlePreview"></div>
             <div class="container card card-box-shadows pt-4 pb-1 mb-5">
               <h2 class="mb-4">
                 {{ article.title }}
@@ -91,12 +109,16 @@
                 <span *ngIf="isAdmin()">
                   <span [hidden]="editBtnClicked">
                     <span class="pr-3">
-                      <a (click)="updateArticle(article)" class="new-link">
+                      <a (click)="updateArticle(article)" class="new-link" pageScroll [pageScrollOffset]="-260" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#article">
                         <button class="btn btn-primary new-show-btn mb-3">Edit</button>
                       </a>
                     </span>
 
-                    <span *ngIf="isAdmin()" class="pr-3">
+                    <span class="pr-3">
+                      <button (click)="updateFeaturedArticles(featuredArticle)" class="btn btn-success new-show-btn mb-3">Feature</button>
+                    </span>
+
+                    <span class="pr-3">
                       <a (click)="deleteArticle(article)" class="new-link">
                         <button class="btn btn-danger new-show-btn mb-3">Delete</button>
                       </a>
@@ -112,9 +134,6 @@
                 <form (ngSubmit)="updateComment(newComment); commentForm.reset()" #commentForm="ngForm">
                   <div class="form-group">
                     <label for="content"><h5>Leave a comment?</h5></label>
-<!--                     <div [hidden]="content.valid || content.pristine" class='alert alert-danger'>
-                      Content is required
-                    </div> -->
                     <textarea rows="2"
                               class="form-control"
                               id="content"
@@ -173,9 +192,28 @@
         <div class="col-md-3 col-sm-5 col-6">
           <div class="container">
             <div class="new-sidebar card-box-shadows pt-4">
-              <p *ngIf="!isLoggedIn()">
-                <a routerLink="/login">Login</a> or <a routerLink="/register">register</a> to comment on news posts.
-              </p>
+              <div *ngIf="!isLoggedIn()">
+                <p>
+                  <a routerLink="/login">Login</a> or <a routerLink="/register">register</a> to comment on news posts.
+                </p>
+                <hr>
+              </div>
+
+              <h5 class="mb-3">Featured Articles</h5>
+              <div *ngFor="let featuredArticle of featuredArticles; let first = first; let last = last" [class.new-separator]="!last" [class.pb-2]="!last" [class.pt-2]="!first" [attr.id]="'featuredArticle_' + featuredArticle.id">
+                <div class="container new-feature">
+                  <a pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article">
+                    <h6 class="py-1 new-title">
+                      {{ featuredArticle.title }}
+                    </h6>
+                    <p class="new-markdown">
+                      <markdown data="{{ featuredArticle.content | truncate:[50] }}"></markdown>
+                    </p>
+                    <button class="btn btn-outline-secondary btn-sm mt-2 float-right mr-3">Read More</button>
+                  </a>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
