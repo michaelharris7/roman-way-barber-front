@@ -23,22 +23,24 @@ export class TestimonialService {
   // TestimonialUser functions
   getTestimonialUsers(): Observable<TestimonialUser[]> {
     return this.http.get(this.testimonialUsersUrl)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+      .map(this.extractData)
+      .catch(this.handleError);
   }
   getTestimonialUser(id: number) {
-    return this.http.get(this.testimonialUsersUrl + "/" + id + ".json");
+    return this.http.get(this.testimonialUsersUrl + "/" + id + ".json")
+      .map(this.extractData)
+      .catch(this.handleError);
   }
   createTestimonialUser(commentUser: TestimonialUser): Observable<TestimonialUser> {
-    return this.http.post(this.testimonialUsersUrl, JSON.stringify(commentUser),
-      this.options).map(this.extractData)
-          .catch(this.handleError);
+    return this.http.post(this.testimonialUsersUrl, JSON.stringify(commentUser), this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
   updateTestimonialUser(commentUser: TestimonialUser): Observable<TestimonialUser> {
     const url = `${this.testimonialUsersUrl}/${commentUser.id}`;
-    return this.http.put(url, JSON.stringify(commentUser),
-      this.options).map((this.extractData))
-          .catch(this.handleError);
+    return this.http.put(url, JSON.stringify(commentUser), this.options)
+      .map((this.extractData))
+      .catch(this.handleError);
   }
   deleteTestimonialUser(id: number): Observable<TestimonialUser> {
     const url = `${this.testimonialUsersUrl}/${id}`;
@@ -50,8 +52,8 @@ export class TestimonialService {
 
   // General data extraction
   private extractData(res: Response) {
-      let body = res.json();
-      return body || {};
+    let body = res.json();
+    return body || {};
   }
   private handleError (error: any): Promise<any> {
     console.error('An error occured ', error);

@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidationService } from '../validation.service';
 import { AuthenticationService } from '../authentication.service';
 import { ArticleService } from '../../news/article.service';
+import { TestimonialService } from '../../testimonials/testimonial.service';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { CommentUser } from '../../news/comment-user';
+import { TestimonialUser } from '../../testimonials/testimonial-user';
 
 
 @Component({
@@ -16,12 +18,15 @@ export class LoginComponent {
   userType: string;
   commentUser: CommentUser = <CommentUser>{};
   commentUsers: CommentUser[];
+  testimonialUser: TestimonialUser = <TestimonialUser>{};
+  testimonialUsers: TestimonialUser[];
   submitted: boolean = false;
   loginForm: FormGroup;
   resetString: string;
 
   constructor(
     private articleService: ArticleService,
+    private testimonialService: TestimonialService,
     private tokenService: Angular2TokenService,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
@@ -45,6 +50,7 @@ export class LoginComponent {
         this.userData = this.tokenService.currentUserData;
         this.userType = this.tokenService.currentUserType;
         this.getCommentUsers();
+        this.getTestimonialUsers();
 
         this.submitted = true;
       },
@@ -58,6 +64,7 @@ export class LoginComponent {
         this.userData = this.tokenService.currentUserData;
         this.userType = this.tokenService.currentUserType;
         this.getCommentUsers();
+        this.getTestimonialUsers();
 
         this.submitted = true;
       },
@@ -123,6 +130,48 @@ export class LoginComponent {
 
         if(this.commentUsers)
           this.createCommentUserIfNull();
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+
+  //testimonialUser functions
+  createTestimonialUserIfNull() {
+    if(this.testimonialUsers) {
+      if(!this.searchTestimonialUser(this.userData.id, this.userType)) {
+        let testimonialUser:TestimonialUser;
+        this.testimonialUser.user_id = this.userData.id;
+        this.testimonialUser.user_type = this.userType;
+        this.testimonialUser.user_name = this.userData.name;
+        this.testimonialService.createTestimonialUser(this.testimonialUser).subscribe(
+          res => {
+            console.log('Testimonial User created successfully');
+            console.log(this.testimonialUser);
+          },
+          err => console.log(err)
+          );
+      }
+      this.redirectAfterLogin();
+    }
+  }
+  searchTestimonialUser(user_id:number, user_type:string):boolean {
+    let match:boolean = false;
+    for(let testimonialUser of this.testimonialUsers) {
+      if((testimonialUser.user_id === user_id) && (testimonialUser.user_type === user_type))
+        return match = true;
+    }
+  }
+  getTestimonialUsers() {
+    this.testimonialService.getTestimonialUsers()
+    .subscribe(
+      testimonialUsers => {
+        this.testimonialUsers = testimonialUsers;
+
+        if(this.testimonialUsers)
+          this.createTestimonialUserIfNull();
       },
       err => console.log(err)
     );
