@@ -189,11 +189,16 @@ export class ArticleShowComponent implements OnInit {
     }
   }
   deleteComment(comment: Comment) {
-    // this.articleService.deleteComment(this.comment.id)
-    //   .subscribe(data => {
-    //     this.router.navigate([this.returnUrl]);
-    //   },
-    //     error => this.errorMessage = error);
+    this.articleService.deleteComment(comment.id)
+      .subscribe(
+        res => {
+          console.log(res)
+          setTimeout(() => {
+            this.getComments();
+          });
+        },
+        err => this.errorMessage = err
+      );
   }
   commentEdited(comment):string {
     if(comment.created_at === comment.updated_at) {
