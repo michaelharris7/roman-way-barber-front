@@ -27,6 +27,7 @@ import { ArticleListComponent } from './news/article-list.component';
 import { ArticleNewComponent } from './news/article-new.component';
 import { ArticleShowComponent } from './news/article-show.component';
 import { TestimonialListComponent } from './testimonials/testimonial-list.component';
+import { TestimonialNewComponent } from './testimonials/testimonial-new.component';
 
 
 import { TruncatePipe } from './app.pipe';
@@ -75,6 +76,7 @@ import { TestimonialService } from './testimonials/testimonial.service';
     ArticleNewComponent,
     ArticleShowComponent,
     TestimonialListComponent,
+    TestimonialNewComponent,
 
     TruncatePipe,
     TimeAgoPipe
