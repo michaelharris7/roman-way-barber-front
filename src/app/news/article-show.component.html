@@ -87,7 +87,7 @@
 
             <div [hidden]="!editBtnClicked">
               <div class="d-flex justify-content-end">
-                <a class="new-link" pageScroll [pageScrollOffset]="-260" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#article">
+                <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#article">
                   <button class="btn btn-primary new-show-btn mb-3">To Edit Article</button>
                 </a>
               </div>
@@ -109,7 +109,7 @@
                 <span *ngIf="isAdmin()">
                   <span [hidden]="editBtnClicked">
                     <span class="pr-3">
-                      <a (click)="updateArticle(article)" class="new-link" pageScroll [pageScrollOffset]="-260" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#article">
+                      <a (click)="updateArticle(article)" class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#article">
                         <button class="btn btn-primary new-show-btn mb-3">Edit</button>
                       </a>
                     </span>
@@ -202,7 +202,7 @@
               <h5 class="mb-3">Featured Articles</h5>
               <div *ngFor="let featuredArticle of featuredArticles; let first = first; let last = last" [class.new-separator]="!last" [class.pb-2]="!last" [class.pt-2]="!first" [attr.id]="'featuredArticle_' + featuredArticle.id">
                 <div class="container new-feature">
-                  <a pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article" class="w-100">
+                  <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article" class="w-100">
                     <h6 class="py-1 new-title">
                       {{ featuredArticle.title }}
                     </h6>

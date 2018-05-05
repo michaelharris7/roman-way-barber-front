@@ -9,7 +9,7 @@
         News media, recent events, and other fun stuff
       </h4>
       <span *ngIf="isAdmin()">
-        <p class="mt-3">
+        <p>
           <a routerLink="/news/articles/new">New news article</a>
         </p>
       </span>
@@ -37,7 +37,7 @@
 
             <div *ngFor="let article of articles | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
               <div class="container new-post">
-                <a pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
+                <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
                   <h3 class="py-3 new-title">
                     {{ article.title }}
                   </h3>
@@ -52,7 +52,7 @@
 
               <div class="container mt-3">
                 <span class="pr-3">
-                  <a class="new-link" pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
+                  <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
                     <button class="btn btn-primary new-show-btn mb-3">Read More</button>
                   </a>
                 </span>
@@ -94,7 +94,7 @@
               <h5 class="mb-3">Featured Articles</h5>
               <div *ngFor="let featuredArticle of featuredArticles; let first = first; let last = last" [class.new-separator]="!last" [class.pb-2]="!last" [class.pt-2]="!first" [attr.id]="'featuredArticle_' + featuredArticle.id">
                 <div class="container new-feature">
-                  <a pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article" class="w-100">
+                  <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article" class="w-100">
                     <h6 class="py-1 new-title">
                       {{ featuredArticle.title }}
                     </h6>

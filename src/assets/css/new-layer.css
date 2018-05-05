@@ -13,9 +13,10 @@
 .new-back h6 {
   font-family: 'Roboto Slab', serif;
   font-weight: 300;
-  line-height: 1em;
+  line-height: .75em;
   text-shadow: none;
   color: black;
+  margin-bottom: 20px;
 }
 .new-back h1 {
   font-size: 3rem;
@@ -25,6 +26,8 @@
   color: #004aa1;
   text-shadow: 2px 2px 2px #e0e0e0;
 }
+
+
 .new-header h4 {
   color: #a6a6a6;
 }
@@ -53,7 +56,7 @@
   padding-bottom: 10px;
 }
 .new-header {
-  padding: 3rem 0 2rem;
+  padding-top: 1.5rem;
   border-bottom: .05rem solid #eee;
 }
 

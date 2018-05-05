@@ -11,7 +11,7 @@ import { ContactComponent } from './contact/contact.component';
 import { ArticleListComponent } from './news/article-list.component';
 import { ArticleNewComponent } from './news/article-new.component';
 import { ArticleShowComponent } from './news/article-show.component';
-import { TestimonialsComponent } from './testimonials/testimonials.component';
+import { TestimonialListComponent } from './testimonials/testimonial-list.component';
 import { AccountComponent } from './authentication/account/account.component';
 
 
@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'news/articles/new', component: ArticleNewComponent },
   { path: 'news/article/:id', component: ArticleShowComponent },
 
-  { path: 'testimonials', component: TestimonialsComponent },
+  { path: 'testimonials', component: TestimonialListComponent },
 ]
 
 @NgModule({
