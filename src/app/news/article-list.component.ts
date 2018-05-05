@@ -59,7 +59,7 @@ export class ArticleListComponent implements OnInit {
         .subscribe(
           articles => {
             this.articles = articles;
-            this.paginationTotal = this.articles.length+1;
+            this.paginationTotal = this.articles.length;
           },
           error => this.errorMessage = <any>error
         );

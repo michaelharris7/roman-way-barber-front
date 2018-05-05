@@ -202,7 +202,7 @@
               <h5 class="mb-3">Featured Articles</h5>
               <div *ngFor="let featuredArticle of featuredArticles; let first = first; let last = last" [class.new-separator]="!last" [class.pb-2]="!last" [class.pt-2]="!first" [attr.id]="'featuredArticle_' + featuredArticle.id">
                 <div class="container new-feature">
-                  <a pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article">
+                  <a pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article" class="w-100">
                     <h6 class="py-1 new-title">
                       {{ featuredArticle.title }}
                     </h6>
