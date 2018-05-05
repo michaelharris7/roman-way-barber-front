@@ -8,6 +8,7 @@ import { ArticleService } from './article.service';
 import { Article } from './article';
 import { CommentUser } from './comment-user';
 import { Comment } from './comment';
+import { OrderPipe } from 'ngx-order-pipe';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class ArticleShowComponent implements OnInit {
   createCommentClicked: boolean = false;
   commentUserLoaded: boolean = false;
   private timerStopper;
+  order: string = 'updated_at';
 
   constructor(
     private http: Http,
@@ -39,7 +41,8 @@ export class ArticleShowComponent implements OnInit {
     private router: Router,
     private tokenService: Angular2TokenService,
     private authService: AuthenticationService,
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private orderPipe: OrderPipe
   ) {}
 
   @Input() article: Article;
@@ -191,13 +194,6 @@ export class ArticleShowComponent implements OnInit {
     //     this.router.navigate([this.returnUrl]);
     //   },
     //     error => this.errorMessage = error);
-  }
-  commentDate(comment):number {
-    if(comment.created_at === comment.updated_at) {
-      return comment.created_at;
-    } else {
-      return comment.updated_at;
-    }
   }
   commentEdited(comment):string {
     if(comment.created_at === comment.updated_at) {

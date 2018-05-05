@@ -31,6 +31,7 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 
 import { TruncatePipe } from './app.pipe';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { OrderModule } from 'ngx-order-pipe';
 
 import { Angular2TokenService } from 'angular2-token';
 import { AuthenticationService } from './authentication/authentication.service';
@@ -52,6 +53,8 @@ import { ArticleService } from './news/article.service';
     AuthenticationModule,
     AppRoutingModule,
     AuthRoutingModule,
+
+    OrderModule
   ],
   declarations: [
     AppComponent,

@@ -136,16 +136,14 @@
               </div>
             </div>
 
-            {{oldComment.id}}
-
             <div *ngIf="comments">
-              <div *ngFor="let comment of comments">
+              <div *ngFor="let comment of comments | orderBy : order : true">
                 <div class="container new-comment">
                   <p class="new-markdown ml-3">
                     <markdown data="{{ comment.content }}"></markdown>
                   </p>
                   <div class="ml-4 pl-2">
-                    <small><em>Comment {{commentEdited(comment)}} by <strong>{{comment.comment_user.user_name}}</strong> {{ commentDate(comment) | timeAgo }}.</em></small>
+                    <small><em>Comment {{commentEdited(comment)}} by <strong>{{comment.comment_user.user_name}}</strong> {{ comment.updated_at | timeAgo }}.</em></small>
                   </div>
 
                   <div *ngIf="commentUser.id === comment.comment_user.id" class="ml-4 pt-3">
