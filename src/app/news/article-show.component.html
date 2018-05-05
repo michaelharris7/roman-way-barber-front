@@ -1,3 +1,4 @@
+<div id="article"></div>
 <div class="new-back">
 
   <div class="new-header">
@@ -75,8 +76,7 @@
               </div>
             </div>
 
-
-            <div class="container card card-box-shadows pt-4 pb-1 mb-4">
+            <div class="container card card-box-shadows pt-4 pb-1 mb-5">
               <h2 class="mb-4">
                 {{ article.title }}
               </h2>
@@ -107,7 +107,7 @@
               </div>
             </div>
 
-            <div class="py-2 mb-3">
+            <div *ngIf="isLoggedIn()" class="pt-2">
               <div class="container">
                 <form (ngSubmit)="updateComment(newComment); commentForm.reset()" #commentForm="ngForm">
                   <div class="form-group">
@@ -135,6 +135,13 @@
                 </form>
               </div>
             </div>
+
+            <h4 class="mb-3 mt-4">
+              Comments
+            </h4>
+            <p class="pl-3" *ngIf="!isLoggedIn()">
+              <a routerLink="/login">Login</a> or <a routerLink="/register">register</a> to comment on news posts.
+            </p>
 
             <div *ngIf="comments">
               <div *ngFor="let comment of comments | orderBy : order : true">

@@ -102,7 +102,7 @@
   width: 200px;
 }
 .new-link {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 

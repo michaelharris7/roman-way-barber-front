@@ -5,6 +5,7 @@ import { Article } from './article';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { ArticleService } from './article.service';
+import { DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'article-list',
@@ -21,6 +22,7 @@ export class ArticleListComponent implements OnInit {
   errorMessage: string;
   mode = "Observable";
   private timerStopper;
+  articleShow: string;
 
   constructor(
     private tokenService: Angular2TokenService,
@@ -32,6 +34,7 @@ export class ArticleListComponent implements OnInit {
 
   //General Functions
   ngOnInit() {
+    this.getArticles();
     let timer = Observable.timer(0, 5000);
     this.timerStopper = timer.subscribe(() => this.getArticles());
     this.user = this.tokenService.currentUserData;
@@ -61,7 +64,7 @@ export class ArticleListComponent implements OnInit {
         );
   }
   goToShow(article: Article): void {
-    let link = ['/news/article', article.id];
+    let link = ['/news/article/', article.id];
     this.router.navigate(link);
   }
 

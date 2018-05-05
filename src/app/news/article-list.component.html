@@ -24,12 +24,11 @@
 
             <div *ngFor="let article of articles; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
               <div class="container new-post">
-                <a (click)="goToShow(article)">
-                  <a (click)="goToShow(article)">
-                    <h3 class="py-3 new-title">
-                      {{ article.title }}
-                    </h3>
-                  </a>
+                <!-- <a pageScroll [pageScrollOffset]="20" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" (click)="goToShow(article)" href="#article"> -->
+                <a pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
+                  <h3 class="py-3 new-title">
+                    {{ article.title }}
+                  </h3>
                   <p class="new-markdown">
                     <markdown data="{{ article.content | truncate:[200] }}"></markdown>
                   </p>
@@ -41,20 +40,8 @@
 
               <div class="container mt-3">
                 <span class="pr-3">
-                  <a (click)="goToShow(article)" class="new-link">
+                  <a class="new-link" pageScroll [pageScrollOffset]="-240" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
                     <button class="btn btn-primary new-show-btn mb-3">Read More</button>
-                  </a>
-                </span>
-
-                <span class="pr-3">
-                  <a (click)="goToShow(article)" class="new-link">
-                    <button class="btn btn-primary new-show-btn mb-3">See Comments</button>
-                  </a>
-                </span>
-
-                <span *ngIf="isLoggedIn()" class="pr-3">
-                  <a (click)="goToShow(article)" class="new-link">
-                    <button class="btn btn-secondary new-show-btn mb-3">Leave Comment</button>
                   </a>
                 </span>
 
