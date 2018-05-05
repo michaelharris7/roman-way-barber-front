@@ -4,8 +4,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidationService } from '../validation.service';
 import { AuthenticationService } from '../authentication.service';
 import { ArticleService } from '../../news/article.service';
+import { TestimonialService } from '../../testimonials/testimonial.service';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { CommentUser } from '../../news/comment-user';
+import { TestimonialUser } from '../../testimonials/testimonial-user';
 
 
 @Component({
@@ -17,6 +19,8 @@ export class AccountComponent implements OnInit {
   userType: string;
   commentUser: CommentUser = <CommentUser>{};
   commentUsers: CommentUser[];
+  testimonialUser: TestimonialUser = <TestimonialUser>{};
+  testimonialUsers: TestimonialUser[];
   submitted: boolean = false;
   accountFormBasic: FormGroup;
   accountFormPassword: FormGroup;
@@ -27,6 +31,7 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private articleService: ArticleService,
+    private testimonialService: TestimonialService,
     private tokenService: Angular2TokenService,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
@@ -60,7 +65,7 @@ export class AccountComponent implements OnInit {
   }
 
 
-  //Form functions
+  // Form functions
   createForm() {
     this.accountFormBasic = this.fb.group({
         name: [this.userData.name],
@@ -87,7 +92,7 @@ export class AccountComponent implements OnInit {
   }
 
 
-  //Account functions
+  // Account functions
   submit(value: any) {
   this.authService.updateUserData(value)
     .subscribe(
@@ -105,6 +110,7 @@ export class AccountComponent implements OnInit {
               this.userData = this.tokenService.currentUserData;
               this.userType = this.tokenService.currentUserType;
               this.getUpdateCommentUser();
+              this.getUpdateTestimonialUser();
             },
             err => this.afterFailedUpdate()
           );
@@ -112,6 +118,7 @@ export class AccountComponent implements OnInit {
         this.userData = this.tokenService.currentUserData;
         this.userType = this.tokenService.currentUserType;
         this.getUpdateCommentUser();
+        this.getUpdateTestimonialUser();
 
         this.submitted = true;
       },
@@ -151,6 +158,7 @@ export class AccountComponent implements OnInit {
     this.userData = this.tokenService.currentUserData;
     this.userType = this.tokenService.currentUserType;
     this.getDeleteCommentUser();
+    this.getDeleteTestimonialUser();
   }
   deleteAccountData() {
     this.authService.deleteAccount()
@@ -173,7 +181,7 @@ export class AccountComponent implements OnInit {
   }
 
 
-  //CommentUser functions
+  // CommentUser functions
   updateCommentUser() {
     if(this.commentUsers) {
       if(this.findCommentUserId(this.userData.id, this.userType))
@@ -186,8 +194,8 @@ export class AccountComponent implements OnInit {
         this.articleService.updateCommentUser(this.commentUser)
         .subscribe(
           res => {
-            console.log('Comment User updated successfully');
             console.log(this.commentUser);
+            console.log('Comment User updated successfully');
           },
           err => {
             console.log(err);
@@ -207,11 +215,10 @@ export class AccountComponent implements OnInit {
         this.commentUser.user_id = this.userData.id;
         this.commentUser.user_type = this.userType;
         this.commentUser.user_name = this.userData.name;
-        console.log('8');
         this.articleService.deleteCommentUser(this.commentUser.id).subscribe(
           res => {
-            console.log('Comment User deleted successfully');
             console.log(this.commentUser);
+            console.log('Comment User deleted successfully');
             this.deleteAccountData();
           },
           err => {
@@ -249,6 +256,87 @@ export class AccountComponent implements OnInit {
         this.commentUsers = commentUsers;
         if(this.commentUsers)
           this.deleteCommentUser();
+      },
+      err => console.log(err)
+    );
+  }
+
+
+  // TestimonialUser functions
+  updateTestimonialUser() {
+    if(this.testimonialUsers) {
+      if(this.findTestimonialUserId(this.userData.id, this.userType))
+      {
+        let testimonialUser:TestimonialUser;
+        this.testimonialUser.id = this.findTestimonialUserId(this.userData.id, this.userType);
+        this.testimonialUser.user_id = this.userData.id;
+        this.testimonialUser.user_type = this.userType;
+        this.testimonialUser.user_name = this.userData.name;
+        this.testimonialService.updateTestimonialUser(this.testimonialUser)
+        .subscribe(
+          res => {
+            console.log(this.testimonialUser);
+            console.log('Testimonial User updated successfully');
+          },
+          err => {
+            console.log(err);
+            return Observable.throw(err);
+          }
+        );
+      }
+      this.redirectAfterLogin();
+    }
+  }
+  deleteTestimonialUser() {
+    if(this.testimonialUsers) {
+      if(this.findTestimonialUserId(this.userData.id, this.userType))
+      {
+        let testimonialUser:TestimonialUser;
+        this.testimonialUser.id = this.findTestimonialUserId(this.userData.id, this.userType);
+        this.testimonialUser.user_id = this.userData.id;
+        this.testimonialUser.user_type = this.userType;
+        this.testimonialUser.user_name = this.userData.name;
+        this.testimonialService.deleteTestimonialUser(this.testimonialUser.id).subscribe(
+          res => {
+            console.log(this.testimonialUser);
+            console.log('Testimonial User deleted successfully');
+            this.deleteAccountData();
+          },
+          err => {
+            console.log(err);
+            return Observable.throw(err);
+          }
+        );
+      }
+    }
+  }
+  findTestimonialUserId(user_id:number, user_type:string):number {
+    for(let testimonialUser of this.testimonialUsers) {
+      if((testimonialUser.user_id === user_id) && (testimonialUser.user_type === user_type))
+        return testimonialUser.id;
+    }
+  }
+  getUpdateTestimonialUser() {
+    this.testimonialService.getTestimonialUsers()
+    .subscribe(
+      testimonialUsers => {
+        this.testimonialUsers = testimonialUsers;
+
+        if(this.testimonialUsers)
+          this.updateTestimonialUser();
+      },
+      err => console.log(err)
+    );
+  }
+  getDeleteTestimonialUser() {
+    this.testimonialService.getTestimonialUsers()
+    .subscribe(
+      testimonialUsers =>
+      {
+        console.log(testimonialUsers);
+        this.testimonialUsers = testimonialUsers;
+        if(this.testimonialUsers)
+          this.deleteTestimonialUser();
       },
       err => console.log(err)
     );
