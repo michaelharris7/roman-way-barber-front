@@ -137,7 +137,6 @@ export class ArticleShowComponent implements OnInit {
     );
   }
   showCommentForm() {
-    // this.createCommentClicked = !this.createCommentClicked;
     this.getCommentUsers();
   }
   createComment(comment) {
@@ -148,7 +147,9 @@ export class ArticleShowComponent implements OnInit {
     .subscribe(
       res => {
         console.log(res);
-        this.getComments();
+        setTimeout(() => {
+          this.getComments();
+        });
       },
       err => {
         console.log(err);
@@ -166,6 +167,19 @@ export class ArticleShowComponent implements OnInit {
       console.log(this.oldComment.id);
       console.log(comment.id);
       console.log('Update Comment');
+      this.articleService.updateComment(comment)
+        .subscribe(
+          res => {
+            console.log(res);
+            setTimeout(() => {
+              this.getComments();
+            });
+          },
+          err => {
+            console.log(err);
+            return Observable.throw(err);
+          }
+        );
       this.oldComment.id = 0;
     } else {
       this.createComment(comment);
@@ -177,6 +191,20 @@ export class ArticleShowComponent implements OnInit {
     //     this.router.navigate([this.returnUrl]);
     //   },
     //     error => this.errorMessage = error);
+  }
+  commentDate(comment):number {
+    if(comment.created_at === comment.updated_at) {
+      return comment.created_at;
+    } else {
+      return comment.updated_at;
+    }
+  }
+  commentEdited(comment):string {
+    if(comment.created_at === comment.updated_at) {
+      return 'posted';
+    } else {
+      return 'edited';
+    }
   }
 
 
