@@ -29,17 +29,20 @@ export class ArticleListComponent implements OnInit {
     private router: Router
   ) {}
 
+
+  //General Functions
   ngOnInit() {
     let timer = Observable.timer(0, 5000);
     this.timerStopper = timer.subscribe(() => this.getArticles());
     this.user = this.tokenService.currentUserData;
     this.userType = this.tokenService.currentUserType;
   }
-
   ngOnDestroy() {
     this.timerStopper.unsubscribe();
   }
 
+
+  //Article Functions
   getArticles() {
     this.articleService.getArticles()
         .subscribe(
@@ -47,7 +50,6 @@ export class ArticleListComponent implements OnInit {
           error => this.errorMessage = <any>error
         );
   }
-
   deleteArticle(id: number) {
     this.articleService.deleteArticle(id)
         .subscribe(
@@ -58,16 +60,16 @@ export class ArticleListComponent implements OnInit {
           error => this.errorMessage = <any>error
         );
   }
-
   goToShow(article: Article): void {
     let link = ['/news/article', article.id];
     this.router.navigate(link);
   }
 
+
+  //Account Functions
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
-
   isAdmin(): boolean {
     return (this.isLoggedIn() && this.userType === 'ADMIN');
   }
