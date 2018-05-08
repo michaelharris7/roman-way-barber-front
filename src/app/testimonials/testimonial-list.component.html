@@ -8,11 +8,6 @@
       <h4>
         Read about what others are saying about Evan's hair cutting services
       </h4>
-      <span *ngIf="isLoggedIn()">
-        <p>
-          <a routerLink="/testimonials/new">New testimonial</a>
-        </p>
-      </span>
     </div>
   </div>
 
@@ -22,7 +17,13 @@
         <div class="col-md-9 col-sm-7 col-6">
           <div class="container pb-5">
 
-            <pagination-controls id="paginate"
+            <span *ngIf="isLoggedIn()">
+              <p>
+                <a routerLink="/testimonials/new"><button class="btn btn-primary mb-3">Post your own testimonial</button></a>
+              </p>
+            </span>
+
+            <!-- <pagination-controls id="paginate"
                       (pageChange)="p = $event"
                       maxSize="9"
                       directionLinks="true"
@@ -32,45 +33,41 @@
                       screenReaderPaginationLabel="Pagination"
                       screenReaderPageLabel="page"
                       screenReaderCurrentLabel="You're on page">
-            </pagination-controls>
-            <div *ngIf="paginationTotal>5" class="pagination-top"></div>
+            </pagination-controls> -->
+            <!-- <div *ngIf="paginationTotal>5" class="pagination-top"></div> -->
 
             <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }" class="testimonial">
 
-              <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
-                <div class="container testimonial-post">
-                  <div class="row">
-                    <div class="col-2">
-                    </div>
-                    <div class="col-8 text-center">
+              <div class="container">
+                <div class="text-center">
+                  <a pageScroll [pageScrollOffset]="-180" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
+
+                    <blockquote>
+                      <p>
+                        "{{ testimonial.content | truncate:[150] }}"
+                      </p>
 
                       <div>
-                        "{{ testimonial.content | truncate:[150] }}"
-
-                        <div class="pre-line testimonial-name">
-                          <em>&nbsp;&#9472; </em>
-                          <span *ngIf="testimonial.custom_user;
-                                 else standard_user">
-                            <em>{{testimonial.custom_user}}</em>
-                          </span>
-                          <ng-template #standard_user>
-                            <em>{{testimonial.testimonial_user.user_name}}</em>
-                          </ng-template>
-                        </div>
+                        <em>&nbsp;&#9472; </em>
+                        <span *ngIf="testimonial.custom_user;
+                               else standard_user">
+                          <em>{{testimonial.custom_user}}</em>
+                        </span>
+                        <ng-template #standard_user>
+                          <em>{{testimonial.testimonial_user.user_name}}</em>
+                        </ng-template>
                       </div>
+                    </blockquote>
 
-                    </div>
-                    <div class="col-2">
-                    </div>
-                  </div>
+                  </a>
                 </div>
-              </a>
+              </div>
 
               <div class="container mb-5">
                 <div class="container my-3 d-flex justify-content-end">
 
                   <span class="pr-3">
-                    <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
+                    <a class="new-link" pageScroll [pageScrollOffset]="-180" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
                       <button class="btn btn-primary mb-3">Read More</button>
                     </a>
                   </span>

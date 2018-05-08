@@ -12,7 +12,22 @@ import { OrderPipe } from 'ngx-order-pipe';
 
 
 @Component({
-  templateUrl: 'testimonial-show.component.html'
+  templateUrl: 'testimonial-show.component.html',
+  styles: [
+    `
+      blockquote:hover {
+      background: white;
+      border: 1px solid #c7d3eb;
+      border-bottom: 2px solid #c7d3eb;
+      border-left: 1em solid #003e80;
+    }
+    blockquote:active {
+      border: 1px solid #c7d3eb;
+      border-bottom: 2px solid #c7d3eb;
+      border-left: 1em solid #003e80;
+    }
+    `
+  ]
 })
 
 export class TestimonialShowComponent implements OnInit {

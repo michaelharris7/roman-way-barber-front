@@ -182,7 +182,7 @@
 }
 
 
-.testimonial-post {
+/*.testimonial-post {
   padding: 40px;
   border: 1px solid transparent;
 }
@@ -201,7 +201,7 @@
 .testimonial-post:active {
   background-color: #ebeaf1;
   border: 1px solid #e6e6e6;
-}
+}*/
 .testimonial {
   font-weight: 700;
   line-height: 2em;
@@ -216,16 +216,16 @@
   text-decoration: none !important;
   color: #005cbf !important;
 }
-.testimonial a:active {
+/*.testimonial a:active {
   color: #007bff !important;
-}
-.testimonial-name {
+}*/
+/*.testimonial-name {
   color: #000000;
 }
 .pre-line {
   white-space: nowrap;
   margin-left: 200px;
-}
+}*/
 .testimonial-show {
   padding: 0 50px;
 }
@@ -249,7 +249,8 @@ pagination-controls {
 
 blockquote {
   background: white;
-  margin: 0 1em 1.5;
+  /*margin: 0 1em 1.5;*/
+  margin: 0;
   padding: 2em 4em 1em;
   quotes: "\201C""\201D";
   border: 1px solid #c7d3eb;
@@ -258,26 +259,32 @@ blockquote {
   border-top-right-radius: 20px;
   box-shadow: 2px 2px 5px #e2e2e2;
 }
+blockquote:hover {
+  background-color: #f4f3fa;
+  border: 1px solid #bbc8de;
+  border-bottom: 2px solid #bbc8de;
+  border-left: 1em solid #003371;
+}
+blockquote:active {
+  border: 1px solid #007bff;
+  border-bottom: 2px solid #007bff;
+  border-left: 1em solid #0050b3;
+}
 blockquote p:before {
   color: #003e80;
   content: open-quote;
   font-size: 4em;
   line-height: .1em;
-  /*margin-right:.25em;*/
   vertical-align: -.4em;
 }
 blockquote p:first-child {
   display: inline;
-}
-blockquote p:last-child {
-  margin-bottom: 0;
 }
 blockquote p:after {
   color: #003e80;
   content: close-quote;
   font-size: 4em;
   line-height: .1em;
-  margin-right: .25em;
   vertical-align: -.4em;
 }
 blockquote div {
