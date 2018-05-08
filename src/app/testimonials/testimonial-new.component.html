@@ -87,18 +87,28 @@
               Testimonial will show as follows:
             </h3>
             <div *ngIf="testimonial.content;
-                  else no_post">
-              <div class="card card-shadow-medium">
-                <div class="container news-markdown py-3">"{{testimonial.content}}" <em>&#9472; </em>
+                  else no_post" class="text-center testimonial">
+              <blockquote>
+                <p>
+                  {{testimonial.content}}
+                </p>
+
+                <div>
                   <span *ngIf="isAdmin();
                          else no_admin">
-                    <em>{{testimonial.custom_user}}</em>
+                    <em *ngIf="testimonial.custom_user">
+                      &nbsp;&#9472;
+                      {{testimonial.custom_user}}
+                    </em>
                   </span>
                   <ng-template #no_admin>
-                    <em>{{testimonialUser.user_name}}</em>
+
+                    <em>
+                      &nbsp;&#9472; {{testimonialUser.user_name}}
+                    </em>
                   </ng-template>
                 </div>
-              </div>
+              </blockquote>
             </div>
 
             <ng-template #no_post>

@@ -273,9 +273,9 @@ blockquote:active {
 blockquote p:before {
   color: #003e80;
   content: open-quote;
-  font-size: 4em;
+  font-size: 3.5em;
   line-height: .1em;
-  vertical-align: -.4em;
+  vertical-align: -.47em;
 }
 blockquote p:first-child {
   display: inline;
@@ -283,9 +283,9 @@ blockquote p:first-child {
 blockquote p:after {
   color: #003e80;
   content: close-quote;
-  font-size: 4em;
+  font-size: 3.5em;
   line-height: .1em;
-  vertical-align: -.4em;
+  vertical-align: -.47em;
 }
 blockquote div {
   margin-left: 150px;
