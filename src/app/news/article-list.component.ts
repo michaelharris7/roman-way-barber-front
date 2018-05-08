@@ -43,7 +43,6 @@ export class ArticleListComponent implements OnInit {
     let timer = Observable.timer(0, 5000);
     this.timerStopper = timer.subscribe(() => {
       this.getArticles();
-      this.getFeaturedArticles();
     });
     this.user = this.tokenService.currentUserData;
     this.userType = this.tokenService.currentUserType;

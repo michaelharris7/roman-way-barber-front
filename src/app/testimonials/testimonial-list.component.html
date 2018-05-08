@@ -19,8 +19,76 @@
   <div class="new-main">
     <div class="container">
       <div class="row">
+        <div class="col-md-9 col-sm-7 col-6">
+          <div class="container pb-5">
 
+            <pagination-controls id="paginate"
+                      (pageChange)="p = $event"
+                      maxSize="9"
+                      directionLinks="true"
+                      autoHide="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+            <div *ngIf="paginationTotal>5" class="pagination-top"></div>
+
+            <div *ngFor="let article of articles | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
+              <div class="container new-post">
+                <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
+                  <h3 class="py-3 new-title">
+                    {{ article.title }}
+                  </h3>
+                  <p class="new-markdown">
+                    <markdown data="{{ article.content | truncate:[200] }}"></markdown>
+                  </p>
+                  <p>
+                    <small>Last Updated: {{article.updated_at | date:'medium'}}</small>
+                  </p>
+                </a>
+              </div>
+
+              <div class="container mt-3">
+                <span class="pr-3">
+                  <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
+                    <button class="btn btn-primary new-show-btn mb-3">Read More</button>
+                  </a>
+                </span>
+
+                <span *ngIf="isAdmin()">
+                  <a (click)="deleteArticle(article.id)" class="new-link">
+                    <button class="btn btn-danger new-show-btn mb-3">Delete Article</button>
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div *ngIf="paginationTotal>5" class="pagination-bottom"></div>
+
+            <pagination-controls id="paginate"
+                      (pageChange)="p = $event"
+                      maxSize="9"
+                      directionLinks="true"
+                      autoHide="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-5 col-6">
+          <div class="container">
+            <sidebar></sidebar>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>

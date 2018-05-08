@@ -15,6 +15,7 @@ import { AuthRoutingModule } from './authentication/auth-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 import { AuthLinksComponent } from './authentication/auth-links.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ServicesComponent } from './services/services.component';
@@ -64,6 +65,7 @@ import { TestimonialService } from './testimonials/testimonial.service';
     AppComponent,
     NavbarComponent,
     FooterComponent,
+    SidebarComponent,
     AuthLinksComponent,
     HomepageComponent,
     ServicesComponent,
