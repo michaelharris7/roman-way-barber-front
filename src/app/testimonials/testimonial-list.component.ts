@@ -10,8 +10,7 @@ import { OrderPipe } from 'ngx-order-pipe';
 
 
 @Component({
-  templateUrl: './testimonial-list.component.html',
-  styleUrls: ['./testimonial.component.css']
+  templateUrl: './testimonial-list.component.html'
 })
 
 export class TestimonialListComponent implements OnInit {

@@ -10,8 +10,7 @@ import { Testimonial } from './testimonial';
 
 
 @Component({
-  templateUrl: 'testimonial-new.component.html',
-  styleUrls: ['testimonial.component.css']
+  templateUrl: 'testimonial-new.component.html'
 })
 
 export class TestimonialNewComponent {
