@@ -5,6 +5,7 @@ import { ArticleService } from './article.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { Angular2TokenService } from 'angular2-token';
 
+
 @Component({
   selector: 'article-new',
   templateUrl: 'article-new.component.html',

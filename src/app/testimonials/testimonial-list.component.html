@@ -6,8 +6,13 @@
         Testimonials:
       </h1>
       <h4>
-        Read about what others are saying about Evan's hair cutting
+        Read about what others are saying about Evan's hair cutting services
       </h4>
+      <span *ngIf="isLoggedIn()">
+        <p>
+          <a routerLink="/testimonials/new">New testimonial</a>
+        </p>
+      </span>
     </div>
   </div>
 
