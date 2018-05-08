@@ -9,10 +9,10 @@
           <div class="page-content-focus">
             <div class="d-flex align-items-stretch">
               <div>
-                <div *ngIf="isLoggedIn() && user" class="text-right">
+                <div *ngIf="isLoggedIn() && userData" class="text-right">
                   <!-- {{refreshUser()}} -->
-                  <p [hidden]="!user">
-                    Welcome back, {{user.name}}<br/>{{userType}}
+                  <p [hidden]="!userData">
+                    Welcome back, {{userData.name}}<br/>{{userType}}
                   </p>
                 </div>
 

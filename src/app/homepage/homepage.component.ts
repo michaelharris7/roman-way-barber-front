@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Angular2TokenService, UserData, UserType } from 'angular2-token';
 import { AuthenticationService } from '../authentication/authentication.service';
-import { LoginComponent } from '../authentication/login/login.component';
 
 
 @Component({
@@ -12,7 +11,7 @@ import { LoginComponent } from '../authentication/login/login.component';
 
 
 export class HomepageComponent implements OnInit {
-  user: UserData = <UserData>{};
+  userData: UserData = <UserData>{};
   userType: string;
 
   constructor (
@@ -21,28 +20,32 @@ export class HomepageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loginVerification();
+  }
+
+
+  // Account Functions
+  loginVerification() {
     if(this.isLoggedIn()) {
       this.tokenService.validateToken().subscribe(
         res => {
-          this.user = this.tokenService.currentUserData;
+          this.userData = this.tokenService.currentUserData;
           this.userType = this.tokenService.currentUserType;
-          console.log(this.tokenService.currentUserData);
         },
         err => {
-          console.log(err);
+          console.log('No user logged in. Logging out:' + err);
           this.logOut();
         }
       );
     }
   }
-
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
   logOut() {
     this.authService.logOut().subscribe(
-        res => { console.log('User signed out successfully'); },
-        err => { console.log(err); }
+        res => { return true },
+        err => { console.log('There was an error in logging out:' + err); }
       );
   }
 }

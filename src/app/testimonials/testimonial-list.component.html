@@ -35,45 +35,51 @@
             </pagination-controls>
             <div *ngIf="paginationTotal>5" class="pagination-top"></div>
 
-            <!-- <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'testimonial_' + testimonial.id"> -->
+            <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }" class="testimonial">
 
-              <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }" class="py-4">
+              <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
+                <div class="container testimonial-post">
+                  <div class="row">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-8 text-center">
 
-              <div class="container new-post">
-                <div class="row">
-                  <div class="col-2">
-                  </div>
-                  <!-- <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article"> -->
-                    <!-- <h3 class="py-3 new-title">
-                      {{ article.title }}
-                    </h3> -->
-                    <div class="new-markdown col-8 text-center">
-                      "{{ testimonial.content | truncate:[150] }}" <em>&nbsp;&#9472; </em>
-                      <span *ngIf="testimonial.custom_user;
-                             else standard_user">
-                        <em>{{testimonial.custom_user}}</em>
-                      </span>
-                      <ng-template #standard_user>
-                        <em>{{testimonial.testimonial_user.user_name}}</em>
-                      </ng-template>
+                      <div>
+                        "{{ testimonial.content | truncate:[150] }}"
+
+                        <div class="pre-line testimonial-name">
+                          <em>&nbsp;&#9472; </em>
+                          <span *ngIf="testimonial.custom_user;
+                                 else standard_user">
+                            <em>{{testimonial.custom_user}}</em>
+                          </span>
+                          <ng-template #standard_user>
+                            <em>{{testimonial.testimonial_user.user_name}}</em>
+                          </ng-template>
+                        </div>
+                      </div>
+
                     </div>
                     <div class="col-2">
                     </div>
-                  <!-- </a> -->
+                  </div>
                 </div>
+              </a>
 
-                <div class="container mt-3">
-                  <!-- <span class="pr-3">
-                    <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
-                      <button class="btn btn-primary new-show-btn mb-3">Read More</button>
+              <div class="container mb-5">
+                <div class="container my-3 d-flex justify-content-end">
+
+                  <span class="pr-3">
+                    <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
+                      <button class="btn btn-primary mb-3">Read More</button>
                     </a>
                   </span>
 
-                  <span *ngIf="isAdmin()">
-                    <a (click)="deleteArticle(article.id)" class="new-link">
-                      <button class="btn btn-danger new-show-btn mb-3">Delete Article</button>
+                  <span *ngIf="isAdmin() || testimonial.testimonial_user.user_id === userData.id" class="pr-3">
+                    <a (click)="deleteTestimonial(testimonial.id)" class="new-link">
+                      <button class="btn btn-danger mb-3">Delete</button>
                     </a>
-                  </span> -->
+                  </span>
                 </div>
               </div>
             </div>

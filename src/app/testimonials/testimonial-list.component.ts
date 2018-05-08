@@ -32,14 +32,15 @@ export class TestimonialListComponent implements OnInit {
     private router: Router
   ) {}
 
+
+  // General Functions
   ngOnInit() {
     this.getTestimonials();
     let timer = Observable.timer(0, 5000);
     this.timerStopper = timer.subscribe(() => {
       this.getTestimonials();
     });
-    this.userData = this.tokenService.currentUserData;
-    this.userType = this.tokenService.currentUserType;
+    this.loginVerification();
   }
   ngOnDestroy() {
     this.timerStopper.unsubscribe();
@@ -67,10 +68,10 @@ export class TestimonialListComponent implements OnInit {
           error => console.log(error)
         );
   }
-  // goToShow(testimonial: Testimonial): void {
-  //   let link = ['/testimonial/', testimonial.id];
-  //   this.router.navigate(link);
-  // }
+  goToShow(testimonial: Testimonial): void {
+    let link = ['/testimonial/', testimonial.id];
+    this.router.navigate(link);
+  }
   // getFeaturedTestimonials() {
   //   this.testimonialService.getFeaturedTestimonials()
   //   .subscribe(
@@ -115,13 +116,27 @@ export class TestimonialListComponent implements OnInit {
 
 
   // Account Functions
+  loginVerification() {
+    if(this.isLoggedIn()) {
+      this.tokenService.validateToken().subscribe(
+        res => {
+          this.userData = this.tokenService.currentUserData;
+          this.userType = this.tokenService.currentUserType;
+        },
+        err => {
+          console.log('No user logged in. Logging out:' + err);
+          this.logOut();
+        }
+      );
+    }
+  }
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
   logOut() {
     this.authService.logOut().subscribe(
-        res => { console.log('User signed out successfully'); },
-        err => { console.log(err); }
+        res => { return true },
+        err => { console.log('There was an error in logging out:' + err); }
       );
   }
   isAdmin(): boolean {
