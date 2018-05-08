@@ -202,10 +202,13 @@
   background-color: #ebeaf1;
   border: 1px solid #e6e6e6;
 }
-.testimonial a {
+.testimonial {
   font-weight: 700;
   line-height: 2em;
   font-size: 1.25em;
+  color: #003e80 !important;
+}
+.testimonial a {
   cursor: pointer;
   color: #005cbf !important;
 }
@@ -223,6 +226,9 @@
   white-space: nowrap;
   margin-left: 200px;
 }
+.testimonial-show {
+  padding: 0 50px;
+}
 
 
 .pagination-top {
@@ -239,4 +245,41 @@
 }
 pagination-controls {
   text-align: center;
+}
+
+blockquote {
+  background: white;
+  margin: 0 1em 1.5;
+  padding: 2em 4em 1em;
+  quotes: "\201C""\201D";
+  border: 1px solid #c7d3eb;
+  border-bottom: 2px solid #c7d3eb;
+  border-left: 1em solid #003e80;
+  border-top-right-radius: 20px;
+  box-shadow: 2px 2px 5px #e2e2e2;
+}
+blockquote p:before {
+  color: #003e80;
+  content: open-quote;
+  font-size: 4em;
+  line-height: .1em;
+  /*margin-right:.25em;*/
+  vertical-align: -.4em;
+}
+blockquote p:first-child {
+  display: inline;
+}
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+blockquote p:after {
+  color: #003e80;
+  content: close-quote;
+  font-size: 4em;
+  line-height: .1em;
+  margin-right: .25em;
+  vertical-align: -.4em;
+}
+blockquote div {
+  margin-left: 150px;
 }

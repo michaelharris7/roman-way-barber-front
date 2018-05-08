@@ -18,11 +18,48 @@
   <div class="new-main">
     <div class="container">
       <div class="row">
+
         <div class="col-md-9 col-sm-7 col-6 mb-5">
+          <div *ngIf="testimonial">
+
+            <!-- <div id="articlePreview"></div> -->
+            <!-- <div class="container card card-box-shadows pt-4 pb-1 mb-5 text-center testimonial"> -->
+            <div class="text-center testimonial">
+              <div class="testimonial-show">
+
+                <!-- <markdown data=">{{ testimonial.content }}"></markdown> -->
+                <blockquote>
+                  <p>
+                    {{ testimonial.content }}
+                  </p>
 
 
+                  <!-- <div class="pre-line testimonial-name"> -->
+                  <div>
+                    <em>&nbsp;&#9472; </em>
+                    <span *ngIf="testimonial.custom_user;
+                           else standard_user">
+                      <em>{{ testimonial.custom_user }}</em>
+                    </span>
+                    <ng-template #standard_user>
+                      <em>{{ testimonial.testimonial_user.user_name }}</em>
+                    </ng-template>
+                  </div>
+                </blockquote>
+              </div>
+            </div>
+
+          </div>
         </div>
+
+        <div class="col-md-3 col-sm-5 col-6">
+          <div class="container">
+            <sidebar></sidebar>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
+
 </div>
