@@ -3,10 +3,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Angular2TokenService, UserData } from 'angular2-token';
-import { TestimonialUser } from './testimonial-user';
 import { TestimonialService } from './testimonial.service';
-import { Testimonial } from './testimonial';
 import { AuthenticationService } from '../authentication/authentication.service';
+import { TestimonialUser } from './testimonial-user';
+import { Testimonial } from './testimonial';
 
 
 @Component({
@@ -33,10 +33,14 @@ export class TestimonialNewComponent {
       this.tokenService.validateToken().subscribe(
         res => {
           this.userData = this.tokenService.currentUserData;
+          this.userType = this.tokenService.currentUserType;
           this.getTestimonialUsers();
         },
-        err => console.log(err));
-      this.userType = this.tokenService.currentUserType;
+        err => {
+          console.log(err);
+          this.logOut();
+        }
+      );
     }
   }
 
@@ -64,17 +68,15 @@ export class TestimonialNewComponent {
   }
 
 
-  //TestimonialUser functions
+  // TestimonialUser functions
   findTestimonialUserId(user_id:number, user_type:string):number {
     for(let testimonialUser of this.testimonialUsers) {
       if((testimonialUser.user_id === user_id) && (testimonialUser.user_type === user_type))
-        console.log('testimonialUser.id:' + testimonialUser.id);
-        return testimonialUser.id;
+          return testimonialUser.id;
     }
   }
   getTestimonialUser() {
     let user_id = this.findTestimonialUserId(this.userData.id, this.userType);
-    console.log(user_id);
     let testimonialUserRequest = this.testimonialService.getTestimonialUser(user_id);
     testimonialUserRequest.subscribe(
       res => this.testimonialUser = res.json(),
@@ -95,8 +97,17 @@ export class TestimonialNewComponent {
   }
 
 
-  //Account Functions
+  // Account Functions
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
+  }
+  logOut() {
+    this.authService.logOut().subscribe(
+        res => { console.log('User signed out successfully'); },
+        err => { console.log(err); }
+      );
+  }
+  isAdmin(): boolean {
+    return (this.isLoggedIn() && this.userType === 'ADMIN');
   }
 }

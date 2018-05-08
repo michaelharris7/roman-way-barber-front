@@ -36,7 +36,7 @@ export class ArticleListComponent implements OnInit {
   ) {}
 
 
-  //General Functions
+  // General Functions
   ngOnInit() {
     this.getArticles();
     this.getFeaturedArticles();
@@ -92,7 +92,7 @@ export class ArticleListComponent implements OnInit {
   }
 
 
-  //Account Functions
+  // Account Functions
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }

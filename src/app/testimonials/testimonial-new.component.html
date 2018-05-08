@@ -36,14 +36,25 @@
                       Content is required to post your testimonial.
                     </div>
                     <textarea rows="10"
-                           class="form-control"
-                           id="content"
-                           placeholder="You can write any testimonial here."
-                           required
-                           name="content"
-                           #content='ngModel'
-                           [(ngModel)]="testimonial.content"
+                              class="form-control"
+                              id="content"
+                              placeholder="You can write any testimonial here."
+                              required
+                              name="content"
+                              #content='ngModel'
+                              [(ngModel)]="testimonial.content"
                     ></textarea>
+                    <div *ngIf="isAdmin()" class="mt-3">
+                      <input type="text"
+                             class="form-control"
+                             id="custom_user"
+                             placeholder="Anonymous"
+                             required
+                             name="custom_user"
+                             #title='ngModel'
+                             [(ngModel)]="testimonial.custom_user"
+                      >
+                    </div>
                   </div>
 
                   <button type="submit"
@@ -78,7 +89,14 @@
             <div *ngIf="testimonial.content;
                   else no_post">
               <div class="card card-shadow-medium">
-                <div class="container news-markdown py-3">"{{testimonial.content}}" <em>&#9472; {{testimonialUser.user_name}}</em>
+                <div class="container news-markdown py-3">"{{testimonial.content}}" <em>&#9472; </em>
+                  <span *ngIf="isAdmin();
+                         else no_admin">
+                    <em>{{testimonial.custom_user}}</em>
+                  </span>
+                  <ng-template #no_admin>
+                    <em>{{testimonialUser.user_name}}</em>
+                  </ng-template>
                 </div>
               </div>
             </div>
