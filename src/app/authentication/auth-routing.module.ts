@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'account',
     component: AccountComponent,
-    canActivate: [Angular2TokenService]
+    canActivate: [ Angular2TokenService ]
   }
 ]
 

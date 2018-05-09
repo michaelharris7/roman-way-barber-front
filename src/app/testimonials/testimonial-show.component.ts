@@ -37,13 +37,15 @@ export class TestimonialShowComponent implements OnInit {
   testimonialUser: TestimonialUser = <TestimonialUser>{};
   testimonialUsers: TestimonialUser[];
   testimonials: Testimonial[];
-  // testimonial: Testimonial = <Testimonial>{}
+  returnUrl: string;
+  editBtnClicked: boolean = false;
 
   @Input() testimonial: Testimonial;
 
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private tokenService: Angular2TokenService,
     private authService: AuthenticationService,
     private testimonialService: TestimonialService
@@ -57,10 +59,28 @@ export class TestimonialShowComponent implements OnInit {
 
   // Testimonial Function
   getTestimonial() {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/testimonials';
     let testimonialRequest = this.route.params
         .flatMap((params: Params) =>
           this.testimonialService.getTestimonial(+params['id']));
     testimonialRequest.subscribe(response => this.testimonial = response.json());
+  }
+  updateTestimonial(testimonial: Testimonial) {
+    this.editBtnClicked = !this.editBtnClicked;
+    this.testimonialService.updateTestimonial(testimonial)
+      .subscribe(data => {
+        return true
+      }, error => {
+        console.log('Error edditing Testimonial');
+        return Observable.throw(error);
+      })
+  }
+  deleteTestimonial(testimonial: Testimonial) {
+    this.testimonialService.deleteTestimonial(this.testimonial.id)
+      .subscribe(data => {
+        this.router.navigate([this.returnUrl]);
+      },
+        error => console.log(error));
   }
 
 

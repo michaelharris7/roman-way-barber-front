@@ -68,11 +68,6 @@ export class ArticleShowComponent implements OnInit {
          this.getFeaturedArticles();
         });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/news';
-    this.routeId = this.route.params.subscribe(
-      params => {
-        this.id = +params['id'];
-      }
-    );
     let articleRequest = this.route.params
         .flatMap((params: Params) =>
           this.articleService.getArticle(+params['id']));
