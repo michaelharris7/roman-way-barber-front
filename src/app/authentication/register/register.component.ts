@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
 import { ValidationService } from '../validation.service';
+import { Router } from '@angular/router';
 import { ArticleService } from '../../news/article.service';
 import { TestimonialService } from '../../testimonials/testimonial.service';
 import { Angular2TokenService, UserData } from 'angular2-token';
@@ -25,6 +26,7 @@ export class RegisterComponent {
   resetString: string;
 
   constructor(
+    private router: Router,
     private articleService: ArticleService,
     private testimonialService: TestimonialService,
     private tokenService: Angular2TokenService,
@@ -57,8 +59,8 @@ export class RegisterComponent {
             this.userType = this.tokenService.currentUserType;
             this.getCommentUsers();
             this.getTestimonialUsers();
-
             this.submitted = true;
+            this.redirectToPrevious();
           },
           err => this.afterFailedRegister(err)
         );
@@ -81,12 +83,12 @@ export class RegisterComponent {
   }
   resetSubmit() {
     setTimeout(() => {
-      this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account created successfully. Redirecting to homepage.</p>";
+      this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account created successfully. Redirecting now.</p>";
     });
   }
-  redirectAfterLogin() {
+  redirectToPrevious() {
     setTimeout(() => {
-      this.authService.redirectAfterLogin();
+      this.authService.redirectToPrevious();
     },1000);
   }
 
@@ -107,7 +109,6 @@ export class RegisterComponent {
           err => console.log(err)
           );
       }
-      this.redirectAfterLogin();
     }
   }
   searchCommentUser(user_id:number, user_type:string):boolean {
@@ -147,7 +148,6 @@ export class RegisterComponent {
           err => console.log(err)
           );
       }
-      this.redirectAfterLogin();
     }
   }
   searchTestimonialUser(user_id:number, user_type:string):boolean {

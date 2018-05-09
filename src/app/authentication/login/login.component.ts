@@ -24,7 +24,6 @@ export class LoginComponent {
   submitted: boolean = false;
   loginForm: FormGroup;
   resetString: string;
-  // atOptions: Angular2TokenOptions;
 
   constructor(
     private router: Router,
@@ -54,22 +53,7 @@ export class LoginComponent {
         this.userType = this.tokenService.currentUserType;
         this.getCommentUsers();
         this.getTestimonialUsers();
-        let redirect: string = localStorage.getItem('redirectTo');
-        console.log('1.redirct: ' + redirect);
-
-        if(redirect === 'null') {
-          this.authService.redirectToPrevious();
-          this.submitted = true;
-        } else {
-          this.router.navigate([redirect])
-            .then(function() {
-              localStorage.setItem('redirectTo', null);
-              console.log('2:' + localStorage.getItem('redirectTo'));
-            })
-            .catch(function() {
-              console.log('Redirection not possible' + localStorage.getItem('redirectTo'));
-            });
-        }
+        this.redirectAfterLogin();
       },
       err => this.afterFailedUserLogin(value)
     );
@@ -82,9 +66,7 @@ export class LoginComponent {
         this.userType = this.tokenService.currentUserType;
         this.getCommentUsers();
         this.getTestimonialUsers();
-
-        // FIX ADMIN REDIRECT
-        // this.submitted = true;
+        this.redirectAfterLogin();
       },
       err => this.afterFailedAdminLogin(err)
     );
@@ -104,13 +86,29 @@ export class LoginComponent {
   }
   resetSubmit() {
     setTimeout(() => {
-      this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account logged in successfully. Redirecting to homepage.</p>";
+      this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account logged in successfully. Redirecting now.</p>";
     });
   }
   redirectToPrevious() {
     setTimeout(() => {
       this.authService.redirectToPrevious();
     },1000);
+  }
+  redirectAfterLogin() {
+    let redirect: string = localStorage.getItem('redirectTo');
+
+    if(redirect === 'null') {
+      this.redirectToPrevious();
+      this.submitted = true;
+    } else {
+      this.router.navigate([redirect])
+        .then(function() {
+          localStorage.setItem('redirectTo', null);
+        })
+        .catch(function() {
+          console.log('Redirection not possible' + localStorage.getItem('redirectTo'));
+        });
+    }
   }
 
 
