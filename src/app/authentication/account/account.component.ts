@@ -106,12 +106,7 @@ export class AccountComponent implements OnInit {
         if(!this.formBasicSet) {
           this.authService.updatePassword(value)
           .subscribe(
-            res => {
-              this.userData = this.tokenService.currentUserData;
-              this.userType = this.tokenService.currentUserType;
-              this.getUpdateCommentUser();
-              this.getUpdateTestimonialUser();
-            },
+            res => console.log(res),
             err => this.afterFailedUpdate()
           );
         }
@@ -119,6 +114,7 @@ export class AccountComponent implements OnInit {
         this.userType = this.tokenService.currentUserType;
         this.getUpdateCommentUser();
         this.getUpdateTestimonialUser();
+        this.redirectToPrevious();
 
         this.submitted = true;
       },
@@ -147,25 +143,29 @@ export class AccountComponent implements OnInit {
   logOut() {
     this.authService.logOut()
     .subscribe(
-      res => this.authService.redirectAfterLogin(),
-      err => {
-        console.log("Error logging out");
-        return Observable.throw(err);
-      }
-    );
+      res => this.authService.redirectToPrevious(),
+        error => {
+          console.log("Error logging out: " + error);
+          return Observable.throw(error);
+        }
+      );
   }
   deleteAccount() {
     this.userData = this.tokenService.currentUserData;
     this.userType = this.tokenService.currentUserType;
+    if(this.userType === 'ADMIN')
+      return true;
     this.getDeleteCommentUser();
     this.getDeleteTestimonialUser();
+    this.deleteAccountData();
   }
   deleteAccountData() {
     this.authService.deleteAccount()
     .subscribe(
       res => {
+        this.deleteConfirm = true;
         this.deleteConfirmed = true;
-        this.redirectAfterLogin();
+        this.redirectToPrevious();
       },
       err => {
         console.log("Error deleting account");
@@ -174,9 +174,9 @@ export class AccountComponent implements OnInit {
       }
     );
   }
-  redirectAfterLogin() {
+  redirectToPrevious() {
     setTimeout(() => {
-      this.authService.redirectAfterLogin();
+      this.authService.redirectToPrevious();
     },1000);
   }
 
@@ -203,7 +203,6 @@ export class AccountComponent implements OnInit {
           }
         );
       }
-      this.redirectAfterLogin();
     }
   }
   deleteCommentUser() {
@@ -219,7 +218,6 @@ export class AccountComponent implements OnInit {
           res => {
             console.log(this.commentUser);
             console.log('Comment User deleted successfully');
-            this.deleteAccountData();
           },
           err => {
             console.log(err);
@@ -284,7 +282,6 @@ export class AccountComponent implements OnInit {
           }
         );
       }
-      this.redirectAfterLogin();
     }
   }
   deleteTestimonialUser() {
@@ -300,7 +297,6 @@ export class AccountComponent implements OnInit {
           res => {
             console.log(this.testimonialUser);
             console.log('Testimonial User deleted successfully');
-            this.deleteAccountData();
           },
           err => {
             console.log(err);

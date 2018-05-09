@@ -58,9 +58,9 @@ export class AuthLinksComponent {
   }
   logOut() {
     this.authService.logOut().subscribe(
-        data => { this.authService.redirectAfterLogin(); },
+        res => console.log(res),
         error => {
-          console.log("Error logging out");
+          console.log("Error logging out: " + error);
           return Observable.throw(error);
         }
       );

@@ -41,7 +41,7 @@ export class AuthenticationService {
 
       signOutPath:                'sign_out',
       validateTokenPath:          'validate_token',
-      signOutFailedValidate:      false,
+      signOutFailedValidate:      true,
 
       registerAccountPath:        '',
       deleteAccountPath:          '',
@@ -106,18 +106,11 @@ export class AuthenticationService {
   }
 
   logOut(): Observable<Response> {
-    this.redirectUrl = undefined;
     return this.tokenService.signOut()
   }
 
   isLoggedIn(): boolean {
     return this.tokenService.userSignedIn();
-  }
-
-  redirectAfterLogin(): void {
-    // let redirectTo = this.redirectUrl ? this.redirectUrl: '/';
-    // this.redirectUrl = undefined;
-    this.router.navigate(['/']);
   }
 
   redirectToPrevious(): void {
