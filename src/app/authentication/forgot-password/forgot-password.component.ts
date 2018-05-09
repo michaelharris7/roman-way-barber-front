@@ -27,7 +27,7 @@ export class ForgotPasswordComponent {
     this.authService.resetPassword(value.email).subscribe(
         res => {
           setTimeout(() => {
-            this.authService.redirectAfterLogin();
+            this.authService.redirectToPrevious();
           },1000);
 
           this.submitted = true;

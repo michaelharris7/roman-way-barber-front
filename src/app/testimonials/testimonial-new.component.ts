@@ -64,7 +64,7 @@ export class TestimonialNewComponent {
   }
   redirectAfterPosted() {
     setTimeout(() => {
-      this.authService.redirectAfterLogin();
+      this.authService.redirectToPrevious();
     },1000);
   }
 

@@ -44,7 +44,7 @@ export class ArticleNewComponent implements OnInit {
   }
   redirectIfNotAdmin() {
     if(this.userType !== 'ADMIN') {
-      this.authService.redirectAfterLogin();
+      this.authService.redirectToPrevious();
     }
   }
   isLoggedIn(): boolean {
