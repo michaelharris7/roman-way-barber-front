@@ -40,6 +40,8 @@ export class TestimonialNewComponent {
           this.logOut();
         }
       );
+    } else {
+      // this.router.back();
     }
   }
 

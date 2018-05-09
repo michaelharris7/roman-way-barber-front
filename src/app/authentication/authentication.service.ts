@@ -1,8 +1,10 @@
 import { OnInit, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Angular2TokenService, Angular2TokenOptions, SignInData, UserData, AuthData, UpdatePasswordData } from 'angular2-token';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/pairwise';
+import 'rxjs/add/operator/filter';
 
 
 @Injectable()
@@ -13,19 +15,29 @@ export class AuthenticationService {
   authData: AuthData = <AuthData>{};
   updatePasswordData: UpdatePasswordData = <UpdatePasswordData>{};
   atOptions: Angular2TokenOptions;
+  previousUrl: string;
 
   constructor(
     private http: Http,
     private router: Router,
-    private tokenService: Angular2TokenService
+    private tokenService: Angular2TokenService,
   ) {
+
+    this.router.events
+      .filter(e => e instanceof NavigationStart )
+      .pairwise()
+      .subscribe(e => {
+        this.previousUrl = e[0]['url'];
+        console.log(this.previousUrl);
+      });
+
     this.tokenService.init({
       apiBase:                    'http://localhost:3000',
       apiPath:                    null,
 
       signInPath:                 'sign_in',
-      signInRedirect:             'home',
-      signInStoredUrlStorageKey:  null,
+      signInRedirect:             'login',
+      signInStoredUrlStorageKey:  'redirectTo',
 
       signOutPath:                'sign_out',
       validateTokenPath:          'validate_token',
@@ -59,7 +71,6 @@ export class AuthenticationService {
           }
       },
     });
-
   }
 
   logIn(email, password): Observable<Response> {
@@ -104,9 +115,16 @@ export class AuthenticationService {
   }
 
   redirectAfterLogin(): void {
-    let redirectTo = this.redirectUrl ? this.redirectUrl: '/';
-    this.redirectUrl = undefined;
-    this.router.navigate([redirectTo]);
+    // let redirectTo = this.redirectUrl ? this.redirectUrl: '/';
+    // this.redirectUrl = undefined;
+    this.router.navigate(['/']);
+  }
+
+  redirectToPrevious(): void {
+    if(!this.previousUrl) {
+      this.previousUrl = '/';
+    }
+    this.router.navigate([this.previousUrl]);
   }
 
   updateUserData(data): Observable<Response> {
