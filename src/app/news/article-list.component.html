@@ -1,3 +1,4 @@
+<div id="article-list">
 <div class="new-back">
 
   <div class="new-header">
@@ -35,7 +36,7 @@
             </pagination-controls>
             <div *ngIf="paginationTotal>5" class="pagination-top"></div>
 
-            <div *ngFor="let article of articles | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
+            <div *ngFor="let article of articles | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let first = first; let last = last" [class.pb-2]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
               <div class="new-post-select">
                 <div class="container new-post">
                   <a class="w-100" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">

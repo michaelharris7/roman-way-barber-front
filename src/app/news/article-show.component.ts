@@ -116,8 +116,10 @@ export class ArticleShowComponent implements OnInit {
     console.log(featuredArticleId);
     if(featuredArticleId > 0) {
       this.deleteFeaturedArticle(featuredArticleId);
+      this.getFeaturedArticles();
     } else if(this.featuredArticles.length < 3) {
       this.createFeaturedArticle(this.featuredArticle);
+      this.getFeaturedArticles();
     } else {
       console.log('There are too many articles featured right now.');
     }
