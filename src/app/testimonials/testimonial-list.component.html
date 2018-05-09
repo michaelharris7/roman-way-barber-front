@@ -23,42 +23,29 @@
               </p>
             </span>
 
-            <!-- <pagination-controls id="paginate"
-                      (pageChange)="p = $event"
-                      maxSize="9"
-                      directionLinks="true"
-                      autoHide="true"
-                      previousLabel="Previous"
-                      nextLabel="Next"
-                      screenReaderPaginationLabel="Pagination"
-                      screenReaderPageLabel="page"
-                      screenReaderCurrentLabel="You're on page">
-            </pagination-controls> -->
-            <!-- <div *ngIf="paginationTotal>5" class="pagination-top"></div> -->
-
             <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }" class="testimonial">
 
               <div class="container">
                 <div class="text-center">
                   <a pageScroll [pageScrollOffset]="-180" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
+                    <div class="blockquote-select">
+                      <blockquote>
+                        <p>
+                          <span class="text-output-format">{{ testimonial.content | truncate:[150] }}</span>
+                        </p>
 
-                    <blockquote>
-                      <p>
-                        {{ testimonial.content | truncate:[150] }}
-                      </p>
-
-                      <div>
-                        <em>&nbsp;&#9472; </em>
-                        <span *ngIf="testimonial.custom_user;
-                               else standard_user">
-                          <em>{{testimonial.custom_user}}</em>
-                        </span>
-                        <ng-template #standard_user>
-                          <em>{{testimonial.testimonial_user.user_name}}</em>
-                        </ng-template>
-                      </div>
-                    </blockquote>
-
+                        <div class="quote-signature">
+                          <em>&nbsp;&#9472; </em>
+                          <span *ngIf="testimonial.custom_user;
+                                 else standard_user">
+                            <em>{{testimonial.custom_user}}</em>
+                          </span>
+                          <ng-template #standard_user>
+                            <em>{{testimonial.testimonial_user.user_name}}</em>
+                          </ng-template>
+                        </div>
+                      </blockquote>
+                    </div>
                   </a>
                 </div>
               </div>

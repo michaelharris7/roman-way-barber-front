@@ -8,7 +8,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 @Component({
   selector: 'sidebar',
   template: `
-    <div class="new-sidebar card-box-shadows pt-4 mb-5">
+    <div class="new-sidebar card-shadow-light pt-4 mb-5">
       <div *ngIf="!isLoggedIn()">
         <p>
           <a routerLink="/login">Login</a> or <a routerLink="/register">register</a> to comment on news posts.

@@ -90,10 +90,10 @@
                   else no_post" class="text-center testimonial">
               <blockquote>
                 <p>
-                  {{testimonial.content}}
+                  <span class="text-output-format">{{testimonial.content}}</span>
                 </p>
 
-                <div>
+                <div class="quote-signature">
                   <span *ngIf="isAdmin();
                          else no_admin">
                     <em *ngIf="testimonial.custom_user">

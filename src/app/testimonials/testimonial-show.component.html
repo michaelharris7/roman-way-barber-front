@@ -29,7 +29,7 @@
           </div>
 
           <div *ngIf="testimonial">
-            <div class="card card-box-shadows py-2 mb-5" *ngIf="isAdmin() && editBtnClicked">
+            <div class="card py-2 mb-5" *ngIf="isAdmin() && editBtnClicked">
               <div class="container">
                 <form #testimonialForm="ngForm">
                   <div class="form-group">
@@ -79,15 +79,17 @@
             </div>
 
             <div id="testimonialPreview"></div>
-            <div class="text-center testimonial">
-              <div class="testimonial-show">
 
-                <blockquote>
+            <div class="container">
+              <div class="text-center testimonial">
+
+
+                <blockquote class="blockquote-no-hover">
                   <p>
-                    {{ testimonial.content }}
+                    <span class="text-output-format">{{ testimonial.content }}</span>
                   </p>
 
-                  <div>
+                  <div class="quote-signature">
                     <em>&nbsp;&#9472; </em>
                     <span *ngIf="testimonial.custom_user;
                            else standard_user">
