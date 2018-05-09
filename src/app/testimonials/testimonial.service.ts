@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { TestimonialUser } from './testimonial-user';
 import { Testimonial } from './testimonial';
+import { FeaturedTestimonial } from './featured-testimonial';
 
 
 @Injectable()
@@ -13,6 +14,7 @@ export class TestimonialService {
   options: RequestOptions;
   private testimonialUsersUrl = 'http://localhost:3002/testimonial_users';
   private testimonialsUrl = 'http://localhost:3002/testimonials';
+  private featuredTestimonialsUrl = 'http://localhost:3002/featured_testimonials';
 
   constructor(
     private http: Http,
@@ -72,6 +74,25 @@ export class TestimonialService {
   }
   deleteTestimonial(id: number): Observable<Testimonial> {
     const url = `${this.testimonialsUrl}/${id}`;
+    return this.http.delete(url, this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+
+  // Featured Testimonail functions
+  getFeaturedTestimonials(): Observable<FeaturedTestimonial[]> {
+    return this.http.get(this.featuredTestimonialsUrl)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+  createFeaturedTestimonial(featuredTestimonial: FeaturedTestimonial): Observable<FeaturedTestimonial> {
+    return this.http.post(this.featuredTestimonialsUrl, JSON.stringify(featuredTestimonial),
+      this.options).map(this.extractData)
+          .catch(this.handleError);
+  }
+  deleteFeaturedTestimonial(id: number): Observable<FeaturedTestimonial> {
+    const url = `${this.featuredTestimonialsUrl}/${id}`;
     return this.http.delete(url, this.options)
       .map(this.extractData)
       .catch(this.handleError);

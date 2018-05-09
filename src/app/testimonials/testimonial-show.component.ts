@@ -5,9 +5,9 @@ import { Observable } from 'rxjs/Rx';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { TestimonialService } from './testimonial.service';
-// import { FeaturedArticle } from './featured-article';
 import { TestimonialUser } from './testimonial-user';
 import { Testimonial } from './testimonial';
+import { FeaturedTestimonial } from './featured-testimonial';
 import { OrderPipe } from 'ngx-order-pipe';
 
 
@@ -22,6 +22,8 @@ export class TestimonialShowComponent implements OnInit {
   testimonialUser: TestimonialUser = <TestimonialUser>{};
   testimonialUsers: TestimonialUser[];
   testimonials: Testimonial[];
+  featuredTestimonial = new FeaturedTestimonial;
+  featuredTestimonials: FeaturedTestimonial[];
   returnUrl: string;
   editBtnClicked: boolean = false;
 
@@ -29,6 +31,7 @@ export class TestimonialShowComponent implements OnInit {
 
 
   constructor(
+    private http: Http,
     private route: ActivatedRoute,
     private router: Router,
     private tokenService: Angular2TokenService,
@@ -39,6 +42,7 @@ export class TestimonialShowComponent implements OnInit {
   ngOnInit() {
     this.loginVerification();
     this.getTestimonial();
+    this.getFeaturedTestimonials();
   }
 
 
@@ -66,6 +70,69 @@ export class TestimonialShowComponent implements OnInit {
         this.router.navigate([this.returnUrl]);
       },
         error => console.log(error));
+  }
+
+
+  // Featured Testimonial Functions
+  getFeaturedTestimonials() {
+    this.testimonialService.getFeaturedTestimonials()
+    .subscribe(
+      featuredTestimonials => {
+        this.featuredTestimonials = featuredTestimonials
+      },
+      err => console.log('Error getting featured testimonials: ' + err)
+    );
+  }
+  updateFeaturedTestimonials(featuredTestimonial: FeaturedTestimonial) {
+    let featuredTestimonialId = this.searchFeaturedTestimonials(this.testimonial.id);
+    console.log(featuredTestimonialId);
+    if(featuredTestimonialId > 0) {
+      this.deleteFeaturedTestimonial(featuredTestimonialId);
+      this.getFeaturedTestimonials();
+    } else if(this.featuredTestimonials.length < 3) {
+      this.createFeaturedTestimonial(this.featuredTestimonial);
+      this.getFeaturedTestimonials();
+    } else {
+      console.log('There are too many testimonials featured right now.');
+    }
+  }
+  searchFeaturedTestimonials(testimonialId:number): number {
+    for(let featuredTestimonial of this.featuredTestimonials) {
+      if(featuredTestimonial.testimonial_id === testimonialId) {
+        return featuredTestimonial.id;
+      }
+    }
+    return 0;
+  }
+  createFeaturedTestimonial(featuredTestimonial: FeaturedTestimonial) {
+    featuredTestimonial.testimonial_id = this.testimonial.id;
+    featuredTestimonial.content = this.testimonial.content;
+
+    this.testimonialService.createFeaturedTestimonial(featuredTestimonial)
+        .subscribe(
+          res => {
+            console.log(res);
+            setTimeout(() => {
+              this.getFeaturedTestimonials();
+            });
+          },
+          err => {
+            console.log(err);
+            return Observable.throw(err);
+          }
+        );
+  }
+  deleteFeaturedTestimonial(id:number) {
+    this.testimonialService.deleteFeaturedTestimonial(id)
+      .subscribe(
+        res => {
+          console.log(res)
+          setTimeout(() => {
+            this.getFeaturedTestimonials();
+          });
+        },
+        err => console.log('Error deleting featured testimonials: ' + err)
+      );
   }
 
 
