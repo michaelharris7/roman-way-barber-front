@@ -35,10 +35,10 @@ export class ArticleNewComponent implements OnInit {
     this.submitted = true;
     this.articleService.createArticle(article)
         .subscribe(
-          data => { return true },
-          error => {
-            console.log("Error saving article");
-            return Observable.throw(error);
+          res => this.redirectToPrevious(),
+          err => {
+            console.log("Error saving article: " + err);
+            return Observable.throw(err);
           }
         );
   }
@@ -49,5 +49,10 @@ export class ArticleNewComponent implements OnInit {
   }
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
+  }
+  redirectToPrevious() {
+    setTimeout(() => {
+      this.authService.redirectToPrevious();
+    },1000);
   }
 }

@@ -10,7 +10,7 @@
       </h4>
       <span *ngIf="isAdmin()">
         <p>
-          <a routerLink="/news/articles/new">New news article</a>
+          <a routerLink="/news/articles/new"><button class="btn btn-outline-secondary btn-sm">New news article</button></a>
         </p>
       </span>
     </div>
@@ -36,18 +36,20 @@
             <div *ngIf="paginationTotal>5" class="pagination-top"></div>
 
             <div *ngFor="let article of articles | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let first = first; let last = last" [class.new-separator]="!last" [class.pb-4]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
-              <div class="container new-post">
-                <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
-                  <h3 class="py-3 new-title">
-                    {{ article.title }}
-                  </h3>
-                  <p class="new-markdown">
-                    <markdown data="{{ article.content | truncate:[200] }}"></markdown>
-                  </p>
-                  <p>
-                    <small>Last Updated: {{article.updated_at | date:'medium'}}</small>
-                  </p>
-                </a>
+              <div class="new-post-select">
+                <div class="container new-post">
+                  <a class="w-100" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
+                    <h3 class="py-3 new-title">
+                      {{ article.title }}
+                    </h3>
+                    <p class="new-markdown">
+                      <markdown data="{{ article.content | truncate:[200] }}"></markdown>
+                    </p>
+                    <p>
+                      <small>Last Updated: {{article.updated_at | date:'medium'}}</small>
+                    </p>
+                  </a>
+                </div>
               </div>
 
               <div class="container mt-3">

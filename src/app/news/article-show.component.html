@@ -10,7 +10,7 @@
         News media, recent events, and other fun stuff
       </h4>
       <p class="mt-3">
-        <a routerLink="/news">Back to news articles</a>
+        <a routerLink="/news"><button class="btn btn-outline-secondary btn-sm">Back to news articles</button></a>
       </p>
     </div>
   </div>
@@ -29,7 +29,7 @@
           </div>
 
           <div *ngIf="article">
-            <div class="card card-box-shadows py-2 mb-5" *ngIf="isAdmin() && editBtnClicked">
+            <div class="card card-shadow-medium py-2 mb-5" *ngIf="isAdmin() && editBtnClicked">
               <div class="container">
                 <form #articleForm="ngForm">
                   <div class="form-group">
@@ -38,7 +38,7 @@
                       A title is required
                     </div>
                     <input type="text"
-                           class="form-control"
+                           class="form-control form-input-shadow"
                            id="title"
                            placeholder="The Great Haircut"
                            required
@@ -53,7 +53,7 @@
                       Body content is required
                     </div>
                     <textarea rows="10"
-                           class="form-control"
+                           class="form-control form-input-shadow"
                            id="content"
                            placeholder="Article content"
                            required
@@ -65,7 +65,7 @@
                   <div class="form-group">
                     <label for="ref_source_url">Reference Source</label>
                     <input type="text"
-                           class="form-control"
+                           class="form-control form-input-shadow"
                            id="ref_source_url"
                            placeholder="new Post"
                            name="ref_source_url"
@@ -94,7 +94,7 @@
             </div>
 
             <div id="articlePreview"></div>
-            <div class="container card card-box-shadows pt-4 pb-1 mb-5">
+            <div class="container card card-box-shadows card-shadow-medium pt-4 pb-1 mb-5">
               <h2 class="mb-4">
                 {{ article.title }}
               </h2>
@@ -135,7 +135,7 @@
                   <div class="form-group">
                     <label for="content"><h5>Leave a comment?</h5></label>
                     <textarea rows="2"
-                              class="form-control"
+                              class="form-control form-input-shadow"
                               id="content"
                               placeholder="Comment content"
                               required
@@ -165,8 +165,8 @@
             <div *ngIf="comments">
               <div *ngFor="let comment of comments | orderBy : order : true">
                 <div *ngIf="comment.article.id === article.id" class="container new-comment">
-                  <p class="new-markdown ml-3">
-                    <markdown data="{{ comment.content }}"></markdown>
+                  <p class="ml-3 text-output-format">
+                    {{ comment.content }}
                   </p>
                   <div class="ml-4 pl-2">
                     <small><em>Comment {{commentEdited(comment)}} by <strong>{{comment.comment_user.user_name}}</strong> {{ comment.updated_at | timeAgo }}.</em></small>
