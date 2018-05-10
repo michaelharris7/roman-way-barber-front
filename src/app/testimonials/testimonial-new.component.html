@@ -83,27 +83,26 @@
             </h3>
             <div *ngIf="testimonial.content;
                   else no_post" class="text-center testimonial">
-              <blockquote class="blockquote-no-hover">
-                <p>
-                  <span class="text-output-format">{{testimonial.content}}</span>
-                </p>
+              <div class="d-flex justify-content-center">
+                <div class="quote-spacing testimonial">
+                  <blockquote class="blockquote-no-hover">
+                    <p>
+                      <span class="text-output-format">{{testimonial.content}}</span>
+                    </p>
 
-                <div class="quote-signature">
-                  <span *ngIf="isAdmin();
-                         else no_admin">
-                    <em *ngIf="testimonial.custom_user">
-                      &nbsp;&#9472;
-                      {{testimonial.custom_user}}
-                    </em>
-                  </span>
-                  <ng-template #no_admin>
+                    <div class="quote-signature">
+                      <span *ngIf="isAdmin();
+                             else no_admin">
+                        <em *ngIf="testimonial.custom_user">&nbsp;&#9472;{{testimonial.custom_user}}</em>
+                      </span>
+                      <ng-template #no_admin>
 
-                    <em>
-                      &nbsp;&#9472; {{testimonialUser.user_name}}
-                    </em>
-                  </ng-template>
+                        <em>&nbsp;&#9472; {{testimonialUser.user_name}}</em>
+                      </ng-template>
+                    </div>
+                  </blockquote>
                 </div>
-              </blockquote>
+              </div>
             </div>
 
             <ng-template #no_post>

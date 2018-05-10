@@ -26,8 +26,8 @@
 
             <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let odd = odd; let even = even" [class.left-quote]="odd" [class.right-quote]="even" [attr.id]="'testimonial_' + testimonial.id" class="testimonial">
 
-              <div class="container">
-                <div class="text-center" style="margin: 0 10%;">
+              <div class="d-flex justify-content-center">
+                <div class="quote-spacing">
                   <a pageScroll [pageScrollOffset]="-180" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
                     <div class="blockquote-select">
                       <blockquote>
@@ -36,36 +36,35 @@
                         </p>
 
                         <div class="quote-signature">
-                          <em>&nbsp;&#9472; </em>
-                          <span *ngIf="testimonial.custom_user;
+                          <div *ngIf="testimonial.custom_user;
                                  else standard_user">
-                            <em>{{testimonial.custom_user}}</em>
-                          </span>
+                            <em>&nbsp;&#9472;{{testimonial.custom_user}}</em>
+                          </div>
                           <ng-template #standard_user>
-                            <em>{{testimonial.testimonial_user.user_name}}</em>
+
+                            <em>&nbsp;&#9472; {{testimonial.testimonial_user.user_name}}</em>
                           </ng-template>
                         </div>
                       </blockquote>
                     </div>
                   </a>
+
+                  <div class="quote-button-spacing">
+                    <span class="pr-1">
+                      <a class="new-link" pageScroll [pageScrollOffset]="-180" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
+                        <button class="btn btn-outline-primary mb-3">Read More</button>
+                      </a>
+                    </span>
+
+                    <span *ngIf="isAdmin() || testimonial.testimonial_user.user_id === userData.id" class="pr-3">
+                      <a (click)="deleteTestimonial(testimonial.id)" class="new-link">
+                        <button class="btn btn-outline-danger mb-3">Delete</button>
+                      </a>
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              <div class="container mb-5">
-                <div class="container my-3 d-flex justify-content-end">
 
-                  <span class="pr-3">
-                    <a class="new-link" pageScroll [pageScrollOffset]="-180" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
-                      <button class="btn btn-primary mb-3">Read More</button>
-                    </a>
-                  </span>
-
-                  <span *ngIf="isAdmin() || testimonial.testimonial_user.user_id === userData.id" class="pr-3">
-                    <a (click)="deleteTestimonial(testimonial.id)" class="new-link">
-                      <button class="btn btn-danger mb-3">Delete</button>
-                    </a>
-                  </span>
-                </div>
               </div>
             </div>
 
