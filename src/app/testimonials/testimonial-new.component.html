@@ -69,11 +69,6 @@
                     <p class="alert alert-success mt-4" role="alert">
                       Thank you for your testimonial! Your testimonial is being posted.
                     </p>
-                    <div>
-                      <a class="alert-link" routerLink="/news">
-                        <button class="btn btn-primary w-100 mb-3">View all testimonials</button>
-                      </a>
-                    </div>
                   </div>
                 </form>
               </div>
@@ -88,7 +83,7 @@
             </h3>
             <div *ngIf="testimonial.content;
                   else no_post" class="text-center testimonial">
-              <blockquote>
+              <blockquote class="blockquote-no-hover">
                 <p>
                   <span class="text-output-format">{{testimonial.content}}</span>
                 </p>

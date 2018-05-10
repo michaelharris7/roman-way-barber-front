@@ -24,10 +24,10 @@
               </p>
             </span>
 
-            <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }" class="testimonial">
+            <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let odd = odd; let even = even" [class.left-quote]="odd" [class.right-quote]="even" [attr.id]="'testimonial_' + testimonial.id" class="testimonial">
 
               <div class="container">
-                <div class="text-center">
+                <div class="text-center" style="margin: 0 10%;">
                   <a pageScroll [pageScrollOffset]="-180" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.testimonial.id" href="#testimonial">
                     <div class="blockquote-select">
                       <blockquote>
