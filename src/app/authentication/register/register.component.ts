@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
 import { ValidationService } from '../validation.service';
+import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { ArticleService } from '../../news/article.service';
 import { TestimonialService } from '../../testimonials/testimonial.service';
@@ -21,6 +22,7 @@ export class RegisterComponent {
   commentUsers: CommentUser[];
   testimonialUser: TestimonialUser = <TestimonialUser>{};
   testimonialUsers: TestimonialUser[];
+  admins: any[];
   submitted: boolean = false;
   registerForm: FormGroup;
   resetString: string;
@@ -50,23 +52,7 @@ export class RegisterComponent {
     if(!value.name) {
       value.name = 'Anonymous';
     }
-    this.authService.registerAccount(value.name, value.email, value.password).subscribe(
-      res => {
-        this.authService.logIn(value.email, value.password)
-        .subscribe(
-          res => {
-            this.userData = this.tokenService.currentUserData;
-            this.userType = this.tokenService.currentUserType;
-            this.getCommentUsers();
-            this.getTestimonialUsers();
-            this.submitted = true;
-            this.redirectToPrevious();
-          },
-          err => this.afterFailedRegister(err)
-        );
-      },
-      err => this.afterFailedRegister(err)
-    );
+    this.saveIfNotAdminEmail(value);
   }
   afterFailedRegister(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
@@ -81,6 +67,25 @@ export class RegisterComponent {
 
     this.submitted = false;
   }
+  registerAccount(value: any) {
+      this.authService.registerAccount(value.name, value.email, value.password).subscribe(
+        res => {
+          this.authService.logIn(value.email, value.password)
+          .subscribe(
+            res => {
+              this.userData = this.tokenService.currentUserData;
+              this.userType = this.tokenService.currentUserType;
+              this.getCommentUsers();
+              this.getTestimonialUsers();
+              this.submitted = true;
+              this.redirectToPrevious();
+            },
+            err => this.afterFailedRegister(err)
+          );
+        },
+        err => this.afterFailedRegister(err)
+      );
+    }
   resetSubmit() {
     setTimeout(() => {
       this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account created successfully. Redirecting now.</p>";
@@ -93,6 +98,25 @@ export class RegisterComponent {
   }
 
 
+  // Admin functions
+  saveIfNotAdminEmail(value) {
+    this.authService.getAdmins()
+    .subscribe(
+      admins => {
+        this.admins = admins;
+        for(let admin of this.admins) {
+          if(value.email === admin.email) {
+            this.registerForm.controls.email.setErrors({'notUnique': true});
+          } else {
+            this.registerAccount(value);
+          }
+        }
+      },
+      err => console.log(err)
+    );
+  }
+
+
   // CommentUser functions
   createCommentUserIfNull() {
     if(this.commentUsers) {
@@ -102,10 +126,7 @@ export class RegisterComponent {
         this.commentUser.user_type = this.userType;
         this.commentUser.user_name = this.userData.name;
         this.articleService.createCommentUser(this.commentUser).subscribe(
-          res => {
-            console.log(this.commentUser);
-            console.log('Comment User created successfully');
-          },
+          res => console.log('Comment User created successfully'),
           err => console.log(err)
           );
       }
@@ -141,10 +162,7 @@ export class RegisterComponent {
         this.testimonialUser.user_type = this.userType;
         this.testimonialUser.user_name = this.userData.name;
         this.testimonialService.createTestimonialUser(this.testimonialUser).subscribe(
-          res => {
-            console.log(this.testimonialUser);
-            console.log('Testimonial User created successfully');
-          },
+          res => console.log('Testimonial User created successfully'),
           err => console.log(err)
           );
       }

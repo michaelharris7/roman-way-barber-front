@@ -6,29 +6,33 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/pairwise';
 import 'rxjs/add/operator/filter';
 
-
 @Injectable()
 export class AuthenticationService {
   redirectUrl: string;
   signInData: SignInData = <SignInData>{};
   userData: UserData = <UserData>{};
   authData: AuthData = <AuthData>{};
+  adminEmail: string;
   updatePasswordData: UpdatePasswordData = <UpdatePasswordData>{};
   atOptions: Angular2TokenOptions;
   previousUrl: string;
+  headers: Headers;
+  options: RequestOptions;
+  private adminsUrl = 'http://localhost:3000/admins';
 
   constructor(
     private http: Http,
     private router: Router,
     private tokenService: Angular2TokenService,
   ) {
+    this.headers = new Headers({ 'Content-Type': 'application/json' });
+    this.options = new RequestOptions({ headers: this.headers });
 
     this.router.events
       .filter(e => e instanceof NavigationStart )
       .pairwise()
       .subscribe(e => {
         this.previousUrl = e[0]['url'];
-        console.log(this.previousUrl);
       });
 
     this.tokenService.init({
@@ -73,6 +77,8 @@ export class AuthenticationService {
     });
   }
 
+
+  // Logging Functions
   logIn(email, password): Observable<Response> {
     return this.tokenService.signIn({
       email: email,
@@ -87,7 +93,23 @@ export class AuthenticationService {
       userType: 'ADMIN'
     });
   }
+  isLoggedIn(): boolean {
+    return this.tokenService.userSignedIn();
+  }
+  logOut(): Observable<Response> {
+    return this.tokenService.signOut()
+  }
 
+
+  // Admin Search functions
+  getAdmins(): Observable<any> {
+    return this.http.get(this.adminsUrl)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+
+  // Account Management Functions
   registerAccount(name, email, password): Observable<Response> {
     return this.tokenService.registerAccount({
       name: name,
@@ -97,29 +119,21 @@ export class AuthenticationService {
       userType: 'USER'
     });
   }
-
+  deleteAccount(): Observable<Response> {
+    return this.tokenService.deleteAccount();
+  }
   resetPassword(email): Observable<Response> {
     return this.tokenService.resetPassword({
       email: email,
       userType: 'USER'
     });
   }
-
-  logOut(): Observable<Response> {
-    return this.tokenService.signOut()
+  updatePassword(data): Observable<Response> {
+    return this.tokenService.updatePassword({
+      password:             data.password,
+      passwordConfirmation: data.password
+    })
   }
-
-  isLoggedIn(): boolean {
-    return this.tokenService.userSignedIn();
-  }
-
-  redirectToPrevious(): void {
-    if(!this.previousUrl) {
-      this.previousUrl = '/';
-    }
-    this.router.navigate([this.previousUrl]);
-  }
-
   updateUserData(data): Observable<Response> {
     let body = JSON.stringify(data);
     let userType = this.tokenService.currentUserType;
@@ -131,14 +145,23 @@ export class AuthenticationService {
     }
   }
 
-  updatePassword(data): Observable<Response> {
-    return this.tokenService.updatePassword({
-      password:             data.password,
-      passwordConfirmation: data.password
-    })
+
+  // Redirection
+  redirectToPrevious(): void {
+    if(!this.previousUrl) {
+      this.previousUrl = '/';
+    }
+    this.router.navigate([this.previousUrl]);
   }
 
-  deleteAccount(): Observable<Response> {
-    return this.tokenService.deleteAccount();
+
+  // General data extraction
+  private extractData(res: Response) {
+    let body = res.json();
+    return body || {};
+  }
+  private handleError (error: any): Promise<any> {
+    console.error('An error occured ', error);
+    return Promise.reject(error.message || error);
   }
 }
