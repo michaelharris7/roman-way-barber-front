@@ -10,7 +10,6 @@
             <div class="d-flex align-items-stretch">
               <div>
                 <div *ngIf="isLoggedIn() && userData" class="text-right">
-                  <!-- {{refreshUser()}} -->
                   <p [hidden]="!userData">
                     Welcome back, {{userData.name}}
                   </p>

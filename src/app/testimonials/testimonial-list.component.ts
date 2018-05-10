@@ -71,18 +71,6 @@ export class TestimonialListComponent implements OnInit {
     let link = ['/testimonial/', testimonial.id];
     this.router.navigate(link);
   }
-  // getFeaturedTestimonials() {
-  //   this.testimonialService.getFeaturedTestimonials()
-  //   .subscribe(
-  //     featuredTestimonials => {
-  //       this.featuredTestimonials = featuredTestimonials
-  //     },
-  //     error => {
-  //       this.errorMessage = <any>error;
-  //       console.log(error);
-  //     }
-  //   );
-  // }
 
 
   // TestimonialUser functions

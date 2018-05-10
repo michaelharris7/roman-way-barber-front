@@ -13,9 +13,7 @@ import { OrderPipe } from 'ngx-order-pipe';
 
 
 @Component({
-  selector: 'article-show',
-  templateUrl: 'article-show.component.html',
-  styleUrls: ['article.component.css']
+  templateUrl: 'article-show.component.html'
 })
 
 export class ArticleShowComponent implements OnInit {
@@ -34,7 +32,6 @@ export class ArticleShowComponent implements OnInit {
   returnUrl: string;
   editBtnClicked: boolean = false;
   createCommentClicked: boolean = false;
-  commentUserLoaded: boolean = false;
   private timerStopper;
   order: string = 'updated_at';
 
@@ -114,7 +111,6 @@ export class ArticleShowComponent implements OnInit {
   }
   updateFeaturedArticles(featuredArticle: FeaturedArticle) {
     let featuredArticleId = this.searchFeaturedArticles(this.article.id);
-    console.log(featuredArticleId);
     if(featuredArticleId > 0) {
       this.deleteFeaturedArticle(featuredArticleId);
       this.getFeaturedArticles();
@@ -178,7 +174,6 @@ export class ArticleShowComponent implements OnInit {
   }
   getCommentUser() {
     let user_id = this.findCommentUserId(this.userData.id, this.userType);
-    console.log(user_id);
     let commentUserRequest = this.articleService.getCommentUser(user_id);
     commentUserRequest.subscribe(
       res => this.commentUser = res.json(),
@@ -239,9 +234,6 @@ export class ArticleShowComponent implements OnInit {
   updateComment(comment: Comment) {
     if((this.oldComment.id !== 0) && (this.oldComment.id === comment.id))
     {
-      console.log(this.oldComment.id);
-      console.log(comment.id);
-      console.log('Update Comment');
       this.articleService.updateComment(comment)
         .subscribe(
           res => {

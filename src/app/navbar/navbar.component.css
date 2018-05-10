@@ -6,7 +6,6 @@
 
 /*///// Header Styles /////*/
 .masthead {
-  /*background-color: white;*/
   background: linear-gradient(to top, #c8c8c8, #b0b0b0 2px, #f8f8f8 3px, #e0e0e0 100%);
   min-height: 80px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
@@ -14,8 +13,6 @@
 .masthead-new {
   background:
     linear-gradient(5deg, rgba(0, 71, 160, .5), rgba(0, 71, 160, .9)),
-    /*linear-gradient(5deg, rgba(45, 89, 128, .5), rgba(45, 89, 128, .7)),*/
-    /*linear-gradient(5deg, rgba(70, 140, 200, .5), rgba(70, 140, 200, .7)),*/
     linear-gradient(to top, #c8c8c8, #b0b0b0 2px, #f8f8f8 3px, #e0e0e0 100%);
   min-height: 80px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
@@ -29,25 +26,35 @@
  position: relative;
 }
 .contact {
-  color: #808080;
+  color: rgba(128, 128, 128, .7);
   position: absolute;
-  top: 5px;
+  top: 0px;
   right: 0px;
-  font-size: .6em;
+  font-weight: 100;
+  font-size: .55em;
   line-height: 1.3em;
 }
 .contact-new {
-  color: rgba(255, 255, 255, .6) !important;
+  color: rgba(255, 255, 255, .4) !important;
   font-family: 'Roboto', sans-serif;
+}
+.contact-line {
+  border-right: 1px solid rgba(128, 128, 128, .4);
+  padding-right: 12px;
+}
+.contact-line-new {
+  border-right: 1px solid rgba(255, 255, 255, .2);
+  padding-right: 12px;
 }
 .contact-type {
   padding: 0 6px 0 12px;
-  color: #556981;
+  color: rgba(85, 105, 129, .7);
   font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 100;
   font-size: 1.5em !important;
 }
 .contact-type-new {
-  color: rgba(255, 255, 255, .75) !important;
+  color: rgba(255, 255, 255, .4) !important;
   font-family: 'Ubuntu', sans-serif;
 }
 

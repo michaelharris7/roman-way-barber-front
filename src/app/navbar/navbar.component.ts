@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private router: Router
-    // public tokenAuthService:Angular2TokenService
   ) {}
 
   ngOnInit() {
@@ -44,7 +43,6 @@ export class NavbarComponent implements OnInit {
     case'/about':
     case'/contact':
       return false;
-    case'/signup':
     default:
       return true;
     }

@@ -23,6 +23,7 @@ export class ForgotPasswordComponent {
       }, {})
   }
 
+
   submit(value: any) {
     this.authService.resetPassword(value.email).subscribe(
         res => {
@@ -35,7 +36,6 @@ export class ForgotPasswordComponent {
         err => this.afterFailedReset(err)
       );
   }
-
   afterFailedReset(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
 
@@ -49,7 +49,6 @@ export class ForgotPasswordComponent {
 
     this.submitted = false;
   }
-
   resetSubmit() {
     setTimeout(() => {
       this.resetString = "<p class='alert alert-success mt-4' role='alert'>Reset password email successfully sent. Redirecting to homepage.</p>";

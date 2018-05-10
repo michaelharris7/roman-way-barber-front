@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { Angular2TokenService, UserData } from 'angular2-token';
 import { TestimonialUser } from './testimonial-user';
 import { Testimonial } from './testimonial';
 import { FeaturedTestimonial } from './featured-testimonial';

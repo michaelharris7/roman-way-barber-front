@@ -85,7 +85,6 @@ export class TestimonialShowComponent implements OnInit {
   }
   updateFeaturedTestimonials(featuredTestimonial: FeaturedTestimonial) {
     let featuredTestimonialId = this.searchFeaturedTestimonials(this.testimonial.id);
-    console.log(featuredTestimonialId);
     if(featuredTestimonialId > 0) {
       this.deleteFeaturedTestimonial(featuredTestimonialId);
       this.getFeaturedTestimonials();
@@ -147,7 +146,6 @@ export class TestimonialShowComponent implements OnInit {
   }
   getTestimonialUser() {
     let user_id = this.findTestimonialUserId(this.userData.id, this.userType);
-    console.log(user_id);
     let testimonialUserRequest = this.testimonialService.getTestimonialUser(user_id);
     testimonialUserRequest.subscribe(
       res => this.testimonialUser = res.json(),

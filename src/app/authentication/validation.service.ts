@@ -2,6 +2,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import {AbstractControl} from '@angular/forms';
 
 
+// Validation Messages
 export class ValidationService {
   static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
     let config = {
@@ -15,6 +16,7 @@ export class ValidationService {
   }
 
 
+  // Email Validation
   static emailRequired(control) {
     return control.value ? null : { 'requiredEmail': true };
   }
@@ -23,6 +25,8 @@ export class ValidationService {
       null : { 'invalidEmailAddress': true };
   }
 
+
+  // Password Validation
   static passwordRequired(control) {
     return control.value ?
       null : { 'requiredPassword': true };

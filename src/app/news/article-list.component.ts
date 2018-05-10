@@ -10,10 +10,7 @@ import { OrderPipe } from 'ngx-order-pipe';
 
 
 @Component({
-  selector: 'article-list',
-  templateUrl: 'article-list.component.html',
-  styleUrls: ['article.component.css'],
-  providers: [ ArticleService ]
+  templateUrl: 'article-list.component.html'
 })
 
 export class ArticleListComponent implements OnInit {
@@ -23,7 +20,6 @@ export class ArticleListComponent implements OnInit {
   article: Article;
   featuredArticles: FeaturedArticle[];
   errorMessage: string;
-  mode = "Observable";
   private timerStopper;
   order: string = 'updated_at';
   paginationTotal: number;

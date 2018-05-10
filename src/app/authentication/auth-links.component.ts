@@ -50,6 +50,8 @@ export class AuthLinksComponent {
     });
   }
 
+
+  // Logging Functions
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
@@ -66,6 +68,8 @@ export class AuthLinksComponent {
       );
   }
 
+
+  // Layout Identifier
   isNewLayout() {
     switch (this.currentPath)
     {
@@ -79,7 +83,8 @@ export class AuthLinksComponent {
     case'/about':
     case'/contact':
       return false;
-    case'/signup':
+
+    // On a News/Testimonial/Account page
     default:
       return true;
     }

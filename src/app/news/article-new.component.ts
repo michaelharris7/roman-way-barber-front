@@ -7,9 +7,7 @@ import { Angular2TokenService } from 'angular2-token';
 
 
 @Component({
-  selector: 'article-new',
   templateUrl: 'article-new.component.html',
-  styleUrls: ['article.component.css']
 })
 
 export class ArticleNewComponent implements OnInit {

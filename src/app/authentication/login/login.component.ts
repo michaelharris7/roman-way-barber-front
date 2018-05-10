@@ -121,10 +121,7 @@ export class LoginComponent {
         this.commentUser.user_type = this.userType;
         this.commentUser.user_name = this.userData.name;
         this.articleService.createCommentUser(this.commentUser).subscribe(
-          res => {
-            console.log(this.commentUser);
-            console.log('Comment User created successfully');
-          },
+          res => console.log('Comment User created successfully'),
           err => console.log(err)
           );
       }
@@ -146,9 +143,7 @@ export class LoginComponent {
         if(this.commentUsers)
           this.createCommentUserIfNull();
       },
-      err => {
-        console.log(err);
-      }
+      err => console.log(err)
     );
   }
 
@@ -162,10 +157,7 @@ export class LoginComponent {
         this.testimonialUser.user_type = this.userType;
         this.testimonialUser.user_name = this.userData.name;
         this.testimonialService.createTestimonialUser(this.testimonialUser).subscribe(
-          res => {
-            console.log(this.testimonialUser);
-            console.log('Testimonial User created successfully');
-          },
+          res => console.log('Testimonial User created successfully'),
           err => console.log(err)
           );
       }

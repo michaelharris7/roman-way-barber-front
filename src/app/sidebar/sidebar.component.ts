@@ -99,7 +99,6 @@ export class SidebarComponent implements OnInit {
     private authService: AuthenticationService
   ) {}
 
-
   ngOnInit() {
     let timer = Observable.timer(0, 5000);
     this.timerStopper = timer.subscribe(() => {
@@ -110,6 +109,7 @@ export class SidebarComponent implements OnInit {
   ngOnDestroy() {
     this.timerStopper.unsubscribe();
   }
+
 
   getFeaturedArticles() {
     this.articleService.getFeaturedArticles()
@@ -129,7 +129,6 @@ export class SidebarComponent implements OnInit {
       error => console.log(error)
     );
   }
-
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }

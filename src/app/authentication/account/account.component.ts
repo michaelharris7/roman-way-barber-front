@@ -193,10 +193,7 @@ export class AccountComponent implements OnInit {
         this.commentUser.user_name = this.userData.name;
         this.articleService.updateCommentUser(this.commentUser)
         .subscribe(
-          res => {
-            console.log(this.commentUser);
-            console.log('Comment User updated successfully');
-          },
+          res => console.log('Comment User updated successfully'),
           err => {
             console.log(err);
             return Observable.throw(err);
@@ -215,10 +212,7 @@ export class AccountComponent implements OnInit {
         this.commentUser.user_type = this.userType;
         this.commentUser.user_name = this.userData.name;
         this.articleService.deleteCommentUser(this.commentUser.id).subscribe(
-          res => {
-            console.log(this.commentUser);
-            console.log('Comment User deleted successfully');
-          },
+          res => console.log('Comment User deleted successfully'),
           err => {
             console.log(err);
             return Observable.throw(err);
@@ -250,7 +244,6 @@ export class AccountComponent implements OnInit {
     .subscribe(
       commentUsers =>
       {
-        console.log(commentUsers);
         this.commentUsers = commentUsers;
         if(this.commentUsers)
           this.deleteCommentUser();
@@ -272,10 +265,7 @@ export class AccountComponent implements OnInit {
         this.testimonialUser.user_name = this.userData.name;
         this.testimonialService.updateTestimonialUser(this.testimonialUser)
         .subscribe(
-          res => {
-            console.log(this.testimonialUser);
-            console.log('Testimonial User updated successfully');
-          },
+          res => console.log('Testimonial User updated successfully'),
           err => {
             console.log(err);
             return Observable.throw(err);
@@ -294,10 +284,8 @@ export class AccountComponent implements OnInit {
         this.testimonialUser.user_type = this.userType;
         this.testimonialUser.user_name = this.userData.name;
         this.testimonialService.deleteTestimonialUser(this.testimonialUser.id).subscribe(
-          res => {
-            console.log(this.testimonialUser);
-            console.log('Testimonial User deleted successfully');
-          },
+          res =>
+            console.log('Testimonial User deleted successfully'),
           err => {
             console.log(err);
             return Observable.throw(err);
@@ -329,7 +317,6 @@ export class AccountComponent implements OnInit {
     .subscribe(
       testimonialUsers =>
       {
-        console.log(testimonialUsers);
         this.testimonialUsers = testimonialUsers;
         if(this.testimonialUsers)
           this.deleteTestimonialUser();

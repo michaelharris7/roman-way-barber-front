@@ -6,7 +6,6 @@
 
 /*///// Header Styles /////*/
 .masthead {
-  /*background-color: white;*/
   background: linear-gradient(to top, #c8c8c8, #b0b0b0 2px, #f8f8f8 3px, #e0e0e0 100%);
   min-height: 80px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
@@ -14,8 +13,6 @@
 .masthead-new {
   background:
     linear-gradient(5deg, rgba(0, 71, 160, .5), rgba(0, 71, 160, .9)),
-    /*linear-gradient(5deg, rgba(45, 89, 128, .5), rgba(45, 89, 128, .7)),*/
-    /*linear-gradient(5deg, rgba(70, 140, 200, .5), rgba(70, 140, 200, .7)),*/
     linear-gradient(to top, #c8c8c8, #b0b0b0 2px, #f8f8f8 3px, #e0e0e0 100%);
   min-height: 80px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
@@ -23,6 +20,7 @@
 .brand {
   margin-bottom: 0px;
 }
+
 
 .contact-box {
  width: 100%;
@@ -53,6 +51,7 @@
 
 
 
+
 /*///// Nav Bar Styles /////*/
 .nav {
   font-family: 'Alegreya Sans SC', sans-serif;
@@ -60,7 +59,6 @@
 .nav-new {
   font-family: 'Ubuntu', sans-serif;
 }
-
 
 
 .nav-styles,
@@ -86,7 +84,6 @@
 }
 
 
-
 .nav-styles-new a {
   color: rgba(255, 255, 255, .75);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
@@ -101,7 +98,6 @@
   color: white;
   border-bottom-color: #ffe000;
 }
-
 
 
 .nav-link {
@@ -157,7 +153,6 @@
 }
 
 
-
 .btn-dropdown-heading-new {
   color: rgba(255, 255, 255, .75);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
@@ -185,11 +180,11 @@
 }
 
 
-
 .dropdown-links a {
   color: #0e1f40;
   padding: 0 10px;
 }
+
 
 .dropdown-item {
   text-decoration: none;
@@ -210,6 +205,8 @@
   background-color: #c02000;
   text-shadow: none !important;
 }
+
+
 .nav-account {
   margin: 5px 0 0 7px;
   font-size: .7em;
