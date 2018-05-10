@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Angular2TokenService } from 'angular2-token';
 
 import { HomepageComponent } from './homepage/homepage.component';
 import { ServicesComponent } from './services/services.component';
@@ -37,7 +38,11 @@ const routes: Routes = [
   { path: 'news/article/:id', component: ArticleShowComponent },
 
   { path: 'testimonials', component: TestimonialListComponent },
-  { path: 'testimonials/new', component: TestimonialNewComponent },
+  {
+    path: 'testimonials/new',
+    component: TestimonialNewComponent,
+    canActivate: [ Angular2TokenService ]
+  },
   { path: 'testimonial/:id', component: TestimonialShowComponent },
 ]
 
@@ -47,3 +52,4 @@ const routes: Routes = [
 })
 
 export class AppRoutingModule {}
+

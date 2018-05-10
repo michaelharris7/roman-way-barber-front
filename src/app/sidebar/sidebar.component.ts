@@ -20,7 +20,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 
       <h5 class="mb-3">Testimonials</h5>
       <div *ngFor="let featuredTestimonial of featuredTestimonials; let first = first; let last = last" [class.pt-4]="!first" [class.pt-2]="!first" [attr.id]="'featuredTestimonial_' + featuredTestimonial.id">
-        <div class="new-post-select">
+        <div class="blockquote-sidebar-select">
           <div class="container blockquote-feature">
             <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.featuredTestimonial.testimonial_id" href="#testimonial" class="w-100">
               <div class="blockquote-sidebar">

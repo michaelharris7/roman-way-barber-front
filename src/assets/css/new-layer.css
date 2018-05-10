@@ -259,28 +259,20 @@ pagination-controls {
 .quote-button-spacing {
   margin-left: -50px;
   margin-top: 20px;
-  margin-bottom: 40px;
+  /*margin-bottom: 40px;*/
 }
 
 
 .blockquote-btn {
   margin: 0;
   padding: 20px 30px 20px 40px;
-  /*border-top-right-radius: 5px;*/
-  /*border-bottom-right-radius: 5px;*/
-  /*border: 1px solid rgba(0, 0, 0, .125);*/
   box-shadow: 2px 2px 3px #f0f0f0;
 }
 blockquote {
-  /*background-color: white;*/
   margin: 0;
   padding: 5px 10px 1px 10px;
   quotes: "\201C""\201D";
-  /*border-top-right-radius: 5px;*/
-  /*border-bottom-right-radius: 5px;*/
-  /*border: 1px solid rgba(0, 0, 0, .125);*/
   border: 1px solid transparent;
-  /*box-shadow: -10px 0px 0px #003e80, 2px 2px 3px #f0f0f0;*/
   box-shadow: -6px 0px 0px #003e80;
 }
 blockquote:hover {
@@ -389,7 +381,8 @@ blockquote p:after {
 .blockquote-sidebar:hover {
   margin: 0px;
   padding: 5px 2px 0px 10px;
-  border-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   border: 1px solid #c7d3eb;
   border-top: 2px solid #c7d3eb;
   border-left: 2px solid #c7d3eb;
@@ -398,12 +391,26 @@ blockquote p:after {
 .blockquote-sidebar:active {
   margin: 0px;
   padding: 5px 2px 0px 10px;
-  border-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   background-color: rgba(84, 156, 255, .1);
   border: 1px solid #c7d3eb;
   border-top: 2px solid #c7d3eb;
   border-left: 2px solid #c7d3eb;
   box-shadow: -4px 0px 0px 0px #549cff, 2px 2px 10px #c7d3eb inset;
+}
+.blockquote-sidebar-select {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid transparent;
+}
+.blockquote-sidebar-select:active {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 0px;
+  margin: 0px;
+  border: 1px solid #549cff;
+  box-shadow: -4px 0px 0px 0px #549cff;
 }
 .blockquote-sidebar p:before {
   color: black;
@@ -432,4 +439,9 @@ blockquote p:after {
 }
 .right-quote {
   margin-left: 150px;
+}
+
+
+#paginate li.current {
+  background: #549cff !important;
 }

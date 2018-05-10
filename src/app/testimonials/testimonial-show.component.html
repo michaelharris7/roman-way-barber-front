@@ -29,7 +29,7 @@
           </div>
 
           <div *ngIf="testimonial">
-            <div class="card py-2 mb-5" *ngIf="isAdmin() && editBtnClicked">
+            <div class="card py-2 mb-5" *ngIf="(isAdmin() || (testimonialUser.id === testimonial.testimonial_user.id)) && editBtnClicked">
               <div class="container">
                 <form #testimonialForm="ngForm">
                   <div class="form-group">
@@ -102,21 +102,21 @@
                 </blockquote>
 
                 <div class="quote-button-spacing">
-                  <span *ngIf="isAdmin()">
-                    <span [hidden]="editBtnClicked">
-                      <span class="pr-3">
-                        <a (click)="updateTestimonial(testimonial)" class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#testimonial">
-                          <button class="btn btn-primary mb-3">Edit</button>
-                        </a>
-                      </span>
+                  <span [hidden]="editBtnClicked">
+                    <span *ngIf="testimonialUser.id === testimonial.testimonial_user.id" class="pr-3">
+                      <a (click)="updateTestimonial(testimonial)" class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#testimonial">
+                        <button class="btn btn-primary mb-3 new-show-btn">Edit</button>
+                      </a>
+                    </span>
 
+                    <span *ngIf="isAdmin()">
                       <span class="pr-3">
-                        <button (click)="updateFeaturedTestimonials(featuredTestimonial)" class="btn btn-success mb-3">Feature</button>
+                        <button (click)="updateFeaturedTestimonials(featuredTestimonial)" class="btn btn-success mb-3 new-show-btn">Feature</button>
                       </span>
 
                       <span class="pr-3">
                         <a (click)="deleteTestimonial(testimonial)" class="new-link">
-                          <button class="btn btn-danger mb-3">Delete</button>
+                          <button class="btn btn-danger mb-3 new-show-btn">Delete</button>
                         </a>
                       </span>
                     </span>

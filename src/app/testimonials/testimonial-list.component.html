@@ -20,11 +20,11 @@
 
             <span *ngIf="isLoggedIn()">
               <p>
-                <a routerLink="/testimonials/new"><button class="btn btn-primary mb-3">Post your own testimonial</button></a>
+                <a routerLink="/testimonials/new"><button class="btn btn-primary mb-5">Post your own testimonial</button></a>
               </p>
             </span>
 
-            <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let odd = odd; let even = even" [class.left-quote]="odd" [class.right-quote]="even" [attr.id]="'testimonial_' + testimonial.id" class="testimonial">
+            <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let odd = odd; let even = even; let last = last" [class.left-quote]="odd" [class.right-quote]="even" [class.mb-5]="!last" [attr.id]="'testimonial_' + testimonial.id" class="testimonial mb-3">
 
               <div class="d-flex justify-content-center">
                 <div class="quote-spacing">
@@ -38,7 +38,7 @@
                         <div class="quote-signature">
                           <div *ngIf="testimonial.custom_user;
                                  else standard_user">
-                            <em>&nbsp;&#9472;{{testimonial.custom_user}}</em>
+                            <em>&nbsp;&#9472; {{testimonial.custom_user}}</em>
                           </div>
                           <ng-template #standard_user>
 
