@@ -58,6 +58,7 @@ export class ArticleShowComponent implements OnInit {
         res => {
           this.userData = this.tokenService.currentUserData;
           this.getCommentUsers();
+          this.getFeaturedArticles()
         },
         err => console.log(err));
       this.userType = this.tokenService.currentUserType;
@@ -65,6 +66,7 @@ export class ArticleShowComponent implements OnInit {
     let timer = Observable.timer(0, 5000);
     this.timerStopper = timer.subscribe(() => {
          this.getComments();
+         this.getFeaturedArticles()
         });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/news';
     let articleRequest = this.route.params

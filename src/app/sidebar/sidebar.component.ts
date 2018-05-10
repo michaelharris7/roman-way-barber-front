@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { ArticleService } from '../news/article.service';
 import { FeaturedArticle } from '../news/featured-article';
+import { TestimonialService } from '../testimonials/testimonial.service';
+import { FeaturedTestimonial } from '../testimonials/featured-testimonial';
 import { AuthenticationService } from '../authentication/authentication.service';
 
 
@@ -16,11 +18,44 @@ import { AuthenticationService } from '../authentication/authentication.service'
         <hr>
       </div>
 
-      <h5>
-        <a routerLink="/testimonials">Testimonials</a>
-      </h5>
+      <h5 class="mb-3">Testimonials</h5>
+      <div *ngFor="let featuredTestimonial of featuredTestimonials; let first = first; let last = last" [class.pt-4]="!first" [class.pt-2]="!first" [attr.id]="'featuredTestimonial_' + featuredTestimonial.id">
+        <div class="new-post-select">
+          <div class="container blockquote-feature">
+            <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.featuredTestimonial.testimonial_id" href="#testimonial" class="w-100">
+              <div class="blockquote-sidebar">
+                <p>
+                  {{ featuredTestimonial.content | truncate:[60] }}
+                </p>
+                <div class="quote-signature">
+                  <em>&nbsp;&#9472; </em>
+                  <span *ngIf="featuredTestimonial.custom_user;
+                         else standard_user">
+                    <em>{{featuredTestimonial.custom_user}}</em>
+                  </span>
+                  <ng-template #standard_user>
+                    <em>{{featuredTestimonial.user_name}}</em>
+                  </ng-template>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.featuredTestimonial.testimonial_id" href="#testimonial">
+            <button class="btn btn-outline-secondary btn-sm mt-2 mr-3">
+              Read More
+            </button>
+          </a>
+        </div>
+      </div>
+      <a class="new-link" pageScroll [pageScrollOffset]="100" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonials'" href="#testimonial-list">
+        <button class="btn btn-outline-info btn-sm mt-4 mb-3">
+          More testimonials
+        </button>
+      </a>
 
-        <hr>
+      <hr>
 
       <h5 class="mb-3">Featured Articles</h5>
       <div *ngFor="let featuredArticle of featuredArticles; let first = first; let last = last" [class.new-separator]="!first" [class.pt-2]="!first" [attr.id]="'featuredArticle_' + featuredArticle.id">
@@ -44,7 +79,6 @@ import { AuthenticationService } from '../authentication/authentication.service'
           </a>
         </div>
       </div>
-      <br/>
       <a class="new-link" pageScroll [pageScrollOffset]="100" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news'" href="#article-list">
         <button class="btn btn-outline-info btn-sm mt-4">
           More news articles
@@ -56,10 +90,12 @@ import { AuthenticationService } from '../authentication/authentication.service'
 
 export class SidebarComponent implements OnInit {
   featuredArticles: FeaturedArticle[];
+  featuredTestimonials: FeaturedTestimonial[];
   private timerStopper;
 
   constructor(
     private articleService: ArticleService,
+    private testimonialService: TestimonialService,
     private authService: AuthenticationService
   ) {}
 
@@ -68,6 +104,7 @@ export class SidebarComponent implements OnInit {
     let timer = Observable.timer(0, 5000);
     this.timerStopper = timer.subscribe(() => {
          this.getFeaturedArticles();
+         this.getFeaturedTestimonials();
         });
   }
   ngOnDestroy() {
@@ -79,6 +116,15 @@ export class SidebarComponent implements OnInit {
     .subscribe(
       featuredArticles => {
         this.featuredArticles = featuredArticles
+      },
+      error => console.log(error)
+    );
+  }
+  getFeaturedTestimonials() {
+    this.testimonialService.getFeaturedTestimonials()
+    .subscribe(
+      featuredTestimonials => {
+        this.featuredTestimonials = featuredTestimonials
       },
       error => console.log(error)
     );

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { TestimonialService } from './testimonial.service';
-import { TestimonialUser } from './testimonial-user';
+// import { TestimonialUser } from './testimonial-user';
 import { Testimonial } from './testimonial';
 import { FeaturedTestimonial } from './featured-testimonial';
 import { OrderPipe } from 'ngx-order-pipe';
@@ -19,8 +19,8 @@ export class TestimonialShowComponent implements OnInit {
   id: number;
   userType: string;
   userData: UserData = <UserData>{};
-  testimonialUser: TestimonialUser = <TestimonialUser>{};
-  testimonialUsers: TestimonialUser[];
+  // testimonialUser: TestimonialUser = <TestimonialUser>{};
+  // testimonialUsers: TestimonialUser[];
   testimonials: Testimonial[];
   featuredTestimonial = new FeaturedTestimonial;
   featuredTestimonials: FeaturedTestimonial[];
@@ -89,7 +89,7 @@ export class TestimonialShowComponent implements OnInit {
     if(featuredTestimonialId > 0) {
       this.deleteFeaturedTestimonial(featuredTestimonialId);
       this.getFeaturedTestimonials();
-    } else if(this.featuredTestimonials.length < 3) {
+    } else if(this.featuredTestimonials.length < 2) {
       this.createFeaturedTestimonial(this.featuredTestimonial);
       this.getFeaturedTestimonials();
     } else {
@@ -107,6 +107,8 @@ export class TestimonialShowComponent implements OnInit {
   createFeaturedTestimonial(featuredTestimonial: FeaturedTestimonial) {
     featuredTestimonial.testimonial_id = this.testimonial.id;
     featuredTestimonial.content = this.testimonial.content;
+    featuredTestimonial.user_name = this.testimonial.testimonial_user.user_name;
+    featuredTestimonial.custom_user = this.testimonial.custom_user;
 
     this.testimonialService.createFeaturedTestimonial(featuredTestimonial)
         .subscribe(
