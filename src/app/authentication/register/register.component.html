@@ -72,7 +72,7 @@
                       >
                       <control-messages [control]="registerForm.controls.passwordConfirmation"></control-messages>
                       <div class="form-group alert alert-danger mt-3" *ngIf="registerForm.controls.passwordConfirmation.errors?.passwordMismatch">
-                        Both passwords must match
+                        Both passwords must match.
                       </div>
                     </div>
                   </div>
@@ -81,9 +81,6 @@
                     <p class="alert alert-danger" role="alert">
                       The email address '{{registerForm.controls.email.value}}' {{registerForm.controls.email.errors}}. Please enter a different email address.
                     </p>
-                  </div>
-                  <div class="form-group alert alert-danger mt-3" *ngIf="registerForm.controls.email.errors?.notUnique">
-                    The email address '{{registerForm.controls.email.value}}' has already been taken. Please enter a different email address.
                   </div>
 
                   <button type="submit"

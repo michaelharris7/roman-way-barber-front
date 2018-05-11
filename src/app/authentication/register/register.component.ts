@@ -52,7 +52,7 @@ export class RegisterComponent {
     if(!value.name) {
       value.name = 'Anonymous';
     }
-    this.saveIfNotAdminEmail(value);
+    this.registerAccount(value);
   }
   afterFailedRegister(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
@@ -95,25 +95,6 @@ export class RegisterComponent {
     setTimeout(() => {
       this.authService.redirectToPrevious();
     },1000);
-  }
-
-
-  // Admin functions
-  saveIfNotAdminEmail(value) {
-    this.authService.getAdmins()
-    .subscribe(
-      admins => {
-        this.admins = admins;
-        for(let admin of this.admins) {
-          if(value.email === admin.email) {
-            this.registerForm.controls.email.setErrors({'notUnique': true});
-          } else {
-            this.registerAccount(value);
-          }
-        }
-      },
-      err => console.log(err)
-    );
   }
 
 

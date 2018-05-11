@@ -12,21 +12,15 @@ export class AuthenticationService {
   signInData: SignInData = <SignInData>{};
   userData: UserData = <UserData>{};
   authData: AuthData = <AuthData>{};
-  adminEmail: string;
   updatePasswordData: UpdatePasswordData = <UpdatePasswordData>{};
   atOptions: Angular2TokenOptions;
   previousUrl: string;
-  headers: Headers;
-  options: RequestOptions;
-  private adminsUrl = 'http://localhost:3000/admins';
 
   constructor(
     private http: Http,
     private router: Router,
     private tokenService: Angular2TokenService,
   ) {
-    this.headers = new Headers({ 'Content-Type': 'application/json' });
-    this.options = new RequestOptions({ headers: this.headers });
 
     this.router.events
       .filter(e => e instanceof NavigationStart )
@@ -98,14 +92,6 @@ export class AuthenticationService {
   }
   logOut(): Observable<Response> {
     return this.tokenService.signOut()
-  }
-
-
-  // Admin Search functions
-  getAdmins(): Observable<any> {
-    return this.http.get(this.adminsUrl)
-                    .map(this.extractData)
-                    .catch(this.handleError);
   }
 
 
