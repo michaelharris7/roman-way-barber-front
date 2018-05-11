@@ -80,10 +80,10 @@ export class RegisterComponent {
               this.submitted = true;
               this.redirectToPrevious();
             },
-            err => this.afterFailedRegister('Test case: 1: ' + err)
+            err => this.afterFailedRegister(err)
           );
         },
-        err => this.afterFailedRegister('Test case: 2: ' + err)
+        err => this.afterFailedRegister(err)
       );
     }
   resetSubmit() {

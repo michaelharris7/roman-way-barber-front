@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environments/environment';
 import { Article } from './article';
 import { FeaturedArticle } from './featured-article';
 import { CommentUser } from './comment-user';
@@ -12,10 +13,11 @@ import { Comment } from './comment';
 export class ArticleService {
   headers: Headers;
   options: RequestOptions;
-  private articlesUrl = 'http://localhost:3001/articles';
-  private featuredArticlesUrl = 'http://localhost:3001/featured_articles';
-  private commentUsersUrl = 'http://localhost:3001/comment_users';
-  private commentsUrl = 'http://localhost:3001/comments';
+  private articlesUrl = environment.ARTICLES_URL;
+  private featuredArticlesUrl = environment.FEATURED_ARTICLES_URL;
+  private commentUsersUrl = environment.COMMENT_USERS_URL;
+  private commentsUrl = environment.COMMENTS_URL;
+
 
   constructor(
     private http: Http,
