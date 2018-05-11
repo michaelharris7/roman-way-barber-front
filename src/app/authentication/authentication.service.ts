@@ -30,7 +30,7 @@ export class AuthenticationService {
       });
 
     this.tokenService.init({
-      apiBase:                    'http://localhost:3000',
+      apiBase:                    process.env.USERS_API_BASE,
       apiPath:                    null,
 
       signInPath:                 'sign_in',
