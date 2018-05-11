@@ -45,3 +45,4 @@ Thumbs.db
 
 # Hidden Environments File
 /.env
+/src/environments/

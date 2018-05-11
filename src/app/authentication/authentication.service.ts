@@ -1,6 +1,7 @@
 import { OnInit, Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { environment } from '../../environments/environment';
 import { Angular2TokenService, Angular2TokenOptions, SignInData, UserData, AuthData, UpdatePasswordData } from 'angular2-token';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/pairwise';
@@ -15,6 +16,7 @@ export class AuthenticationService {
   updatePasswordData: UpdatePasswordData = <UpdatePasswordData>{};
   atOptions: Angular2TokenOptions;
   previousUrl: string;
+  usersApiBase = environment.USERS_API_BASE;
 
   constructor(
     private http: Http,
@@ -30,7 +32,7 @@ export class AuthenticationService {
       });
 
     this.tokenService.init({
-      apiBase:                    process.env.USERS_API_BASE,
+      apiBase:                    this.usersApiBase,
       apiPath:                    null,
 
       signInPath:                 'sign_in',
