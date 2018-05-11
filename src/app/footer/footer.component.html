@@ -43,12 +43,21 @@
       </div>
     </li>
 
-    <li>
+    <li *ngIf="isLoggedOut()">
       <div class="d-flex justify-content-start">
         <a class="footer-link py-0 my-0" routerLink="/register" routerLinkActive="active">Register</a>
       </div>
       <div class="d-flex justify-content-start">
         <a class="footer-link py-0 my-0" routerLink="/login" routerLinkActive="active">Login</a>
+      </div>
+    </li>
+
+    <li *ngIf="isLoggedIn()">
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" routerLink="/account" routerLinkActive="active">Account</a>
+      </div>
+      <div class="d-flex justify-content-start">
+        <a class="footer-link py-0 my-0" (click)="logOut()">Logout</a>
       </div>
     </li>
   </ul>

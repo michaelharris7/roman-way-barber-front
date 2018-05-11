@@ -1,6 +1,5 @@
 /*///// Footer Styles /////*/
 footer {
-  /*border-top: 1px solid #806353;*/
   background: linear-gradient(#33302e, black);
   border-top: 1px solid #664f42;
   font-family: 'Alegreya Sans SC', sans-serif;
@@ -29,13 +28,14 @@ footer {
 }
 .footer-link {
   padding: .25rem 0;
-  color: #9fadbf;
+  color: #9fadbf !important;
+  cursor: pointer;
 }
 .footer-link:active {
-  color: #d3e7ff;
+  color: #d3e7ff !important;
 }
 .footer-link.active {
-  color: #ffffd3;
+  color: #ffffd3 !important;
 }
 .footer-line {
   padding-right: 20px;

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -14,7 +16,8 @@ export class FooterComponent implements OnInit {
   public currentPath: string = "";
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthenticationService,
   ) {}
 
   ngOnInit() {
@@ -34,5 +37,23 @@ export class FooterComponent implements OnInit {
   }
   onNewsPage() {
     return this.currentPath.indexOf('/news') !== -1;
+  }
+
+
+  // Logging Functions
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+  isLoggedOut(): boolean {
+    return !this.authService.isLoggedIn();
+  }
+  logOut() {
+    this.authService.logOut().subscribe(
+      res => console.log(res),
+      error => {
+        console.log("Error logging out: " + error);
+        return Observable.throw(error);
+      }
+    );
   }
 }
