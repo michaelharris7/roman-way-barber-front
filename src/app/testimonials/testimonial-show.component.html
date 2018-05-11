@@ -22,7 +22,7 @@
         <div class="col-md-9 col-sm-7 col-6 mb-5">
           <div [hidden]="!editBtnClicked">
             <div class="d-flex justify-content-end">
-              <a class="new-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#testimonialPreview">
+              <a class="new-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="200" [pageScrollInterruptible]="false" href="#testimonialPreview">
                 <button class="btn btn-primary new-show-btn mb-3">To Preview</button>
               </a>
             </div>
@@ -72,7 +72,7 @@
 
             <div [hidden]="!editBtnClicked">
               <div class="d-flex justify-content-end">
-                <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#testimonial">
+                <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollInterruptible]="false" href="#testimonial">
                   <button class="btn btn-primary new-show-btn mb-3">To Edit Testimonial</button>
                 </a>
               </div>
@@ -104,7 +104,7 @@
                 <div class="quote-button-spacing">
                   <span [hidden]="editBtnClicked">
                     <span *ngIf="testimonialUser.id === testimonial.testimonial_user.id" class="pr-3">
-                      <a (click)="updateTestimonial(testimonial)" class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#testimonial">
+                      <a (click)="updateTestimonial(testimonial)" class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollInterruptible]="false" href="#testimonial">
                         <button class="btn btn-primary mb-3 new-show-btn">Edit</button>
                       </a>
                     </span>

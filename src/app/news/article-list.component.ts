@@ -23,6 +23,7 @@ export class ArticleListComponent implements OnInit {
   private timerStopper;
   order: string = 'updated_at';
   paginationTotal: number;
+  p: number;
 
   constructor(
     private tokenService: Angular2TokenService,
