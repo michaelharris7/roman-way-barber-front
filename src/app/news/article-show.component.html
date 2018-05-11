@@ -22,7 +22,7 @@
 
           <div [hidden]="!editBtnClicked">
             <div class="d-flex justify-content-end">
-              <a class="new-link" pageScroll [pageScrollOffset]="60" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#articlePreview">
+              <a class="new-link" pageScroll [pageScrollOffset]="60" [pageScrollDuration]="200" [pageScrollInterruptible]="false" href="#articlePreview">
                 <button class="btn btn-primary new-show-btn mb-3">To Preview</button>
               </a>
             </div>
@@ -87,7 +87,7 @@
 
             <div [hidden]="!editBtnClicked">
               <div class="d-flex justify-content-end">
-                <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#article">
+                <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollInterruptible]="false" href="#article">
                   <button class="btn btn-primary new-show-btn mb-3">To Edit Article</button>
                 </a>
               </div>
@@ -109,7 +109,7 @@
                 <span *ngIf="isAdmin()">
                   <span [hidden]="editBtnClicked">
                     <span class="pr-3">
-                      <a (click)="updateArticle(article)" class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" href="#article">
+                      <a (click)="updateArticle(article)" class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollInterruptible]="false" href="#article">
                         <button class="btn btn-primary new-show-btn mb-3">Edit</button>
                       </a>
                     </span>

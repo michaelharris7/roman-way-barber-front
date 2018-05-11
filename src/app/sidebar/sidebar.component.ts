@@ -22,7 +22,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
       <div *ngFor="let featuredTestimonial of featuredTestimonials; let first = first; let last = last" [class.pt-4]="!first" [class.pt-2]="!first" [attr.id]="'featuredTestimonial_' + featuredTestimonial.id">
         <div class="blockquote-sidebar-select">
           <div class="container blockquote-feature">
-            <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.featuredTestimonial.testimonial_id" href="#testimonial" class="w-100">
+            <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.featuredTestimonial.testimonial_id" href="#testimonial" class="w-100">
               <div class="blockquote-sidebar">
                 <p>
                   {{ featuredTestimonial.content | truncate:[60] }}
@@ -42,14 +42,14 @@ import { AuthenticationService } from '../authentication/authentication.service'
           </div>
         </div>
         <div class="d-flex justify-content-end">
-          <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.featuredTestimonial.testimonial_id" href="#testimonial">
+          <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/testimonial/' + this.featuredTestimonial.testimonial_id" href="#testimonial">
             <button class="btn btn-outline-secondary btn-sm mt-2 mr-3">
               Read More
             </button>
           </a>
         </div>
       </div>
-      <a class="new-link" pageScroll [pageScrollOffset]="100" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/testimonials'" href="#testimonial-list">
+      <a class="new-link" pageScroll [pageScrollOffset]="100" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/testimonials'" href="#testimonial-list">
         <button class="btn btn-outline-info btn-sm mt-4 mb-3">
           More testimonials
         </button>
@@ -61,7 +61,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
       <div *ngFor="let featuredArticle of featuredArticles; let first = first; let last = last" [class.new-separator]="!first" [class.pt-2]="!first" [attr.id]="'featuredArticle_' + featuredArticle.id">
         <div class="new-post-select">
           <div class="container new-feature">
-            <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article" class="w-100">
+            <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article" class="w-100">
               <h6 class="py-1 new-title">
                 {{ featuredArticle.title }}
               </h6>
@@ -72,14 +72,14 @@ import { AuthenticationService } from '../authentication/authentication.service'
           </div>
         </div>
         <div class="d-flex justify-content-end">
-          <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article">
+          <a pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.featuredArticle.article_id" href="#article">
             <button class="btn btn-outline-secondary btn-sm mt-2 mr-3">
               Read More
             </button>
           </a>
         </div>
       </div>
-      <a class="new-link" pageScroll [pageScrollOffset]="100" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news'" href="#article-list">
+      <a class="new-link" pageScroll [pageScrollOffset]="100" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/news'" href="#article-list">
         <button class="btn btn-outline-info btn-sm mt-4">
           More news articles
         </button>

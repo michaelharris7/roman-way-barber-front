@@ -39,7 +39,7 @@
             <div *ngFor="let article of articles | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let first = first; let last = last" [class.pb-2]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
               <div class="new-post-select">
                 <div class="container new-post">
-                  <a class="w-100" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
+                  <a class="w-100" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
                     <h3 class="py-3 new-title">
                       {{ article.title }}
                     </h3>
@@ -55,7 +55,7 @@
 
               <div class="container mt-3">
                 <span class="pr-3">
-                  <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollEasing]="EasingLogic" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
+                  <a class="new-link" pageScroll [pageScrollOffset]="-200" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/news/article/' + this.article.id" href="#article">
                     <button class="btn btn-primary new-show-btn mb-3">Read More</button>
                   </a>
                 </span>

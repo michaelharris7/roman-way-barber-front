@@ -34,6 +34,7 @@ export class ArticleShowComponent implements OnInit {
   createCommentClicked: boolean = false;
   private timerStopper;
   order: string = 'updated_at';
+  p: number;
 
   constructor(
     private http: Http,
