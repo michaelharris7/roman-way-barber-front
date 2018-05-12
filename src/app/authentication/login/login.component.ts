@@ -46,17 +46,16 @@ export class LoginComponent {
 
   // Login functions
   submit(value: any) {
-    this.authService.logInAdmin(value.email, value.password)
+    this.authService.logIn(value.email, value.password)
     .subscribe(
       res => {
         this.userData = this.tokenService.currentUserData;
         this.userType = this.tokenService.currentUserType;
         this.getCommentUsers();
         this.getTestimonialUsers();
-        this.redirectAfterLogin();
+        this.redirectToPrevious()
       },
-      err => console.log(err)
-      // err => this.afterFailedUserLogin(value)
+      err => this.afterFailedUserLogin(value)
     );
   }
   afterFailedUserLogin(value: any) {
@@ -66,12 +65,11 @@ export class LoginComponent {
       this.authService.logInAdmin(formValues.email, formValues.password)
       .subscribe(
         res => {
-          console.log('This code will run');
           this.userData = this.tokenService.currentUserData;
           this.userType = this.tokenService.currentUserType;
           this.getCommentUsers();
           this.getTestimonialUsers();
-          this.redirectAfterLogin();
+          this.redirectToPrevious();
         },
         err => this.afterFailedAdminLogin(err)
       );
@@ -99,22 +97,6 @@ export class LoginComponent {
     setTimeout(() => {
       this.authService.redirectToPrevious();
     },1000);
-  }
-  redirectAfterLogin() {
-    let redirect: string = localStorage.getItem('redirectTo');
-
-    if(redirect === 'null') {
-      this.redirectToPrevious();
-      this.submitted = true;
-    } else {
-      this.router.navigate([redirect])
-        .then(function() {
-          localStorage.setItem('redirectTo', null);
-        })
-        .catch(function() {
-          console.log('Redirection not possible' + localStorage.getItem('redirectTo'));
-        });
-    }
   }
 
 
