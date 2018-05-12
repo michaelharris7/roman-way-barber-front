@@ -7,7 +7,7 @@ export const environment = {
   COMMENTS_URL: 'https://romanway-barber-news.herokuapp.com/comments',
   TESTIMONIALS_URL: 'https://romanway-barber-testimonials.herokuapp.com/testimonials',
   FEATURED_TESTIMONIALS_URL: 'https://romanway-barber-testimonials.herokuapp.com/featured_testimonials',
-  TESTIMONIAL_USERS_URL: 'https://romanway-barber-testimonials.herokuapp.com/testimonial_user'
+  TESTIMONIAL_USERS_URL: 'https://romanway-barber-testimonials.herokuapp.com/testimonial_users'
   // USERS_API_BASE: 'http://localhost:3000',
   // ARTICLES_URL: 'http://localhost:3001/articles',
   // FEATURED_ARTICLES_URL: 'http://localhost:3001/featured_articles',
