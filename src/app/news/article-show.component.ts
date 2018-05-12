@@ -32,9 +32,11 @@ export class ArticleShowComponent implements OnInit {
   returnUrl: string;
   editBtnClicked: boolean = false;
   createCommentClicked: boolean = false;
+  private timer = Observable.timer(0, 5000);
   private timerStopper;
   order: string = 'updated_at';
   p: number;
+  commentEditing: boolean = false;
 
   constructor(
     private http: Http,
@@ -61,11 +63,8 @@ export class ArticleShowComponent implements OnInit {
         err => console.log(err));
       this.userType = this.tokenService.currentUserType;
     }
-    let timer = Observable.timer(0, 5000);
-    this.timerStopper = timer.subscribe(() => {
-         this.getComments();
-         this.getFeaturedArticles()
-        });
+
+    this.startContentRefreshTimer();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/news';
     let articleRequest = this.route.params
         .flatMap((params: Params) =>
@@ -74,6 +73,15 @@ export class ArticleShowComponent implements OnInit {
   }
   ngOnDestroy() {
     this.timerStopper.unsubscribe();
+  }
+
+
+  // General Functions
+  startContentRefreshTimer() {
+    this.timerStopper = this.timer.subscribe(() => {
+     this.getComments();
+     this.getFeaturedArticles()
+    });
   }
 
 
@@ -207,9 +215,6 @@ export class ArticleShowComponent implements OnInit {
       }
     );
   }
-  showCommentForm() {
-    this.getCommentUsers();
-  }
   createComment(comment) {
     this.createCommentClicked = !this.createCommentClicked;
     comment.comment_user_id = this.commentUser.id;
@@ -229,12 +234,15 @@ export class ArticleShowComponent implements OnInit {
     );
   }
   editComment(comment: Comment) {
+    this.commentEditing = true;
+    this.timerStopper.unsubscribe();
     this.oldComment = comment;
     this.newComment = comment;
   }
   updateComment(comment: Comment) {
     if((this.oldComment.id !== 0) && (this.oldComment.id === comment.id))
     {
+      this.startContentRefreshTimer();
       this.articleService.updateComment(comment)
         .subscribe(
           res => {
