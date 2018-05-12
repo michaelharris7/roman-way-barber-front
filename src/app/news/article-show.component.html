@@ -129,7 +129,7 @@
               </div>
             </div>
 
-            <div *ngIf="isLoggedIn()" class="pt-2">
+            <div id="articleComments" *ngIf="isLoggedIn()" class="pt-2">
               <div class="container">
                 <form (ngSubmit)="updateComment(newComment); commentForm.reset()" #commentForm="ngForm">
                   <div class="form-group">
@@ -175,7 +175,7 @@
                   <div *ngIf="((commentUser.id === comment.comment_user.id) || isAdmin())" class="ml-4 pt-3">
                     <hr>
                     <span *ngIf="commentUser.id === comment.comment_user.id">
-                      <a (click)="editComment(comment)">
+                      <a (click)="editComment(comment)" class="new-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="200" [pageScrollInterruptible]="false" href="#articleComments">
                         <button class="btn btn-primary btn-sm mr-2">Edit</button>
                       </a>
                     </span>
