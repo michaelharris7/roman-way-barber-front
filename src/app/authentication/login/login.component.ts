@@ -46,19 +46,6 @@ export class LoginComponent {
 
   // Login functions
   submit(value: any) {
-    this.authService.logIn(value.email, value.password)
-    .subscribe(
-      res => {
-        this.userData = this.tokenService.currentUserData;
-        this.userType = this.tokenService.currentUserType;
-        this.getCommentUsers();
-        this.getTestimonialUsers();
-        this.redirectAfterLogin();
-      },
-      err => this.afterFailedUserLogin(value)
-    );
-  }
-  afterFailedUserLogin(value: any) {
     this.authService.logInAdmin(value.email, value.password)
     .subscribe(
       res => {
@@ -68,8 +55,26 @@ export class LoginComponent {
         this.getTestimonialUsers();
         this.redirectAfterLogin();
       },
-      err => this.afterFailedAdminLogin(err)
+      // err => this.afterFailedUserLogin(value)
     );
+  }
+  afterFailedUserLogin(value: any) {
+    setTimeout(() => {
+      let formValues = value;
+      console.log(formValues + ', ' + formValues.email);
+      this.authService.logInAdmin(formValues.email, formValues.password)
+      .subscribe(
+        res => {
+          console.log('This code will run');
+          this.userData = this.tokenService.currentUserData;
+          this.userType = this.tokenService.currentUserType;
+          this.getCommentUsers();
+          this.getTestimonialUsers();
+          this.redirectAfterLogin();
+        },
+        err => this.afterFailedAdminLogin(err)
+      );
+    });
   }
   afterFailedAdminLogin(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
