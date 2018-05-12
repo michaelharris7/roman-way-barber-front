@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environments/environment';
 import { TestimonialUser } from './testimonial-user';
 import { Testimonial } from './testimonial';
 import { FeaturedTestimonial } from './featured-testimonial';
@@ -11,9 +12,9 @@ import { FeaturedTestimonial } from './featured-testimonial';
 export class TestimonialService {
   headers: Headers;
   options: RequestOptions;
-  private testimonialUsersUrl = 'http://localhost:3002/testimonial_users';
-  private testimonialsUrl = 'http://localhost:3002/testimonials';
-  private featuredTestimonialsUrl = 'http://localhost:3002/featured_testimonials';
+  private testimonialUsersUrl = environment.TESTIMONIAL_USERS_URL;
+  private testimonialsUrl = environment.TESTIMONIALS_URL;
+  private featuredTestimonialsUrl = environment.FEATURED_TESTIMONIALS_URL;
 
   constructor(
     private http: Http,
