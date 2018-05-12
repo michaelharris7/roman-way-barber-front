@@ -109,7 +109,7 @@ export class LoginComponent {
     } else {
       this.router.navigate([redirect])
         .then(function() {
-          localStorage.setItem('redirectTo', '/');
+          localStorage.setItem('redirectTo', null);
         })
         .catch(function() {
           console.log('Redirection not possible' + localStorage.getItem('redirectTo'));

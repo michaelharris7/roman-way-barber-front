@@ -136,7 +136,7 @@ export class AuthenticationService {
 
   // Redirection
   redirectToPrevious(): void {
-    if(!this.previousUrl) {
+    if(!!this.previousUrl) {
       this.previousUrl = '/';
     }
     this.router.navigate([this.previousUrl]);
