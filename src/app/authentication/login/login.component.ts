@@ -109,7 +109,7 @@ export class LoginComponent {
     } else {
       this.router.navigate([redirect])
         .then(function() {
-          localStorage.setItem('redirectTo', null);
+          localStorage.setItem('redirectTo', '/');
         })
         .catch(function() {
           console.log('Redirection not possible' + localStorage.getItem('redirectTo'));
@@ -139,8 +139,9 @@ export class LoginComponent {
     let match:boolean = false;
     for(let commentUser of this.commentUsers) {
       if((commentUser.user_id === user_id) && (commentUser.user_type === user_type))
-        return match = true;
+        match = true;
     }
+    return match;
   }
   getCommentUsers() {
     this.articleService.getCommentUsers()
@@ -178,8 +179,9 @@ export class LoginComponent {
     let match:boolean = false;
     for(let testimonialUser of this.testimonialUsers) {
       if((testimonialUser.user_id === user_id) && (testimonialUser.user_type === user_type))
-        return match = true;
+        match = true;
     }
+    return match;
   }
   getTestimonialUsers() {
     this.testimonialService.getTestimonialUsers()
