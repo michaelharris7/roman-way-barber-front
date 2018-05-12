@@ -55,6 +55,7 @@ export class LoginComponent {
         this.getTestimonialUsers();
         this.redirectAfterLogin();
       },
+      err => console.log(err)
       // err => this.afterFailedUserLogin(value)
     );
   }
@@ -129,6 +130,8 @@ export class LoginComponent {
           res => console.log('Comment User created successfully'),
           err => console.log(err)
           );
+      } else {
+        console.log('Comment user already exists');
       }
     }
   }
@@ -143,12 +146,13 @@ export class LoginComponent {
     this.articleService.getCommentUsers()
     .subscribe(
       commentUsers => {
+        console.log('Comment user server found');
         this.commentUsers = commentUsers;
 
         if(this.commentUsers)
           this.createCommentUserIfNull();
       },
-      err => console.log(err)
+      err => console.log('Article server down. Cannot create comment user at this time.')
     );
   }
 
@@ -165,6 +169,8 @@ export class LoginComponent {
           res => console.log('Testimonial User created successfully'),
           err => console.log(err)
           );
+      } else {
+        console.log('Testimonial user already exists');
       }
     }
   }
@@ -179,12 +185,13 @@ export class LoginComponent {
     this.testimonialService.getTestimonialUsers()
     .subscribe(
       testimonialUsers => {
+        console.log('Testimonial server found');
         this.testimonialUsers = testimonialUsers;
 
         if(this.testimonialUsers)
           this.createTestimonialUserIfNull();
       },
-      err => console.log(err)
+      err => console.log('Testimonial server down. Cannot create comment user at this time.')
     );
   }
 }
