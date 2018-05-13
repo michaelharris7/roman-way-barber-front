@@ -21,10 +21,14 @@ export class AccountComponent implements OnInit {
   commentUsers: CommentUser[];
   testimonialUser: TestimonialUser = <TestimonialUser>{};
   testimonialUsers: TestimonialUser[];
+  updatingData: boolean = false;
   submitted: boolean = false;
+  resetString: string;
+  deletingData: boolean = false;
+  deletionError: boolean = false;
+  deletionString: string;
   accountFormBasic: FormGroup;
   accountFormPassword: FormGroup;
-  resetString: string;
   formBasicSet: boolean = true;
   deleteConfirm: boolean = false;
   deleteConfirmed: boolean = false;
@@ -92,9 +96,34 @@ export class AccountComponent implements OnInit {
   }
 
 
+  // General Functions
+  updatingUserAccount() {
+    setTimeout(() => {
+      this.resetString = "<p class='alert alert-info mt-4' role='alert'>User account data updating...</p>";
+    });
+  }
+  updatingUserDataReset() {
+    setTimeout(() => {
+      this.updatingData = false;
+      this.resetString = "";
+    });
+  }
+  resetSubmit() {
+    setTimeout(() => {
+      this.resetString = "<p class='alert alert-success mt-4' role='alert'>Account updated successfully. Redirecting now.</p>";
+    });
+  }
+  redirectToPrevious() {
+    setTimeout(() => {
+      this.authService.redirectToPrevious();
+    },1000);
+  }
+
+
   // Account functions
   submit(value: any) {
-  this.authService.updateUserData(value)
+    this.updatingData = true;
+    this.authService.updateUserData(value)
     .subscribe(
       res => {
         if (value.name != this.tokenService.currentUserData.name) {
@@ -115,7 +144,7 @@ export class AccountComponent implements OnInit {
         this.getUpdateCommentUser();
         this.getUpdateTestimonialUser();
         this.redirectToPrevious();
-
+        this.updatingData = false;
         this.submitted = true;
       },
 
@@ -130,12 +159,7 @@ export class AccountComponent implements OnInit {
       this.accountFormPassword.controls.email.setErrors({'notUnique': true});
       this.accountFormPassword.setErrors(this.accountFormPassword.controls.email.errors);
     }
-    this.submitted = false;
-  }
-  resetSubmit() {
-    setTimeout(() => {
-      this.resetString = "<p class='alert alert-success mt-4' role='alert'>Account updated successfully. Redirecting to homepage.</p>";
-    });
+    this.updatingData = false;
   }
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
@@ -144,13 +168,18 @@ export class AccountComponent implements OnInit {
     this.authService.logOut()
     .subscribe(
       res => this.authService.redirectToPrevious(),
-        error => {
-          console.log("Error logging out: " + error);
-          return Observable.throw(error);
-        }
-      );
+      error => {
+        console.log("Error logging out: " + error);
+        return Observable.throw(error);
+      }
+    );
   }
+
+
+  // Delete account functions
   deleteAccount() {
+    this.deleteConfirm = false;
+    this.deletingData = true;
     this.userData = this.tokenService.currentUserData;
     this.userType = this.tokenService.currentUserType;
     if(this.userType === 'ADMIN')
@@ -163,21 +192,33 @@ export class AccountComponent implements OnInit {
     this.authService.deleteAccount()
     .subscribe(
       res => {
-        this.deleteConfirm = true;
-        this.deleteConfirmed = true;
         this.redirectToPrevious();
+        this.deletingData = false;
+        this.deleteConfirmed = true;
       },
       err => {
         console.log("Error deleting account");
+        this.deletingData = false;
         this.deleteConfirm = false;
+        this.deletionError = true;
         return Observable.throw(err);
       }
     );
   }
-  redirectToPrevious() {
+  deletingDataMsg() {
     setTimeout(() => {
-      this.authService.redirectToPrevious();
-    },1000);
+      this.deletionString = "<p class='alert alert-info mt-4' role='alert'>User account data getting deleted...</p>";
+    });
+  }
+  deleteConfirmedMsg() {
+    setTimeout(() => {
+      this.deletionString = "<p class='alert alert-success mt-4' role='alert'>User account deleted successfully. Redirecting now.</p>";
+    });
+  }
+  deletionErrorMsg() {
+    setTimeout(() => {
+      this.deletionString = "<p class='alert alert-warning mt-4' role='alert'>User account was not able to be deleted due to a network error. Please contact your network administrator.</p>";
+    });
   }
 
 

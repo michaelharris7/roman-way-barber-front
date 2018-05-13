@@ -21,9 +21,10 @@ export class LoginComponent {
   commentUsers: CommentUser[];
   testimonialUser: TestimonialUser = <TestimonialUser>{};
   testimonialUsers: TestimonialUser[];
+  loadingData: boolean = false;
   submitted: boolean = false;
-  loginForm: FormGroup;
   resetString: string;
+  loginForm: FormGroup;
 
   constructor(
     private router: Router,
@@ -44,8 +45,33 @@ export class LoginComponent {
   }
 
 
+  // General Functions
+  loadingUserAccount() {
+    setTimeout(() => {
+      this.resetString = "<p class='alert alert-info mt-4' role='alert'>User account data loading...</p>";
+    });
+  }
+  loadingUserDataReset() {
+    setTimeout(() => {
+      this.loadingData = false;
+      this.resetString = "";
+    });
+  }
+  resetSubmit() {
+    setTimeout(() => {
+      this.resetString = "<p class='alert alert-primary mt-4' role='alert'>User account logged in successfully. Redirecting now.</p>";
+    });
+  }
+  redirectToPrevious() {
+    setTimeout(() => {
+      this.authService.redirectToPrevious();
+    },1000);
+  }
+
+
   // Login functions
   submit(value: any) {
+    this.loadingData = true;
     this.authService.logIn(value.email, value.password)
     .subscribe(
       res => {
@@ -54,6 +80,8 @@ export class LoginComponent {
         this.getCommentUsers();
         this.getTestimonialUsers();
         this.redirectToPrevious()
+        this.loadingData = false;
+        this.submitted = true;
       },
       err => this.afterFailedUserLogin(value)
     );
@@ -70,6 +98,8 @@ export class LoginComponent {
           this.getCommentUsers();
           this.getTestimonialUsers();
           this.redirectToPrevious();
+          this.loadingData = false;
+          this.submitted = true;
         },
         err => this.afterFailedAdminLogin(err)
       );
@@ -86,17 +116,7 @@ export class LoginComponent {
     }
     this.loginForm.setErrors(parsed_errors);
 
-    this.submitted = false;
-  }
-  resetSubmit() {
-    setTimeout(() => {
-      this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account logged in successfully. Redirecting now.</p>";
-    });
-  }
-  redirectToPrevious() {
-    setTimeout(() => {
-      this.authService.redirectToPrevious();
-    },1000);
+    this.loadingData = false;
   }
 
 

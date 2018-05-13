@@ -55,13 +55,24 @@
                         </div>
                       </div>
 
-                      <div *ngIf="accountFormBasic.errors">
-                        <p class="alert alert-danger" role="alert">
-                          The email address '{{accountFormBasic.controls.email.value}}' already exists on another account. Please enter a different email address.
-                        </p>
+                      <div *ngIf="!accountFormBasic.errors; else basic_form_errors">
+                        <div *ngIf="updatingData">
+                          {{updatingUserAccount()}}
+                        </div>
+                        <div *ngIf="submitted">
+                          {{resetSubmit()}}
+                        </div>
+                        <p [innerHTML]="resetString"></p>
                       </div>
+                      <ng-template #basic_form_errors>
+                        <p class="alert alert-danger" role="alert">
+                          {{updatingUserDataReset()}}
+                          The email address '{{accountFormBasic.controls.email.value}}' has already been taken. Please enter a different email address.
+                        </p>
+                      </ng-template>
 
                       <button type="button"
+                        [hidden]="(updatingData || submitted)"
                         class="btn btn-outline-secondary btn-lg w-100 mt-4 mb-2"
                         (click)="formBasicSet = false"
                       >
@@ -69,17 +80,12 @@
                       </button>
 
                       <button type="submit"
+                        [hidden]="(updatingData || submitted)"
                         class="btn btn-primary btn-lg w-100 mt-4 mb-3"
                         [disabled]="!accountFormBasic.valid"
-                        [hidden]="submitted"
                       >
                         Update Account
                       </button>
-
-                      <div *ngIf="submitted && !accountFormBasic.errors">
-                        {{resetSubmit()}}
-                        <p [innerHTML]="resetString"></p>
-                      </div>
                     </form>
                   </div>
 
@@ -147,12 +153,24 @@
                         </div>
                       </div>
 
-                      <div *ngIf="accountFormPassword.errors">
-                        <p class="alert alert-danger" role="alert">
-                          The email address '{{accountFormBasic.controls.email.value}}' already exists on another account. Please enter a different email address.
-                        </p>
+                      <div *ngIf="!accountFormPassword.errors; else password_form_errors">
+                        <div *ngIf="updatingData">
+                          {{updatingUserAccount()}}
+                        </div>
+                        <div *ngIf="submitted">
+                          {{resetSubmit()}}
+                        </div>
+                        <p [innerHTML]="resetString"></p>
                       </div>
+                      <ng-template #password_form_errors>
+                        <p class="alert alert-danger" role="alert">
+                          {{updatingUserDataReset()}}
+                          The email address '{{accountFormBasic.controls.email.value}}' has already been taken. Please enter a different email address.
+                        </p>
+                      </ng-template>
+
                       <button type="button"
+                        [hidden]="(updatingData || submitted)"
                         class="btn btn-outline-secondary btn-lg w-100 mt-4 mb-2"
                         (click)="formBasicSet = true"
                       >
@@ -160,17 +178,12 @@
                       </button>
 
                       <button type="submit"
+                        [hidden]="(updatingData || submitted)"
                         class="btn btn-primary btn-lg w-100 mt-4 mb-3"
                         [disabled]="!accountFormPassword.valid"
-                        [hidden]="submitted"
                       >
                         Update Account
                       </button>
-
-                      <div *ngIf="submitted && !accountFormPassword.errors">
-                        {{resetSubmit()}}
-                        <p [innerHTML]="resetString"></p>
-                      </div>
                     </form>
                   </div>
 
@@ -179,7 +192,7 @@
                       Cancel the account?
                     </h3>
 
-                    <div [hidden]="deleteConfirm">
+                    <div [hidden]="deleteConfirm || deletingData || deleteConfirmed || deletionError">
                       <p>
                         Are you sure you want to cancel your account? Canceling the account will perminantly delete your account information.
                       </p>
@@ -191,7 +204,7 @@
                       </button>
                     </div>
 
-                    <div [hidden]="!deleteConfirm">
+                    <div [hidden]="!deleteConfirm || deletingData || deleteConfirmed || deletionError">
                       <p class="mt-2 text-danger">
                         Are you sure you want to cancel your account? Your account information will be perminantly deleted if you cancel it.
                       </p>
@@ -207,11 +220,19 @@
                       >
                         No
                       </button>
-                      <div *ngIf="deleteConfirmed">
-                        <p class='alert alert-success mt-4' role='alert'>
-                          Account deleted successfully. Redirecting now.
-                        </p>
+                    </div>
+
+                    <div *ngIf="deletingData || deleteConfirmed || deletionError">
+                      <div *ngIf="deletingData">
+                        {{deletingDataMsg()}}
                       </div>
+                      <div *ngIf="deleteConfirmed">
+                        {{deleteConfirmedMsg()}}
+                      </div>
+                      <div *ngIf="deletionError">
+                        {{deletionErrorMsg()}}
+                      </div>
+                      <p [innerHTML]="deletionString"></p>
                     </div>
 
                     <div class="corner-bottom-right">

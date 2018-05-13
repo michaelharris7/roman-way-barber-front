@@ -67,24 +67,29 @@
                     </div>
                   </div>
 
-                  <div *ngIf="loginForm.errors">
+                  <div *ngIf="!loginForm.errors; else form_errors">
+                    <div *ngIf="loadingData">
+                      {{loadingUserAccount()}}
+                    </div>
+                    <div *ngIf="submitted">
+                      {{resetSubmit()}}
+                    </div>
+                    <p [innerHTML]="resetString"></p>
+                  </div>
+                  <ng-template #form_errors>
                     <p class="alert alert-danger" role="alert">
+                      {{loadingUserDataReset()}}
                       {{loginForm.errors}}
                     </p>
-                  </div>
+                  </ng-template>
 
                   <button type="submit"
+                    [hidden]="(loadingData || submitted)"
                     class="btn btn-primary btn-lg w-100 mt-4 mb-3"
                     [disabled]="!loginForm.valid"
-                    [hidden]="submitted"
                   >
                     Login
                   </button>
-
-                  <div *ngIf="submitted && !loginForm.errors">
-                    {{resetSubmit()}}
-                    <p [innerHTML]="resetString"></p>
-                  </div>
 
                   <div class="my-2">
                     <a routerLink="/forgot-password">Forgot your password? Click here to request a password change.</a>

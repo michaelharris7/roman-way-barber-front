@@ -23,9 +23,10 @@ export class RegisterComponent {
   testimonialUser: TestimonialUser = <TestimonialUser>{};
   testimonialUsers: TestimonialUser[];
   admins: any[];
+  registeringData: boolean = false;
   submitted: boolean = false;
-  registerForm: FormGroup;
   resetString: string;
+  registerForm: FormGroup;
 
   constructor(
     private router: Router,
@@ -47,12 +48,57 @@ export class RegisterComponent {
   }
 
 
+  // General Functions
+  registeringUserAccount() {
+    setTimeout(() => {
+      this.resetString = "<p class='alert alert-info mt-4' role='alert'>User account data registering...</p>";
+    });
+  }
+  registeringUserDataReset() {
+    setTimeout(() => {
+      this.registeringData = false;
+      this.resetString = "";
+    });
+  }
+  resetSubmit() {
+    setTimeout(() => {
+      this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account created successfully. Redirecting now.</p>";
+    });
+  }
+  redirectToPrevious() {
+    setTimeout(() => {
+      this.authService.redirectToPrevious();
+    },1000);
+  }
+
+
   // Register functions
   submit(value: any) {
     if(!value.name) {
       value.name = 'Anonymous';
     }
     this.registerAccount(value);
+  }
+  registerAccount(value: any) {
+    this.registeringData = true;
+    this.authService.registerAccount(value.name, value.email, value.password).subscribe(
+      res => {
+        this.authService.logIn(value.email, value.password)
+        .subscribe(
+          res => {
+            this.userData = this.tokenService.currentUserData;
+            this.userType = this.tokenService.currentUserType;
+            this.getCommentUsers();
+            this.getTestimonialUsers();
+            this.redirectToPrevious();
+            this.registeringData = false;
+            this.submitted = true;
+          },
+          err => this.afterFailedRegister(err)
+        );
+      },
+      err => this.afterFailedRegister(err)
+    );
   }
   afterFailedRegister(errors: any) {
     let parsed_errors = JSON.parse(errors._body).errors;
@@ -65,36 +111,7 @@ export class RegisterComponent {
     }
     this.registerForm.setErrors(parsed_errors);
 
-    this.submitted = false;
-  }
-  registerAccount(value: any) {
-      this.authService.registerAccount(value.name, value.email, value.password).subscribe(
-        res => {
-          this.authService.logIn(value.email, value.password)
-          .subscribe(
-            res => {
-              this.userData = this.tokenService.currentUserData;
-              this.userType = this.tokenService.currentUserType;
-              this.getCommentUsers();
-              this.getTestimonialUsers();
-              this.submitted = true;
-              this.redirectToPrevious();
-            },
-            err => this.afterFailedRegister(err)
-          );
-        },
-        err => this.afterFailedRegister(err)
-      );
-    }
-  resetSubmit() {
-    setTimeout(() => {
-      this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account created successfully. Redirecting now.</p>";
-    });
-  }
-  redirectToPrevious() {
-    setTimeout(() => {
-      this.authService.redirectToPrevious();
-    },1000);
+    this.registeringData = false;
   }
 
 
