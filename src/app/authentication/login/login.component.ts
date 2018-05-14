@@ -116,27 +116,28 @@ export class LoginComponent {
         this.loginAllData();
       },
       err => {
-        this.alertNumber = 3;
-        console.log('User account server down. Cannot log user in at this time.');
-        this.authService.logOut();
+        this.afterFailedAdminLogin(err);
       }
     );
   }
-  // afterFailedAdminLogin(errors: any) {
-  //   this.alertNumber = 3;
-  //   console.log('User account server down. Cannot log user in at this time.');
-  //   this.authService.logOut();
+  afterFailedAdminLogin(errors: any) {
+    if(errors.status !== 0) {
+      let parsed_errors = JSON.parse(errors._body).errors;
 
-  //   let parsed_errors = JSON.parse(errors._body).errors;
+      for(let attribute in this.loginForm.controls) {
+        if (parsed_errors[attribute]) {
+          this.loginForm.controls[attribute]
+              .setErrors(parsed_errors[attribute]);
+        }
+      }
+      this.loginForm.setErrors(parsed_errors);
+    } else {
 
-  //   for(let attribute in this.loginForm.controls) {
-  //     if (parsed_errors[attribute]) {
-  //       this.loginForm.controls[attribute]
-  //           .setErrors(parsed_errors[attribute]);
-  //     }
-  //   }
-  //   this.loginForm.setErrors(parsed_errors);
-  // }
+      this.alertNumber = 3;
+      console.log('User account server down. Cannot log user in at this time.');
+      this.authService.logOut();
+    }
+  }
 
 
   // CommentUser functions
