@@ -68,13 +68,19 @@
                   </div>
 
                   <div *ngIf="!loginForm.errors; else form_errors">
-                    <div *ngIf="loadingData">
-                      {{loadingUserAccount()}}
+                    <div *ngIf="this.alertNumber === 1">
+                      {{alertLoading()}}
                     </div>
-                    <div *ngIf="submitted">
-                      {{resetSubmit()}}
+                    <div *ngIf="this.alertNumber === 2">
+                      {{alertSubmitted()}}
                     </div>
-                    <p [innerHTML]="resetString"></p>
+                    <div *ngIf="this.alertNumber === 3">
+                      {{alertNetworkError()}}
+                    </div>
+                    <div *ngIf="this.alertNumber === 4">
+                      {{alertReset()}}
+                    </div>
+                    <p [innerHTML]="alertMessage"></p>
                   </div>
                   <ng-template #form_errors>
                     <p class="alert alert-danger" role="alert">
@@ -82,9 +88,12 @@
                       {{loginForm.errors}}
                     </p>
                   </ng-template>
+                  <div *ngIf="loginForm.dirty && loginForm.touched && alertMessage">
+                    {{alertSetToReset()}}
+                  </div>
 
                   <button type="submit"
-                    [hidden]="(loadingData || submitted)"
+                    [hidden]="alertMessage"
                     class="btn btn-primary btn-lg w-100 mt-4 mb-3"
                     [disabled]="!loginForm.valid"
                   >
