@@ -13,10 +13,15 @@
 .new-back h6 {
   font-family: 'Roboto Slab', serif;
   font-weight: 300;
-  line-height: .75em;
   text-shadow: none;
   color: black;
   margin-bottom: 20px;
+}
+.new-back h1,
+.new-back h2,
+.new-back h3,
+.new-back h4 {
+  line-height: .75em;
 }
 .new-back h1 {
   font-size: 3rem;
@@ -268,14 +273,17 @@ pagination-controls {
   padding: 20px 30px 20px 40px;
   box-shadow: 2px 2px 3px #f0f0f0;
 }
-blockquote {
+.blockquote {
   margin: 0;
   padding: 5px 10px 1px 10px;
   quotes: "\201C""\201D";
   border: 1px solid transparent;
-  box-shadow: -6px 0px 0px #003e80;
+  /*box-shadow: -6px 0px 0px #003e80;*/
+  border-left: 15px solid #003e80 !important;
+  border-right: 2px solid #003e80 !important;
+  box-shadow: 0px 0px 0px #003e80 !important;
 }
-blockquote:hover {
+.blockquote:hover {
   margin: 0;
   padding: 5px 9px 0px 10px;
   border-top-right-radius: 5px;
@@ -285,7 +293,7 @@ blockquote:hover {
   border-left: 2px solid #c7d3eb;
   box-shadow: -6px 0px 0px #003e80, 2px 2px 3px #f0f0f0 inset;
 }
-blockquote:active {
+.blockquote:active {
   margin: 0;
   padding: 5px 9px 0px 10px;
   border-top-right-radius: 5px;
@@ -296,23 +304,34 @@ blockquote:active {
   border-left: 2px solid #c7d3eb;
   box-shadow: -6px 0px 0px #549cff, 2px 2px 10px #c7d3eb inset;
 }
-blockquote p:before {
+.blockquote::before{
+  font-family: Georgia, serif;
+  color: #0d5ebc !important;
+  content: "\201C";
+  font-size: 3em;
+  /*font-size: 80px;*/
+  font-weight: bold;
+  position: relative;
+  /*left: 5px;*/
+  top: 15px;
+}
+/*.blockquote p:before {
   color: #0d5ebc;
   content: open-quote;
   font-size: 2em;
   line-height: .1em;
   vertical-align: -.3em;
-}
-blockquote p:first-child {
+}*/
+.blockquote p:first-child {
   display: inline;
 }
-blockquote p:after {
+/*.blockquote p:after {
   color: #0d5ebc;
   content: close-quote;
   font-size: 2em;
   line-height: .1em;
   vertical-align: -.3em;
-}
+}*/
 .blockquote-select {
   margin: 0;
   padding: 0;
@@ -325,7 +344,7 @@ blockquote p:after {
 }
 .blockquote-select:active {
   border: 1px solid #549cff;
-  box-shadow: -6px 0px 0px 0px #549cff;
+  /*box-shadow: -6px 0px 0px 0px #549cff;*/
 }
 .blockquote-no-hover p:before {
   color: #06407e;
@@ -336,23 +355,23 @@ blockquote p:after {
 .blockquote-no-hover:hover {
   margin: 0;
   padding: 5px 10px 1px 10px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   border: 1px solid transparent;
-  box-shadow: -6px 0px 0px #003e80;
+  /*box-shadow: -6px 0px 0px #003e80;*/
 }
 .blockquote-no-hover:active {
   margin: 0;
   padding: 5px 10px 1px 10px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   border: 1px solid transparent;
   background-color: transparent;
-  box-shadow: -6px 0px 0px #003e80;
+  /*box-shadow: -6px 0px 0px #003e80;*/
 }
 .quote-signature {
   margin-left: 40%;

@@ -151,6 +151,30 @@ h6 {
 }
 
 
+markdown img {
+  width: 95%;
+  border: 1px solid #9b9cad;
+  box-shadow: 2px 2px 4px rgba(78,78,78,.3);
+}
+.markdown-quote {
+  margin: 0;
+  padding: 5px 10px 1px 10px;
+  quotes: "\201C""\201D";
+  border: 1px solid transparent !important;
+  border-left: 15px solid #003e80 !important;
+  border-right: 2px solid #003e80 !important;
+  box-shadow: 0px 0px 0px #003e80 !important;
+}
+.markdown-quote::before{
+  color: #0d5ebc !important;
+  line-height: 1em;
+}
+.markdown-quote p:first-child {
+  display: inline;
+}
+
+
+
 .article-reference span {
   font-weight: 900 !important;
 }
