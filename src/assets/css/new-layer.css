@@ -275,34 +275,36 @@ pagination-controls {
 }
 .blockquote {
   margin: 0;
+  /*color: #0d5ebc !important;*/
+  color: rgba(13,94,188,.8) !important;
   padding: 5px 10px 1px 10px;
   quotes: "\201C""\201D";
   border: 1px solid transparent;
   /*box-shadow: -6px 0px 0px #003e80;*/
   border-left: 15px solid #003e80 !important;
   border-right: 2px solid #003e80 !important;
-  box-shadow: 0px 0px 0px #003e80 !important;
+  /*box-shadow: 0px 0px 0px #003e80 !important;*/
 }
 .blockquote:hover {
   margin: 0;
-  padding: 5px 9px 0px 10px;
+  padding: 5px 8px 0px 12px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border: 1px solid #c7d3eb;
   border-top: 2px solid #c7d3eb;
   border-left: 2px solid #c7d3eb;
-  box-shadow: -6px 0px 0px #003e80, 2px 2px 3px #f0f0f0 inset;
+  box-shadow: 2px 2px 3px #f0f0f0 inset;
 }
 .blockquote:active {
   margin: 0;
-  padding: 5px 9px 0px 10px;
+  padding: 5px 8px 0px 12px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   background-color: rgba(84, 156, 255, .1);
   border: 1px solid #c7d3eb;
   border-top: 2px solid #c7d3eb;
   border-left: 2px solid #c7d3eb;
-  box-shadow: -6px 0px 0px #549cff, 2px 2px 10px #c7d3eb inset;
+  box-shadow: 2px 2px 10px #c7d3eb inset;
 }
 .blockquote::before{
   font-family: Georgia, serif;
@@ -313,7 +315,7 @@ pagination-controls {
   font-weight: bold;
   position: relative;
   /*left: 5px;*/
-  top: 15px;
+  top: 20px;
 }
 /*.blockquote p:before {
   color: #0d5ebc;
@@ -360,7 +362,7 @@ pagination-controls {
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   border: 1px solid transparent;
-  /*box-shadow: -6px 0px 0px #003e80;*/
+  box-shadow: 0px 0px 0px #003e80;
 }
 .blockquote-no-hover:active {
   margin: 0;
@@ -371,7 +373,7 @@ pagination-controls {
   border-bottom-left-radius: 0px;
   border: 1px solid transparent;
   background-color: transparent;
-  /*box-shadow: -6px 0px 0px #003e80;*/
+  box-shadow: 0px 0px 0px #003e80;
 }
 .quote-signature {
   margin-left: 40%;
@@ -385,38 +387,39 @@ pagination-controls {
 .blockquote-feature a {
   text-decoration: none;
   color: black;
+  margin: 0;
+  padding: 0;
 }
 
 
 .blockquote-sidebar {
-  color: black;
+  /*color: black;*/
+  color: rgba(13,94,188,.8) !important;
   background: transparent;
   margin: 0px;
-  padding: 5px 2px 1px 10px;
+  padding: 4px 2px 0px 10px;
   quotes: "\201C""\201D";
-  border: 1px solid transparent;
-  box-shadow: -4px 0px 0px 0px rgba(0, 62, 128, .25);
+  border: 2px solid transparent;
+  border-left: 7px solid #003e80 !important;
+  border-right: 2px solid #003e80 !important;
+  /*box-shadow: -4px 0px 0px 0px rgba(0, 62, 128, .25);*/
 }
 .blockquote-sidebar:hover {
   margin: 0px;
-  padding: 5px 2px 0px 10px;
+  padding: 6px 0px 0px 12px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border: 1px solid #c7d3eb;
-  border-top: 2px solid #c7d3eb;
-  border-left: 2px solid #c7d3eb;
-  box-shadow: -4px 0px 0px 0px rgba(0, 62, 128, .25), 2px 2px 3px #e2e2e8 inset;
+  box-shadow: 2px 2px 3px #e2e2e8 inset;
 }
 .blockquote-sidebar:active {
   margin: 0px;
-  padding: 5px 2px 0px 10px;
+  padding: 6px 0px 0px 12px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   background-color: rgba(84, 156, 255, .1);
   border: 1px solid #c7d3eb;
-  border-top: 2px solid #c7d3eb;
-  border-left: 2px solid #c7d3eb;
-  box-shadow: -4px 0px 0px 0px #549cff, 2px 2px 10px #c7d3eb inset;
+  box-shadow: 2px 2px 10px #c7d3eb inset;
 }
 .blockquote-sidebar-select {
   border-top-right-radius: 5px;
@@ -429,25 +432,42 @@ pagination-controls {
   padding: 0px;
   margin: 0px;
   border: 1px solid #549cff;
-  box-shadow: -4px 0px 0px 0px #549cff;
 }
-.blockquote-sidebar p:before {
+.blockquote-sidebar p {
+  margin: 0;
+  padding: 0;
+  /*position: relative;*/
+  /*top: -10px;*/
+  line-height: 1em;
+}
+.blockquote-sidebar p::before{
+  font-family: Georgia, serif;
+  color: rgba(13,94,188,.9) !important;
+  content: "\201C";
+  font-size: 2.5em;
+  font-weight: bold;
+  position: relative;
+  top: 10px;
+  margin: 0px;
+  padding: 0px;
+}
+/*.blockquote-sidebar p:before {
   color: black;
   content: open-quote;
   font-size: 2em;
   line-height: .1em;
   vertical-align: -.3em;
-}
+}*/
 .blockquote-sidebar p:first-child {
   display: inline;
 }
-.blockquote-sidebar p:after {
+/*.blockquote-sidebar p:after {
   color: black;
   content: close-quote;
   font-size: 2em;
   line-height: .1em;
   vertical-align: -.3em;
-}
+}*/
 .blockquote-sidebar .quote-signature {
   margin-left: 30%;
 }
