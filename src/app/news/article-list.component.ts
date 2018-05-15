@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Article } from './article';
-import { FeaturedArticle } from './featured-article';
 import { Angular2TokenService, UserData } from 'angular2-token';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { ArticleService } from './article.service';
@@ -18,12 +17,13 @@ export class ArticleListComponent implements OnInit {
   userType: string;
   articles: Article[];
   article: Article;
-  featuredArticles: FeaturedArticle[];
   errorMessage: string;
   private timerStopper;
   order: string = 'updated_at';
   paginationTotal: number;
   p: number;
+  alertNumber: number = 0;
+  alertMessage: string;
 
   constructor(
     private tokenService: Angular2TokenService,
@@ -36,7 +36,6 @@ export class ArticleListComponent implements OnInit {
   // General Functions
   ngOnInit() {
     this.getArticles();
-    this.getFeaturedArticles();
     let timer = Observable.timer(0, 5000);
     this.timerStopper = timer.subscribe(() => {
       this.getArticles();
@@ -49,16 +48,33 @@ export class ArticleListComponent implements OnInit {
   }
 
 
+  // Standard Alert functions
+  alertReset() {
+    this.alertMessage = "";
+    this.alertNumber = 0;
+  }
+  alertNetworkError() {
+    this.alertMessage = "<p class='alert alert-warning mt-4' role='alert'>The news articles aren't able to load due to a network error. Please contact your network administrator or try again later.</p>";
+  }
+
+
   //Article Functions
   getArticles() {
     this.articleService.getArticles()
-        .subscribe(
-          articles => {
-            this.articles = articles;
-            this.paginationTotal = this.articles.length;
-          },
-          error => this.errorMessage = <any>error
-        );
+      .subscribe(
+        articles => {
+          if(this.alertNumber === 1) {
+            this.alertReset();
+          }
+          this.articles = articles;
+          this.paginationTotal = this.articles.length;
+        },
+        error => {
+          this.alertNumber = 1;
+          this.articles = [];
+          this.articleErrors(error);
+        }
+      );
   }
   deleteArticle(id: number) {
     this.articleService.deleteArticle(id)
@@ -74,18 +90,13 @@ export class ArticleListComponent implements OnInit {
     let link = ['/news/article/', article.id];
     this.router.navigate(link);
   }
-
-  getFeaturedArticles() {
-    this.articleService.getFeaturedArticles()
-    .subscribe(
-      featuredArticles => {
-        this.featuredArticles = featuredArticles
-      },
-      error => {
-        this.errorMessage = <any>error;
-        console.log(error);
-      }
-    );
+  articleErrors(errors: any) {
+    if(errors.status !== 0) {
+      console.log('There are no news articles to load.')
+    } else {
+      console.log('News article server down.');
+      this.alertNumber = 1;
+    }
   }
 
 

@@ -23,18 +23,25 @@
         <div class="col-md-9 col-sm-7 col-6">
           <div class="container pb-5">
 
-            <pagination-controls id="paginate"
-                      (pageChange)="p = $event"
-                      maxSize="9"
-                      directionLinks="true"
-                      autoHide="true"
-                      previousLabel="Previous"
-                      nextLabel="Next"
-                      screenReaderPaginationLabel="Pagination"
-                      screenReaderPageLabel="page"
-                      screenReaderCurrentLabel="You're on page">
-            </pagination-controls>
-            <div *ngIf="paginationTotal>5" class="pagination-top"></div>
+            <div *ngIf="alertNumber === 1">
+              {{alertNetworkError()}}
+              <p [innerHTML]="alertMessage"></p>
+            </div>
+
+            <div *ngIf="alertNumber !== 1">
+              <pagination-controls id="paginate"
+                        (pageChange)="p = $event"
+                        maxSize="9"
+                        directionLinks="true"
+                        autoHide="true"
+                        previousLabel="Previous"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+              </pagination-controls>
+              <div *ngIf="paginationTotal>5" class="pagination-top"></div>
+            </div>
 
             <div *ngFor="let article of articles | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let first = first; let last = last" [class.pb-2]="!last" [class.pt-4]="!first" [attr.id]="'article_' + article.id">
               <div class="new-post-select">
@@ -68,19 +75,20 @@
               </div>
             </div>
 
-            <div *ngIf="paginationTotal>5" class="pagination-bottom"></div>
-
-            <pagination-controls id="paginate"
-                      (pageChange)="p = $event"
-                      maxSize="9"
-                      directionLinks="true"
-                      autoHide="true"
-                      previousLabel="Previous"
-                      nextLabel="Next"
-                      screenReaderPaginationLabel="Pagination"
-                      screenReaderPageLabel="page"
-                      screenReaderCurrentLabel="You're on page">
-            </pagination-controls>
+            <div *ngIf="alertNumber !== 1">
+              <div *ngIf="paginationTotal>5" class="pagination-bottom"></div>
+              <pagination-controls id="paginate"
+                        (pageChange)="p = $event"
+                        maxSize="9"
+                        directionLinks="true"
+                        autoHide="true"
+                        previousLabel="Previous"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+              </pagination-controls>
+            </div>
 
           </div>
         </div>
