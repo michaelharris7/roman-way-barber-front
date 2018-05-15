@@ -19,6 +19,10 @@ import { AuthenticationService } from '../authentication/authentication.service'
       </div>
 
       <h5 class="mb-3">Testimonials</h5>
+      <div *ngIf="alertTestimonialNumber === 1">
+        {{alertTestimonialNetworkError()}}
+        <p [innerHTML]="alertTestimonialMessage"></p>
+      </div>
       <div *ngFor="let featuredTestimonial of featuredTestimonials; let first = first; let last = last" [class.pt-4]="!first" [class.pt-2]="!first" [attr.id]="'featuredTestimonial_' + featuredTestimonial.id">
         <div class="blockquote-sidebar-select">
           <div class="container blockquote-feature">
@@ -49,7 +53,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
           </a>
         </div>
       </div>
-      <a class="new-link" pageScroll [pageScrollOffset]="100" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/testimonials'" href="#testimonial-list">
+      <a *ngIf="alertTestimonialNumber !== 1" class="new-link" pageScroll [pageScrollOffset]="100" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/testimonials'" href="#testimonial-list">
         <button class="btn btn-outline-info btn-sm mt-4 mb-3">
           More testimonials
         </button>
@@ -58,6 +62,10 @@ import { AuthenticationService } from '../authentication/authentication.service'
       <hr>
 
       <h5 class="mb-3">Featured Articles</h5>
+      <div *ngIf="alertArticleNumber === 1">
+        {{alertArticleNetworkError()}}
+        <p [innerHTML]="alertArticleMessage"></p>
+      </div>
       <div *ngFor="let featuredArticle of featuredArticles; let first = first; let last = last" [class.new-separator]="!first" [class.pt-2]="!first" [attr.id]="'featuredArticle_' + featuredArticle.id">
         <div class="new-post-select">
           <div class="container new-feature">
@@ -79,7 +87,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
           </a>
         </div>
       </div>
-      <a class="new-link" pageScroll [pageScrollOffset]="100" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/news'" href="#article-list">
+      <a *ngIf="alertArticleNumber !== 1" class="new-link" pageScroll [pageScrollOffset]="100" [pageScrollDuration]="200" [pageScrollInterruptible]="false" [routerLink]="'/news'" href="#article-list">
         <button class="btn btn-outline-info btn-sm mt-4">
           More news articles
         </button>
@@ -92,6 +100,10 @@ export class SidebarComponent implements OnInit {
   featuredArticles: FeaturedArticle[];
   featuredTestimonials: FeaturedTestimonial[];
   private timerStopper;
+  alertArticleNumber: number = 0;
+  alertArticleMessage: string;
+  alertTestimonialNumber: number = 0;
+  alertTestimonialMessage: string;
 
   constructor(
     private articleService: ArticleService,
@@ -111,25 +123,79 @@ export class SidebarComponent implements OnInit {
   }
 
 
+  // Article Alert functions
+  alertArticleReset() {
+    this.alertArticleMessage = "";
+    this.alertArticleNumber = 0;
+  }
+  alertArticleNetworkError() {
+    this.alertArticleMessage = "<p class='alert alert-warning mt-4' role='alert'>Featured news articles aren't able to load due to a network error. Please contact your network administrator or check later.</p>";
+  }
+
+
+  // Testimonial Alert functions
+  alertTestimonialReset() {
+    this.alertTestimonialMessage = "";
+    this.alertTestimonialNumber = 0;
+  }
+  alertTestimonialNetworkError() {
+    this.alertTestimonialMessage = "<p class='alert alert-warning mt-4' role='alert'>Featured testimonials aren't able to load due to a network error. Please contact your network administrator or check later.</p>";
+  }
+
+
+  // Featured functions
   getFeaturedArticles() {
     this.articleService.getFeaturedArticles()
     .subscribe(
       featuredArticles => {
+        if(this.alertArticleNumber === 1) {
+            this.alertArticleReset();
+        }
         this.featuredArticles = featuredArticles
       },
-      error => console.log(error)
+      error => {
+        this.alertArticleNumber = 1;
+        this.featuredArticles = [];
+        this.featuredArticleErrors(error);
+      }
     );
   }
   getFeaturedTestimonials() {
     this.testimonialService.getFeaturedTestimonials()
     .subscribe(
       featuredTestimonials => {
+        if(this.alertTestimonialNumber === 1) {
+            this.alertTestimonialReset();
+        }
         this.featuredTestimonials = featuredTestimonials
       },
-      error => console.log(error)
+      error => {
+        this.alertTestimonialNumber = 1;
+        this.featuredTestimonials = [];
+        this.featuredTestimonialErrors(error);
+      }
     );
   }
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
+  }
+
+
+  // Featured Error handling functions
+  featuredArticleErrors(errors: any) {
+    if(errors.status !== 0) {
+      console.log('There are no featured news articles to load.')
+    } else {
+      console.log('News article server down.');
+      this.alertArticleNumber = 1;
+    }
+  }
+  featuredTestimonialErrors(errors: any) {
+    if(errors.status !== 0) {
+      console.log('There are no featured testimonials to load.')
+    } else {
+      console.log('Testimonial server down.');
+      this.alertTestimonialNumber = 1;
+    }
   }
 }
