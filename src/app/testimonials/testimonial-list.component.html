@@ -24,6 +24,11 @@
               </p>
             </span>
 
+            <div *ngIf="alertNumber === 1">
+              {{alertNetworkError()}}
+              <p [innerHTML]="alertMessage"></p>
+            </div>
+
             <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let odd = odd; let even = even; let last = last" [class.left-quote]="odd" [class.right-quote]="even" [class.mb-5]="!last" [attr.id]="'testimonial_' + testimonial.id" class="testimonial mb-3">
 
               <div class="d-flex justify-content-center">
@@ -68,19 +73,21 @@
               </div>
             </div>
 
-            <div *ngIf="paginationTotal>5" class="pagination-bottom"></div>
+            <div *ngIf="alertNumber !== 1">
+              <div *ngIf="paginationTotal>5" class="pagination-bottom"></div>
 
-            <pagination-controls id="paginate"
-                      (pageChange)="p = $event"
-                      maxSize="9"
-                      directionLinks="true"
-                      autoHide="true"
-                      previousLabel="Previous"
-                      nextLabel="Next"
-                      screenReaderPaginationLabel="Pagination"
-                      screenReaderPageLabel="page"
-                      screenReaderCurrentLabel="You're on page">
-            </pagination-controls>
+              <pagination-controls id="paginate"
+                        (pageChange)="p = $event"
+                        maxSize="9"
+                        directionLinks="true"
+                        autoHide="true"
+                        previousLabel="Previous"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+              </pagination-controls>
+            </div>
 
           </div>
         </div>

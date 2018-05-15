@@ -17,7 +17,6 @@ export class ArticleListComponent implements OnInit {
   userType: string;
   articles: Article[];
   article: Article;
-  errorMessage: string;
   private timerStopper;
   order: string = 'updated_at';
   paginationTotal: number;
@@ -58,7 +57,7 @@ export class ArticleListComponent implements OnInit {
   }
 
 
-  //Article Functions
+  //Article functions
   getArticles() {
     this.articleService.getArticles()
       .subscribe(
@@ -83,7 +82,7 @@ export class ArticleListComponent implements OnInit {
             console.log(result);
             this.getArticles();
           },
-          error => this.errorMessage = <any>error
+          error => console.log('Article was not able to be deleted: ' + error)
         );
   }
   goToShow(article: Article): void {

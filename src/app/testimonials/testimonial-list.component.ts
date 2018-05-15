@@ -24,6 +24,8 @@ export class TestimonialListComponent implements OnInit {
   order: string = 'updated_at';
   paginationTotal: number;
   p: number;
+  alertNumber: number = 0;
+  alertMessage: string;
 
   constructor(
     private tokenService: Angular2TokenService,
@@ -47,16 +49,33 @@ export class TestimonialListComponent implements OnInit {
   }
 
 
+  // Standard Alert functions
+  alertReset() {
+    this.alertMessage = "";
+    this.alertNumber = 0;
+  }
+  alertNetworkError() {
+    this.alertMessage = "<p class='alert alert-warning mt-4' role='alert'>The testimonials aren't able to load due to a network error. Please contact your network administrator or try again later.</p>";
+  }
+
+
   // Testimonial Functions
   getTestimonials() {
     this.testimonialService.getTestimonials()
-        .subscribe(
-          testimonials => {
-            this.testimonials = testimonials;
-            this.paginationTotal = this.testimonials.length;
-          },
-          error => console.log(error)
-        );
+      .subscribe(
+        testimonials => {
+          if(this.alertNumber === 1) {
+            this.alertReset();
+          }
+          this.testimonials = testimonials;
+          this.paginationTotal = this.testimonials.length;
+        },
+        error => {
+          this.alertNumber = 1;
+          this.testimonials = [];
+          this.testimonialErrors(error);
+        }
+      );
   }
   deleteTestimonial(id: number) {
     this.testimonialService.deleteTestimonial(id)
@@ -71,6 +90,14 @@ export class TestimonialListComponent implements OnInit {
   goToShow(testimonial: Testimonial): void {
     let link = ['/testimonial/', testimonial.id];
     this.router.navigate(link);
+  }
+  testimonialErrors(errors: any) {
+    if(errors.status !== 0) {
+      console.log('There are no testimonials to load.')
+    } else {
+      console.log('Testimonial server down.');
+      this.alertNumber = 1;
+    }
   }
 
 
