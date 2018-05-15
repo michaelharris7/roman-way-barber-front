@@ -149,3 +149,12 @@ h6 {
   text-shadow: none;
   color: black;
 }
+
+
+.article-reference span {
+  font-weight: 900 !important;
+}
+.article-reference a {
+  font-style: italic !important;
+  font-size: small;
+}
