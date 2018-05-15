@@ -22,10 +22,8 @@ export class RegisterComponent {
   commentUsers: CommentUser[];
   testimonialUser: TestimonialUser = <TestimonialUser>{};
   testimonialUsers: TestimonialUser[];
-  admins: any[];
-  registeringData: boolean = false;
-  submitted: boolean = false;
-  resetString: string;
+  alertNumber: number = 0;
+  alertMessage: string;
   registerForm: FormGroup;
 
   constructor(
@@ -49,20 +47,45 @@ export class RegisterComponent {
 
 
   // General Functions
-  registeringUserAccount() {
+  alertReset() {
     setTimeout(() => {
-      this.resetString = "<p class='alert alert-info mt-4' role='alert'>User account data registering...</p>";
+      this.alertMessage = "";
+      this.registerForm.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertNumber = 0;
     });
   }
-  registeringUserDataReset() {
+  alertRegistering() {
     setTimeout(() => {
-      this.registeringData = false;
-      this.resetString = "";
+      this.alertMessage = "<p class='alert alert-info mt-4' role='alert'>User account data registering...</p>";
+      this.registerForm.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertNumber = 0;
     });
   }
-  resetSubmit() {
+  alertSubmitted() {
     setTimeout(() => {
-      this.resetString = "<p class='alert alert-success mt-4' role='alert'>User account created successfully. Redirecting now.</p>";
+      this.alertMessage = "<p class='alert alert-primary mt-4' role='alert'>User account registered successfully. Redirecting now.</p>";
+      this.registerForm.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertNumber = 0;
+    });
+  }
+  alertNetworkError() {
+    setTimeout(() => {
+      this.alertMessage = "<p class='alert alert-warning mt-4' role='alert'>The user account was not able to be registered due to a network error. Please contact your network administrator or try again later.</p>";
+      this.registerForm.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertNumber = 0;
+    });
+  }
+  alertSetToReset() {
+    setTimeout(() => {
+      this.alertNumber = 4;
     });
   }
   redirectToPrevious() {
@@ -77,10 +100,10 @@ export class RegisterComponent {
     if(!value.name) {
       value.name = 'Anonymous';
     }
+    this.alertNumber = 1;
     this.registerAccount(value);
   }
   registerAccount(value: any) {
-    this.registeringData = true;
     this.authService.registerAccount(value.name, value.email, value.password).subscribe(
       res => {
         this.authService.logIn(value.email, value.password)
@@ -88,11 +111,7 @@ export class RegisterComponent {
           res => {
             this.userData = this.tokenService.currentUserData;
             this.userType = this.tokenService.currentUserType;
-            this.getCommentUsers();
-            this.getTestimonialUsers();
-            this.redirectToPrevious();
-            this.registeringData = false;
-            this.submitted = true;
+            this.registerAllData();
           },
           err => this.afterFailedRegister(err)
         );
@@ -101,88 +120,178 @@ export class RegisterComponent {
     );
   }
   afterFailedRegister(errors: any) {
-    let parsed_errors = JSON.parse(errors._body).errors;
+    if(errors.status !== 0) {
+      let parsed_errors = JSON.parse(errors._body).errors;
 
-    for(let attribute in this.registerForm.controls) {
-      if (parsed_errors[attribute]) {
-        this.registerForm.controls[attribute]
-            .setErrors(parsed_errors[attribute]);
+      for(let attribute in this.registerForm.controls) {
+        if (parsed_errors[attribute]) {
+          this.registerForm.controls[attribute]
+              .setErrors(parsed_errors[attribute]);
+        }
       }
-    }
-    this.registerForm.setErrors(parsed_errors);
+      this.registerForm.setErrors(parsed_errors);
+    } else {
 
-    this.registeringData = false;
+    console.log('User account server down. Cannot create user at this time.');
+    this.alertNumber = 3;
   }
+}
 
 
   // CommentUser functions
-  createCommentUserIfNull() {
-    if(this.commentUsers) {
-      if(!this.searchCommentUser(this.userData.id, this.userType)) {
-        let commentUser:CommentUser;
-        this.commentUser.user_id = this.userData.id;
-        this.commentUser.user_type = this.userType;
-        this.commentUser.user_name = this.userData.name;
-        this.articleService.createCommentUser(this.commentUser).subscribe(
-          res => console.log('Comment User created successfully'),
-          err => console.log(err)
-          );
-      }
-    }
-  }
-  searchCommentUser(user_id:number, user_type:string):boolean {
-    let match:boolean = false;
-    for(let commentUser of this.commentUsers) {
-      if((commentUser.user_id === user_id) && (commentUser.user_type === user_type))
-        return match = true;
-    }
-  }
-  getCommentUsers() {
+  registerAllData() {
     this.articleService.getCommentUsers()
     .subscribe(
       commentUsers => {
+        console.log('Article server found');
         this.commentUsers = commentUsers;
 
         if(this.commentUsers)
           this.createCommentUserIfNull();
       },
-      err => console.log(err)
+      err => {
+        console.log('Article server down. Cannot create comment user at this time.');
+        this.alertNumber = 3;
+        this.authService.deleteAccount().subscribe(
+          res => console.log('User account deleted successfully'),
+          err => {
+            console.log(err);
+            return Observable.throw(err);
+          }
+        );
+      }
+    );
+  }
+  createCommentUserIfNull() {
+    if(this.commentUsers) {
+      if(!this.matchCommentUser(this.userData.id, this.userType)) {
+        let commentUser:CommentUser;
+        this.commentUser.user_id = this.userData.id;
+        this.commentUser.user_type = this.userType;
+        this.commentUser.user_name = this.userData.name;
+        this.articleService.createCommentUser(this.commentUser).subscribe(
+          res => {
+            console.log('Comment User created successfully');
+            this.getTestimonialUsers();
+          },
+          err => {
+            console.log('There was an error creating the comment user: ' + err);
+            this.alertNumber = 3;
+            this.authService.deleteAccount().subscribe(
+              res => console.log('User account deleted successfully'),
+              err => {
+                console.log(err);
+                return Observable.throw(err);
+              }
+            );
+          }
+        );
+      } else {
+        console.log('Comment user already exists');
+        this.getTestimonialUsers();
+      }
+    }
+  }
+  matchCommentUser(user_id:number, user_type:string):boolean {
+    let match:boolean = false;
+    for(let commentUser of this.commentUsers) {
+      if((commentUser.user_id === user_id) && (commentUser.user_type === user_type))
+        match = true;
+    }
+    return match;
+  }
+  deleteUserData() {
+    this.articleService.getCommentUsers()
+    .subscribe(
+      commentUsers => {
+        this.commentUsers = commentUsers;
+        this.commentUser = this.commentUsers[this.commentUsers.length - 1];
+
+        this.articleService.deleteCommentUser(this.commentUser.id).subscribe(
+            res => {
+              console.log('Comment user deleted successfully');
+
+              setTimeout(() => {
+                this.authService.deleteAccount().subscribe(
+                  res => console.log('User account deleted successfully'),
+                  err => {
+                    console.log(err);
+                    return Observable.throw(err);
+                  }
+                );
+              });
+            },
+            err => {
+              console.log(err);
+              return Observable.throw(err);
+            }
+          );
+      },
+      err => {
+        console.log('Article server down. Cannot delete comment user at this time.');
+        this.alertNumber = 3;
+        this.authService.deleteAccount().subscribe(
+          res => console.log('User account deleted successfully'),
+          err => {
+            console.log(err);
+            return Observable.throw(err);
+          }
+        );
+      }
     );
   }
 
 
   // testimonialUser functions
-  createTestimonialUserIfNull() {
-    if(this.testimonialUsers) {
-      if(!this.searchTestimonialUser(this.userData.id, this.userType)) {
-        let testimonialUser:TestimonialUser;
-        this.testimonialUser.user_id = this.userData.id;
-        this.testimonialUser.user_type = this.userType;
-        this.testimonialUser.user_name = this.userData.name;
-        this.testimonialService.createTestimonialUser(this.testimonialUser).subscribe(
-          res => console.log('Testimonial User created successfully'),
-          err => console.log(err)
-          );
-      }
-    }
-  }
-  searchTestimonialUser(user_id:number, user_type:string):boolean {
-    let match:boolean = false;
-    for(let testimonialUser of this.testimonialUsers) {
-      if((testimonialUser.user_id === user_id) && (testimonialUser.user_type === user_type))
-        return match = true;
-    }
-  }
   getTestimonialUsers() {
     this.testimonialService.getTestimonialUsers()
     .subscribe(
       testimonialUsers => {
+        console.log('Testimonial server found');
         this.testimonialUsers = testimonialUsers;
 
         if(this.testimonialUsers)
           this.createTestimonialUserIfNull();
       },
-      err => console.log(err)
+      err => {
+        console.log('Testimonial server down. Cannot create testimonial user at this time.');
+        this.alertNumber = 3;
+        this.deleteUserData();
+      }
     );
+  }
+  createTestimonialUserIfNull() {
+    if(this.testimonialUsers) {
+      if(!this.matchTestimonialUser(this.userData.id, this.userType)) {
+        let testimonialUser:TestimonialUser;
+        this.testimonialUser.user_id = this.userData.id;
+        this.testimonialUser.user_type = this.userType;
+        this.testimonialUser.user_name = this.userData.name;
+        this.testimonialService.createTestimonialUser(this.testimonialUser).subscribe(
+          res => {
+            console.log('Testimonial user created successfully');
+            this.alertNumber = 2;
+            this.redirectToPrevious();
+          },
+          err => {
+            console.log('There was an error creating the testimonial user: ' + err);
+            this.alertNumber = 3;
+            this.deleteUserData();
+          }
+        );
+      } else {
+        console.log('Testimonial user already exists');
+        this.alertNumber = 2;
+        this.redirectToPrevious();
+      }
+    }
+  }
+  matchTestimonialUser(user_id:number, user_type:string):boolean {
+    let match:boolean = false;
+    for(let testimonialUser of this.testimonialUsers) {
+      if((testimonialUser.user_id === user_id) && (testimonialUser.user_type === user_type))
+        match = true;
+    }
+    return match;
   }
 }
