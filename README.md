@@ -8,12 +8,12 @@
 ## Key requirement: company needs data for promoting services, dispaying contact info, and implementing appointment scheduler
 
 ### Components
-- Homepage
-x Contact Info
-x About Company
-- Services
-x Testimonials
-x Blog
+- [x] Homepage
+- [x] Contact Info
+- [x] About Company
+- [x] Services
+- [x] Testimonials
+- [x] Blog
 
 ### Features
 - SMS Sending -> reminder of appointment with link to change appointment -> integrated with Heroku scheduler
@@ -31,18 +31,11 @@ x Blog
 - API GET for services
 - API GET for documents
 
-### TODOs:
-- Create Components
-x Nav Bar
-- Style all view pages
-- Integrate API connections with microserving apps
-x Angular Bootstrap
-
 ### Project Requirements:
-- Angular application for the front end portion of the system
-- Rails API for the backend
-x Use Github for version control
-- Use TDD for Rails API application
+- [x] Angular application for the front end portion of the system
+- [x] Rails API for the backend
+- [x] Use Github for version control
+- [x] Use TDD for Rails API application
 
 
 ## Angular CLI Configuration Details
