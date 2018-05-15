@@ -95,7 +95,6 @@
                   <ng-template #form_errors>
                     <p class="alert alert-danger" role="alert">
                       The email address '{{registerForm.controls.email.value}}' has already been taken. Please enter a different email address.
-                      <!-- {{registerForm.errors}} -->
                     </p>
                   </ng-template>
                   <div *ngIf="registerForm.dirty && registerForm.touched && alertMessage">

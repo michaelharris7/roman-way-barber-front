@@ -163,33 +163,31 @@ export class RegisterComponent {
     );
   }
   createCommentUserIfNull() {
-    if(this.commentUsers) {
-      if(!this.matchCommentUser(this.userData.id, this.userType)) {
-        let commentUser:CommentUser;
-        this.commentUser.user_id = this.userData.id;
-        this.commentUser.user_type = this.userType;
-        this.commentUser.user_name = this.userData.name;
-        this.articleService.createCommentUser(this.commentUser).subscribe(
-          res => {
-            console.log('Comment User created successfully');
-            this.getTestimonialUsers();
-          },
-          err => {
-            console.log('There was an error creating the comment user: ' + err);
-            this.alertNumber = 3;
-            this.authService.deleteAccount().subscribe(
-              res => console.log('User account deleted successfully'),
-              err => {
-                console.log(err);
-                return Observable.throw(err);
-              }
-            );
-          }
-        );
-      } else {
-        console.log('Comment user already exists');
-        this.getTestimonialUsers();
-      }
+    if(!this.matchCommentUser(this.userData.id, this.userType)) {
+      let commentUser:CommentUser;
+      this.commentUser.user_id = this.userData.id;
+      this.commentUser.user_type = this.userType;
+      this.commentUser.user_name = this.userData.name;
+      this.articleService.createCommentUser(this.commentUser).subscribe(
+        res => {
+          console.log('Comment user created successfully');
+          this.getTestimonialUsers();
+        },
+        err => {
+          console.log('There was an error creating the comment user: ' + err);
+          this.alertNumber = 3;
+          this.authService.deleteAccount().subscribe(
+            res => console.log('User account deleted successfully'),
+            err => {
+              console.log(err);
+              return Observable.throw(err);
+            }
+          );
+        }
+      );
+    } else {
+      console.log('Comment user already exists');
+      this.getTestimonialUsers();
     }
   }
   matchCommentUser(user_id:number, user_type:string):boolean {
@@ -261,29 +259,27 @@ export class RegisterComponent {
     );
   }
   createTestimonialUserIfNull() {
-    if(this.testimonialUsers) {
-      if(!this.matchTestimonialUser(this.userData.id, this.userType)) {
-        let testimonialUser:TestimonialUser;
-        this.testimonialUser.user_id = this.userData.id;
-        this.testimonialUser.user_type = this.userType;
-        this.testimonialUser.user_name = this.userData.name;
-        this.testimonialService.createTestimonialUser(this.testimonialUser).subscribe(
-          res => {
-            console.log('Testimonial user created successfully');
-            this.alertNumber = 2;
-            this.redirectToPrevious();
-          },
-          err => {
-            console.log('There was an error creating the testimonial user: ' + err);
-            this.alertNumber = 3;
-            this.deleteUserData();
-          }
-        );
-      } else {
-        console.log('Testimonial user already exists');
-        this.alertNumber = 2;
-        this.redirectToPrevious();
-      }
+    if(!this.matchTestimonialUser(this.userData.id, this.userType)) {
+      let testimonialUser:TestimonialUser;
+      this.testimonialUser.user_id = this.userData.id;
+      this.testimonialUser.user_type = this.userType;
+      this.testimonialUser.user_name = this.userData.name;
+      this.testimonialService.createTestimonialUser(this.testimonialUser).subscribe(
+        res => {
+          console.log('Testimonial user created successfully');
+          this.alertNumber = 2;
+          this.redirectToPrevious();
+        },
+        err => {
+          console.log('There was an error creating the testimonial user: ' + err);
+          this.alertNumber = 3;
+          this.deleteUserData();
+        }
+      );
+    } else {
+      console.log('Testimonial user already exists');
+      this.alertNumber = 2;
+      this.redirectToPrevious();
     }
   }
   matchTestimonialUser(user_id:number, user_type:string):boolean {

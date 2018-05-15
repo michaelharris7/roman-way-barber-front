@@ -107,8 +107,7 @@ export class LoginComponent {
     );
   }
   afterFailedUserLogin(value: any) {
-    let formValues = value;
-    this.authService.logInAdmin(formValues.email, formValues.password)
+    this.authService.logInAdmin(value.email, value.password)
     .subscribe(
       res => {
         this.userData = this.tokenService.currentUserData;
@@ -133,8 +132,8 @@ export class LoginComponent {
       this.loginForm.setErrors(parsed_errors);
     } else {
 
-      this.alertNumber = 3;
       console.log('User account server down. Cannot log user in at this time.');
+      this.alertNumber = 3;
       this.authService.logOut();
     }
   }
@@ -152,8 +151,8 @@ export class LoginComponent {
           this.createCommentUserIfNull();
       },
       err => {
-        this.alertNumber = 3;
         console.log('Article server down. Cannot load comment user at this time.');
+        this.alertNumber = 3;
         this.authService.logOut();
       }
     );
@@ -170,11 +169,11 @@ export class LoginComponent {
           this.getTestimonialUsers();
         },
         err => {
-          this.alertNumber = 3;
           console.log('There was an error creating the comment user: ' + err);
+          this.alertNumber = 3;
           this.authService.logOut();
         }
-        );
+      );
     } else {
       console.log('Comment user already exists');
       this.getTestimonialUsers();
@@ -202,37 +201,37 @@ export class LoginComponent {
           this.createTestimonialUserIfNull();
       },
       err => {
-        this.alertNumber = 3;
         console.log('Testimonial server down. Cannot load testimonial user at this time.');
+        this.alertNumber = 3;
         this.authService.logOut();
       }
     );
   }
   createTestimonialUserIfNull() {
-    if(!this.searchTestimonialUser(this.userData.id, this.userType)) {
+    if(!this.matchTestimonialUser(this.userData.id, this.userType)) {
       let testimonialUser:TestimonialUser;
       this.testimonialUser.user_id = this.userData.id;
       this.testimonialUser.user_type = this.userType;
       this.testimonialUser.user_name = this.userData.name;
       this.testimonialService.createTestimonialUser(this.testimonialUser).subscribe(
         res => {
-          console.log('Testimonial User created successfully');
-          this.redirectToPrevious(); // Data is loaded successfully
+          console.log('Testimonial user created successfully');
           this.alertNumber = 2;
+          this.redirectToPrevious();
         },
         err => {
-          this.alertNumber = 3;
           console.log('There was an error creating the testimonial user: ' + err);
+          this.alertNumber = 3;
           this.authService.logOut();
         }
       );
     } else {
       console.log('Testimonial user already exists');
-      this.redirectToPrevious(); // Data is loaded successfully
       this.alertNumber = 2;
+      this.redirectToPrevious();
     }
   }
-  searchTestimonialUser(user_id:number, user_type:string):boolean {
+  matchTestimonialUser(user_id:number, user_type:string):boolean {
     let match:boolean = false;
     for(let testimonialUser of this.testimonialUsers) {
       if((testimonialUser.user_id === user_id) && (testimonialUser.user_type === user_type))
