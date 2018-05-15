@@ -2,6 +2,12 @@
 
   <div class="new-header">
     <div class="container">
+      <div *ngIf="alertValidationNumber === 1">
+        {{alertValidationError()}}
+        <p [innerHTML]="alertValidationMessage"></p>
+        <br/><br/>
+      </div>
+
       <h1>
         Account:
       </h1>
@@ -56,23 +62,31 @@
                       </div>
 
                       <div *ngIf="!accountFormBasic.errors; else basic_form_errors">
-                        <div *ngIf="updatingData">
-                          {{updatingUserAccount()}}
+                        <div *ngIf="this.alertNumber === 1">
+                          {{alertRegistering()}}
                         </div>
-                        <div *ngIf="submitted">
-                          {{resetSubmit()}}
+                        <div *ngIf="this.alertNumber === 2">
+                          {{alertSubmitted()}}
                         </div>
-                        <p [innerHTML]="resetString"></p>
+                        <div *ngIf="this.alertNumber === 3">
+                          {{alertNetworkError()}}
+                        </div>
+                        <div *ngIf="this.alertNumber === 4">
+                          {{alertReset()}}
+                        </div>
+                        <p [innerHTML]="alertMessage"></p>
                       </div>
                       <ng-template #basic_form_errors>
                         <p class="alert alert-danger" role="alert">
-                          {{updatingUserDataReset()}}
                           The email address '{{accountFormBasic.controls.email.value}}' has already been taken. Please enter a different email address.
                         </p>
                       </ng-template>
+                      <div *ngIf="((accountFormBasic.dirty && accountFormBasic.touched) || (accountFormPassword.dirty && accountFormPassword.touched)) && alertMessage">
+                        {{alertSetToReset()}}
+                      </div>
 
                       <button type="button"
-                        [hidden]="(updatingData || submitted)"
+                        [hidden]="alertMessage"
                         class="btn btn-outline-secondary btn-lg w-100 mt-4 mb-2"
                         (click)="formBasicSet = false"
                       >
@@ -80,7 +94,7 @@
                       </button>
 
                       <button type="submit"
-                        [hidden]="(updatingData || submitted)"
+                        [hidden]="alertMessage"
                         class="btn btn-primary btn-lg w-100 mt-4 mb-3"
                         [disabled]="!accountFormBasic.valid"
                       >
@@ -154,23 +168,31 @@
                       </div>
 
                       <div *ngIf="!accountFormPassword.errors; else password_form_errors">
-                        <div *ngIf="updatingData">
-                          {{updatingUserAccount()}}
+                        <div *ngIf="this.alertNumber === 1">
+                          {{alertRegistering()}}
                         </div>
-                        <div *ngIf="submitted">
-                          {{resetSubmit()}}
+                        <div *ngIf="this.alertNumber === 2">
+                          {{alertSubmitted()}}
                         </div>
-                        <p [innerHTML]="resetString"></p>
+                        <div *ngIf="this.alertNumber === 3">
+                          {{alertNetworkError()}}
+                        </div>
+                        <div *ngIf="this.alertNumber === 4">
+                          {{alertReset()}}
+                        </div>
+                        <p [innerHTML]="alertMessage"></p>
                       </div>
                       <ng-template #password_form_errors>
                         <p class="alert alert-danger" role="alert">
-                          {{updatingUserDataReset()}}
                           The email address '{{accountFormBasic.controls.email.value}}' has already been taken. Please enter a different email address.
                         </p>
                       </ng-template>
+                      <div *ngIf="((accountFormBasic.dirty && accountFormBasic.touched) || (accountFormPassword.dirty && accountFormPassword.touched)) && alertMessage">
+                        {{alertSetToReset()}}
+                      </div>
 
                       <button type="button"
-                        [hidden]="(updatingData || submitted)"
+                        [hidden]="alertMessage"
                         class="btn btn-outline-secondary btn-lg w-100 mt-4 mb-2"
                         (click)="formBasicSet = true"
                       >
@@ -178,7 +200,7 @@
                       </button>
 
                       <button type="submit"
-                        [hidden]="(updatingData || submitted)"
+                        [hidden]="alertMessage"
                         class="btn btn-primary btn-lg w-100 mt-4 mb-3"
                         [disabled]="!accountFormPassword.valid"
                       >
@@ -192,7 +214,7 @@
                       Cancel the account?
                     </h3>
 
-                    <div [hidden]="deleteConfirm || deletingData || deleteConfirmed || deletionError">
+                    <div [hidden]="deleteConfirm || deletingData">
                       <p>
                         Are you sure you want to cancel your account? Canceling the account will perminantly delete your account information.
                       </p>
@@ -204,17 +226,17 @@
                       </button>
                     </div>
 
-                    <div [hidden]="!deleteConfirm || deletingData || deleteConfirmed || deletionError">
+                    <div [hidden]="!deleteConfirm || deletingData">
                       <p class="mt-2 text-danger">
                         Are you sure you want to cancel your account? Your account information will be perminantly deleted if you cancel it.
                       </p>
-                      <button type="buttn"
+                      <button type="button"
                         class="btn btn-danger btn-lg mx-2"
-                        (click)="deleteAccount()"
+                        (click)="loginDeleteVerification()"
                       >
                         Yes
                       </button>
-                      <button type="buttn"
+                      <button type="button"
                         class="btn btn-primary btn-lg mx-2"
                         (click)="deleteConfirm = false"
                       >
@@ -222,21 +244,32 @@
                       </button>
                     </div>
 
-                    <div *ngIf="deletingData || deleteConfirmed || deletionError">
-                      <div *ngIf="deletingData">
-                        {{deletingDataMsg()}}
-                      </div>
-                      <div *ngIf="deleteConfirmed">
-                        {{deleteConfirmedMsg()}}
-                      </div>
-                      <div *ngIf="deletionError">
-                        {{deletionErrorMsg()}}
-                      </div>
-                      <p [innerHTML]="deletionString"></p>
+                    <div *ngIf="alertValidationNumber === 2">
+                      {{alertDeleteValidationError()}}
+                      <p [innerHTML]="alertValidationMessage"></p>
+                      <br/><br/>
+                    </div>
+
+                    <div *ngIf="this.alertDeleteNumber === 1">
+                      {{alertDeleting()}}
+                    </div>
+                    <div *ngIf="this.alertDeleteNumber === 2">
+                      {{alertDeleteSubmitted()}}
+                    </div>
+                    <div *ngIf="this.alertDeleteNumber === 3">
+                      {{alertDeleteNetworkError()}}
+                    </div>
+                    <div *ngIf="this.alertDeleteNumber === 4">
+                      {{alertDeleteReset()}}
+                    </div>
+                    <p [innerHTML]="alertDeleteMessage"></p>
+
+                    <div *ngIf="((accountFormBasic.dirty && accountFormBasic.touched) || (accountFormPassword.dirty && accountFormPassword.touched)) && alertDeleteMessage">
+                      {{alertDeleteSetToReset()}}
                     </div>
 
                     <div class="corner-bottom-right">
-                      <a (click)="logOut()" *ngIf="isLoggedIn() && !deleteConfirmed">Logout</a>
+                      <a (click)="logOut()" *ngIf="isLoggedIn()">Logout</a>
                     </div>
                   </div>
                 </div>

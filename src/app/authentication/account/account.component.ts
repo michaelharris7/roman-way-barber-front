@@ -21,17 +21,17 @@ export class AccountComponent implements OnInit {
   commentUsers: CommentUser[];
   testimonialUser: TestimonialUser = <TestimonialUser>{};
   testimonialUsers: TestimonialUser[];
-  updatingData: boolean = false;
-  submitted: boolean = false;
-  resetString: string;
-  deletingData: boolean = false;
-  deletionError: boolean = false;
-  deletionString: string;
+  alertNumber: number = 0;
+  alertMessage: string;
+  alertDeleteNumber: number = 0;
+  alertDeleteMessage: string;
   accountFormBasic: FormGroup;
   accountFormPassword: FormGroup;
   formBasicSet: boolean = true;
   deleteConfirm: boolean = false;
-  deleteConfirmed: boolean = false;
+  deletingData: boolean = false;
+  alertValidationNumber: number = 0;
+  alertValidationMessage: string;
 
   constructor(
     private articleService: ArticleService,
@@ -60,12 +60,7 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tokenService.validateToken().subscribe(
-      res => {
-        this.userData = this.tokenService.currentUserData;
-        this.createForm();
-      },
-      err => console.log(err));
+    this.loginVerificationFormCreation();
   }
 
 
@@ -96,70 +91,189 @@ export class AccountComponent implements OnInit {
   }
 
 
-  // General Functions
-  updatingUserAccount() {
+  // Standard Alert functions
+  alertReset() {
     setTimeout(() => {
-      this.resetString = "<p class='alert alert-info mt-4' role='alert'>User account data updating...</p>";
+      this.alertMessage = "";
+      this.accountFormBasic.markAsPristine();
+      this.accountFormPassword.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertNumber = 0;
     });
   }
-  updatingUserDataReset() {
+  alertRegistering() {
     setTimeout(() => {
-      this.updatingData = false;
-      this.resetString = "";
+      this.alertMessage = "<p class='alert alert-info mt-4' role='alert'>User account data updating...</p>";
+      this.accountFormBasic.markAsPristine();
+      this.accountFormPassword.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertNumber = 0;
     });
   }
-  resetSubmit() {
+  alertSubmitted() {
     setTimeout(() => {
-      this.resetString = "<p class='alert alert-success mt-4' role='alert'>Account updated successfully. Redirecting now.</p>";
+      this.alertMessage = "<p class='alert alert-primary mt-4' role='alert'>User account updated successfully. Redirecting now.</p>";
+      this.accountFormBasic.markAsPristine();
+      this.accountFormPassword.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertNumber = 0;
     });
   }
+  alertNetworkError() {
+    setTimeout(() => {
+      this.alertMessage = "<p class='alert alert-warning mt-4' role='alert'>The user account was not able to be updated due to a network error. Please contact your network administrator or try again later.</p>";
+      this.accountFormBasic.markAsPristine();
+      this.accountFormPassword.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertNumber = 0;
+    });
+  }
+  alertSetToReset() {
+    setTimeout(() => {
+      this.alertNumber = 4;
+    });
+  }
+
+
+  // Validation Alert functions
+  alertValidationError() {
+    setTimeout(() => {
+      this.alertValidationMessage = "<div class='mt-4 text-center' role='alert'><p class='alert alert-danger pt-3'>The logged in user account is invalid or there is a network error.</p><p class='alert alert-warning'>Please contact your network administrator or try again later. Logging out and redirecting now... </p></div>";
+    });
+  }
+  alertDeleteValidationError() {
+    setTimeout(() => {
+      this.alertValidationMessage = "<div class='mt-4' role='alert'><p class='alert alert-danger pt-3'>Cannot delete account at this time. The logged in user account is invalid or there is a network error.</p><p class='alert alert-warning'>Please contact your network administrator or try again later. Logging out and redirecting now... </p></div>";
+    });
+  }
+
+
+  // Deletion Alert functions
+  alertDeleteReset() {
+    setTimeout(() => {
+      this.alertDeleteMessage = "";
+      this.deletingData = false;
+      this.accountFormBasic.markAsPristine();
+      this.accountFormPassword.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertDeleteNumber = 0;
+    });
+  }
+  alertDeleting() {
+    setTimeout(() => {
+      this.alertDeleteMessage = "<p class='alert alert-info mt-4' role='alert'>User account data being deleted...</p>";
+      this.accountFormBasic.markAsPristine();
+      this.accountFormPassword.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertDeleteNumber = 0;
+    });
+  }
+  alertDeleteSubmitted() {
+    setTimeout(() => {
+      this.alertDeleteMessage = "<p class='alert alert-primary mt-4' role='alert'>User account deleted successfully. Redirecting now.</p>";
+      this.accountFormBasic.markAsPristine();
+      this.accountFormPassword.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertDeleteNumber = 0;
+    });
+  }
+  alertDeleteNetworkError() {
+    setTimeout(() => {
+      this.alertDeleteMessage = "<p class='alert alert-warning mt-4' role='alert'>The user account was not able to be deleted due to a network error. Please contact your network administrator or try again later.</p>";
+      this.accountFormBasic.markAsPristine();
+      this.accountFormPassword.markAsPristine();
+    });
+    setTimeout(() => {
+      this.alertDeleteNumber = 0;
+    });
+  }
+  alertDeleteSetToReset() {
+    setTimeout(() => {
+      this.alertDeleteNumber = 4;
+    });
+  }
+
+
+  // General functions
   redirectToPrevious() {
     setTimeout(() => {
       this.authService.redirectToPrevious();
     },1000);
   }
+  redirectToPreviousExtended() {
+    setTimeout(() => {
+      this.authService.redirectToPrevious();
+    },5000);
+  }
 
 
   // Account functions
   submit(value: any) {
-    this.updatingData = true;
-    this.authService.updateUserData(value)
-    .subscribe(
-      res => {
-        if (value.name != this.tokenService.currentUserData.name) {
-          this.tokenService.currentUserData.name = value.name;
-        }
-        if (value.email != this.tokenService.currentUserData.email) {
-          this.tokenService.currentUserData.email = value.email;
-        }
-        if(!this.formBasicSet) {
-          this.authService.updatePassword(value)
-          .subscribe(
-            res => console.log(res),
-            err => this.afterFailedUpdate()
-          );
-        }
-        this.userData = this.tokenService.currentUserData;
-        this.userType = this.tokenService.currentUserType;
-        this.getUpdateCommentUser();
-        this.getUpdateTestimonialUser();
-        this.redirectToPrevious();
-        this.updatingData = false;
-        this.submitted = true;
-      },
-
-      err => this.afterFailedUpdate()
-    );
-  }
-  afterFailedUpdate() {
-    if(this.formBasicSet) {
-      this.accountFormBasic.controls.email.setErrors({'notUnique': true});
-      this.accountFormBasic.setErrors(this.accountFormBasic.controls.email.errors);
-    } else {
-      this.accountFormPassword.controls.email.setErrors({'notUnique': true});
-      this.accountFormPassword.setErrors(this.accountFormPassword.controls.email.errors);
+    this.alertNumber = 1;
+    if (value.name != this.tokenService.currentUserData.name) {
+      this.tokenService.currentUserData.name = value.name;
     }
-    this.updatingData = false;
+    if (value.email != this.tokenService.currentUserData.email) {
+      this.tokenService.currentUserData.email = value.email;
+    }
+    this.userData = this.tokenService.currentUserData;
+    this.userType = this.tokenService.currentUserType;
+    this.updateAllData();
+  }
+  afterFailedUpdate(errors: any) {
+    if(errors.status !== 0) {
+      if(this.formBasicSet) {
+        this.accountFormBasic.controls.email.setErrors({'notUnique': true});
+        this.accountFormBasic.setErrors(this.accountFormBasic.controls.email.errors);
+      } else {
+        this.accountFormPassword.controls.email.setErrors({'notUnique': true});
+        this.accountFormPassword.setErrors(this.accountFormPassword.controls.email.errors);
+      }
+    } else {
+      console.log('User account server down. Cannot update user data at this time.');
+      this.alertNumber = 3;
+    }
+  }
+  loginVerificationFormCreation() {
+    if(this.isLoggedIn()) {
+      this.tokenService.validateToken().subscribe(
+        res => {
+          this.userData = this.tokenService.currentUserData;
+          this.userType = this.tokenService.currentUserType;
+          this.createForm();
+        },
+        err => {
+          this.alertValidationNumber = 1;
+          console.log("Account won't validate. No user logged in. Logging out: " + err);
+          this.logOut();
+          this.redirectToPreviousExtended();
+        }
+      );
+    }
+  }
+  loginDeleteVerification() {
+    if(this.isLoggedIn()) {
+      this.tokenService.validateToken().subscribe(
+        res => {
+          this.userData = this.tokenService.currentUserData;
+          this.userType = this.tokenService.currentUserType;
+          this.deleteAccount();
+        },
+        err => {
+          this.alertValidationNumber = 2;
+          console.log("Account won't validate. No user logged in. Logging out: " + err);
+          this.logOut();
+          this.redirectToPreviousExtended();
+        }
+      );
+    }
   }
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
@@ -176,125 +290,136 @@ export class AccountComponent implements OnInit {
   }
 
 
-  // Delete account functions
+  // Delete Account functions
   deleteAccount() {
-    this.deleteConfirm = false;
+    this.alertDeleteNumber = 1;
     this.deletingData = true;
     this.userData = this.tokenService.currentUserData;
     this.userType = this.tokenService.currentUserType;
     if(this.userType === 'ADMIN')
       return true;
-    this.getDeleteCommentUser();
-    this.getDeleteTestimonialUser();
-    this.deleteAccountData();
+    this.getDeleteAllData();
   }
   deleteAccountData() {
     this.authService.deleteAccount()
     .subscribe(
       res => {
+        console.log('User account deleted successfully');
+        this.alertDeleteNumber = 2;
         this.redirectToPrevious();
-        this.deletingData = false;
-        this.deleteConfirmed = true;
       },
       err => {
-        console.log("Error deleting account");
-        this.deletingData = false;
-        this.deleteConfirm = false;
-        this.deletionError = true;
+        console.log('Error deleting account: ' + err);
+        this.alertDeleteNumber = 3;
         return Observable.throw(err);
       }
     );
   }
-  deletingDataMsg() {
-    setTimeout(() => {
-      this.deletionString = "<p class='alert alert-info mt-4' role='alert'>User account data getting deleted...</p>";
-    });
-  }
-  deleteConfirmedMsg() {
-    setTimeout(() => {
-      this.deletionString = "<p class='alert alert-success mt-4' role='alert'>User account deleted successfully. Redirecting now.</p>";
-    });
-  }
-  deletionErrorMsg() {
-    setTimeout(() => {
-      this.deletionString = "<p class='alert alert-warning mt-4' role='alert'>User account was not able to be deleted due to a network error. Please contact your network administrator.</p>";
-    });
-  }
 
 
   // CommentUser functions
-  updateCommentUser() {
-    if(this.commentUsers) {
-      if(this.findCommentUserId(this.userData.id, this.userType))
-      {
-        let commentUser:CommentUser;
-        this.commentUser.id = this.findCommentUserId(this.userData.id, this.userType);
-        this.commentUser.user_id = this.userData.id;
-        this.commentUser.user_type = this.userType;
-        this.commentUser.user_name = this.userData.name;
-        this.articleService.updateCommentUser(this.commentUser)
-        .subscribe(
-          res => console.log('Comment User updated successfully'),
-          err => {
-            console.log(err);
-            return Observable.throw(err);
-          }
-        );
+  updateAllData() {
+    this.articleService.getCommentUsers()
+    .subscribe(
+      commentUsers => {
+        console.log('Article server found');
+        this.commentUsers = commentUsers;
+        if(this.commentUsers) {
+          this.updateCommentUser();
+        } else {
+        console.log('Comment users not found');
+        }
+      },
+      err => {
+        console.log('Article server down. Cannot update comment user at this time.');
+        this.alertNumber = 3;
       }
-    }
+    );
   }
-  deleteCommentUser() {
-    if(this.commentUsers) {
-      if(this.findCommentUserId(this.userData.id, this.userType))
-      {
-        let commentUser:CommentUser;
-        this.commentUser.id = this.findCommentUserId(this.userData.id, this.userType);
-        this.commentUser.user_id = this.userData.id;
-        this.commentUser.user_type = this.userType;
-        this.commentUser.user_name = this.userData.name;
-        this.articleService.deleteCommentUser(this.commentUser.id).subscribe(
-          res => console.log('Comment User deleted successfully'),
-          err => {
-            console.log(err);
-            return Observable.throw(err);
-          }
-        );
-      }
+  updateCommentUser() {
+    if(this.findCommentUserId(this.userData.id, this.userType))
+    {
+      let commentUser:CommentUser;
+      this.commentUser.id = this.findCommentUserId(this.userData.id, this.userType);
+      this.commentUser.user_id = this.userData.id;
+      this.commentUser.user_type = this.userType;
+      this.commentUser.user_name = this.userData.name;
+      this.articleService.updateCommentUser(this.commentUser)
+      .subscribe(
+        res => {
+          console.log('Comment user updated successfully');
+          this.getUpdateTestimonialUser();
+        },
+        err => {
+          console.log('There was an error updating the comment user: ' + err);
+          this.alertNumber = 3;
+        }
+      );
     }
   }
   findCommentUserId(user_id:number, user_type:string):number {
     for(let commentUser of this.commentUsers) {
-      if((commentUser.user_id === user_id) && (commentUser.user_type === user_type))
+      if((commentUser.user_id === user_id) && (commentUser.user_type === user_type)) {
         return commentUser.id;
+      }
     }
   }
-  getUpdateCommentUser() {
-    this.articleService.getCommentUsers()
-    .subscribe(
-      commentUsers => {
-        this.commentUsers = commentUsers;
-
-        if(this.commentUsers)
-          this.updateCommentUser();
-      },
-      err => console.log(err)
-    );
-  }
-  getDeleteCommentUser() {
+  getDeleteAllData() {
     this.articleService.getCommentUsers()
     .subscribe(
       commentUsers =>
       {
+        console.log('Article server found');
         this.commentUsers = commentUsers;
+
         if(this.commentUsers)
           this.deleteCommentUser();
       },
-      err => console.log(err)
+      err => {
+        console.log('Article server down. Cannot delete comment user at this time.');
+        this.alertDeleteNumber = 3;
+      }
     );
+  }
+  deleteCommentUser() {
+    if(this.findCommentUserId(this.userData.id, this.userType))
+    {
+      let commentUser_id = this.findCommentUserId(this.userData.id, this.userType);
+      this.articleService.deleteCommentUser(commentUser_id).subscribe(
+        res => {
+          console.log('Comment user deleted successfully');
+          this.getDeleteTestimonialUser();
+        },
+        err => {
+          console.log('There was an error deleting the comment user: ' + err);
+          this.alertDeleteNumber = 3;
+          return Observable.throw(err);
+        }
+      );
+    } else {
+      console.log('Comment user not found. No need to delete. Moving on to testimonial user.');
+      this.getDeleteTestimonialUser();
+    }
   }
 
 
   // TestimonialUser functions
+  getUpdateTestimonialUser() {
+    this.testimonialService.getTestimonialUsers()
+    .subscribe(
+      testimonialUsers => {
+        console.log('Testimonial server found');
+        this.testimonialUsers = testimonialUsers;
+
+        if(this.testimonialUsers)
+          this.updateTestimonialUser();
+      },
+      err => {
+        console.log('Testimonial server down. Cannot update testimonial user at this time.');
+        this.alertNumber = 3;
+      }
+    );
+  }
   updateTestimonialUser() {
     if(this.testimonialUsers) {
       if(this.findTestimonialUserId(this.userData.id, this.userType))
@@ -306,30 +431,38 @@ export class AccountComponent implements OnInit {
         this.testimonialUser.user_name = this.userData.name;
         this.testimonialService.updateTestimonialUser(this.testimonialUser)
         .subscribe(
-          res => console.log('Testimonial User updated successfully'),
+          res => {
+            console.log('Testimonial user updated successfully');
+
+            if(!this.formBasicSet) {
+              this.authService.updatePassword(this.accountFormPassword.value).subscribe(
+                res => {
+                  console.log('User account password updated successfully');
+                  this.authService.updateUserData(this.accountFormBasic.value).subscribe(
+                    res => {
+                      console.log('User account data updated successfully');
+                      this.alertNumber = 2;
+                      this.redirectToPrevious();
+                    },
+                    err => this.afterFailedUpdate(err)
+                  );
+                },
+                err => this.afterFailedUpdate(err)
+              );
+            } else {
+              this.authService.updateUserData(this.accountFormBasic.value).subscribe(
+                res => {
+                  console.log('User account data updated successfully');
+                  this.alertNumber = 2;
+                  this.redirectToPrevious();
+                },
+                err => this.afterFailedUpdate(err)
+              );
+            }
+          },
           err => {
-            console.log(err);
-            return Observable.throw(err);
-          }
-        );
-      }
-    }
-  }
-  deleteTestimonialUser() {
-    if(this.testimonialUsers) {
-      if(this.findTestimonialUserId(this.userData.id, this.userType))
-      {
-        let testimonialUser:TestimonialUser;
-        this.testimonialUser.id = this.findTestimonialUserId(this.userData.id, this.userType);
-        this.testimonialUser.user_id = this.userData.id;
-        this.testimonialUser.user_type = this.userType;
-        this.testimonialUser.user_name = this.userData.name;
-        this.testimonialService.deleteTestimonialUser(this.testimonialUser.id).subscribe(
-          res =>
-            console.log('Testimonial User deleted successfully'),
-          err => {
-            console.log(err);
-            return Observable.throw(err);
+              console.log('There was an error updated the testimonial user: ' + err);
+              this.alertNumber = 3;
           }
         );
       }
@@ -341,28 +474,67 @@ export class AccountComponent implements OnInit {
         return testimonialUser.id;
     }
   }
-  getUpdateTestimonialUser() {
-    this.testimonialService.getTestimonialUsers()
-    .subscribe(
-      testimonialUsers => {
-        this.testimonialUsers = testimonialUsers;
-
-        if(this.testimonialUsers)
-          this.updateTestimonialUser();
-      },
-      err => console.log(err)
-    );
-  }
   getDeleteTestimonialUser() {
     this.testimonialService.getTestimonialUsers()
     .subscribe(
-      testimonialUsers =>
-      {
+      testimonialUsers => {
+        console.log('Testimonial server found');
         this.testimonialUsers = testimonialUsers;
+
         if(this.testimonialUsers)
           this.deleteTestimonialUser();
       },
-      err => console.log(err)
+      err => {
+        console.log('Testimonial server down. Cannot delete testimonial user at this time. Recreating deleted comment user.');
+        this.alertDeleteNumber = 3;
+
+        let commentUser:CommentUser;
+        this.commentUser.user_id = this.userData.id;
+        this.commentUser.user_type = this.userType;
+        this.commentUser.user_name = this.userData.name;
+        this.articleService.createCommentUser(this.commentUser).subscribe(
+          res => {
+            console.log('Comment User created successfully');
+          },
+          err => {
+            console.log('There was an error creating the comment user: ' + err);
+            return Observable.throw(err);
+          }
+        );
+      }
     );
+  }
+  deleteTestimonialUser() {
+    if(this.findTestimonialUserId(this.userData.id, this.userType))
+    {
+      let testimonialUser_id = this.findTestimonialUserId(this.userData.id, this.userType);
+      this.testimonialService.deleteTestimonialUser(testimonialUser_id).subscribe(
+        res =>  {
+          console.log('Testimonial user deleted successfully');
+          this.deleteAccountData();
+        },
+        err => {
+          console.log('There was an error deleting the testimonial user: ' + err + 'Recereating deleted comment user.');
+          this.alertDeleteNumber = 3;
+
+          let commentUser:CommentUser;
+          this.commentUser.user_id = this.userData.id;
+          this.commentUser.user_type = this.userType;
+          this.commentUser.user_name = this.userData.name;
+          this.articleService.createCommentUser(this.commentUser).subscribe(
+            res => {
+              console.log('Comment user created successfully');
+            },
+            err => {
+              console.log('There was an error creating the comment user: ' + err);
+              return Observable.throw(err);
+            }
+          );
+        }
+      );
+    } else {
+      console.log('Testimonial user not found. No need to delete. Moving on to deleting account.');
+      this.deleteAccountData();
+    }
   }
 }
