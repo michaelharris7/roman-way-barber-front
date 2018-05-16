@@ -216,6 +216,9 @@ export class AccountComponent implements OnInit {
 
   // Account functions
   submit(value: any) {
+    if(!value.name) {
+      value.name = 'Anonymous';
+    }
     this.alertNumber = 1;
     if (value.name != this.tokenService.currentUserData.name) {
       this.tokenService.currentUserData.name = value.name;
