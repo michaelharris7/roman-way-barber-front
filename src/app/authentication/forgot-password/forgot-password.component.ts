@@ -51,7 +51,7 @@ export class ForgotPasswordComponent {
   }
   resetSubmit() {
     setTimeout(() => {
-      this.resetString = "<p class='alert alert-success mt-4' role='alert'>Reset password email successfully sent. Redirecting to homepage.</p>";
+      this.resetString = "<p class='alert alert-success mt-4' role='alert'>Reset password email successfully sent. Redirecting to homepage...</p>";
     });
   }
 }
