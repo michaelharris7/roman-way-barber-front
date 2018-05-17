@@ -6,6 +6,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './forgot-password/reset-password.component';
 import { AccountComponent } from './account/account.component';
 import { ControlMessagesComponenet } from './control-messages.component';
 
@@ -23,6 +24,7 @@ import { ValidationService } from './validation.service';
     RegisterComponent,
     LoginComponent,
     ForgotPasswordComponent,
+    ResetPasswordComponent,
     AccountComponent,
     ControlMessagesComponenet
   ],

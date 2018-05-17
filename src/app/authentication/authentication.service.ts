@@ -49,7 +49,7 @@ export class AuthenticationService {
 
       updatePasswordPath:         '',
       resetPasswordPath:          'password',
-      resetPasswordCallback:      window.location.href,
+      resetPasswordCallback:      window.location.origin + '/reset-password',
 
       oAuthBase:                  window.location.origin,
       oAuthPaths: {
