@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { MarkdownService } from 'angular2-markdown';
 
 
@@ -13,7 +13,8 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private markdown: MarkdownService
-  ) {router.events.subscribe(() => {
+  ) {
+    router.events.subscribe(() => {
       this.redirectOnAccount();
     });
   }
@@ -56,13 +57,15 @@ export class AppComponent implements OnInit {
     console.log("redirect if on account: " + document.location.href);
     console.log("document.location.protocol: " + document.location.protocol);
     if (this.isAccountPage()) {
+      console.log('On account page');
       if (document.location.protocol === 'http:') {
         document.location.href = 'https://evansbarberstylist.herokuapp.com' + document.location.pathname;
         console.log("redirecting in process... " + document.location.href);
       }
     } else {
+      console.log('Not on account page');
       if (document.location.hostname !== 'evansbarberstylist.com') {
-        document.location.href = 'http://evansbarberstylist.com' + document.location.pathname;
+        document.location.href = 'http://www.evansbarberstylist.com' + document.location.pathname;
         console.log("redirecting in process... " + document.location.href);
       }
     }
