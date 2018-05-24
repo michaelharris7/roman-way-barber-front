@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('hostname: ' + document.location.hostname);
     this.markDownSetUp();
   }
 
@@ -42,7 +41,7 @@ export class AppComponent implements OnInit {
     }
   }
   isAccountPage() {
-    switch (document.location.pathname)
+    switch (location.pathname)
     {
     case'/register':
     case'/login':
@@ -54,19 +53,8 @@ export class AppComponent implements OnInit {
     }
   }
   redirectOnAccount() {
-    console.log("redirect if on account: " + document.location.href);
-    console.log("document.location.protocol: " + document.location.protocol);
-    // if (this.isAccountPage() && (document.location.protocol === 'http:')) {
-    if (this.isAccountPage() && (document.location.hostname === 'www.evansbarberstylist.com')) {
-      console.log('On account page');
-      document.location.href = 'https://evansbarberstylist.herokuapp.com' + document.location.pathname;
-      console.log("redirecting in process... " + document.location.href);
+    if (this.isAccountPage() && (location.hostname === 'www.evansbarberstylist.com')) {
+      location.href = 'https://evansbarberstylist.herokuapp.com' + location.pathname;
     }
-    if (!this.isAccountPage() && (document.location.hostname !== 'www.evansbarberstylist.com')) {
-      console.log('Not on account page');
-      document.location.href = 'http://www.evansbarberstylist.com' + document.location.pathname;
-      console.log("redirecting in process... " + document.location.href);
-    }
-    console.log("redirect occured: " + document.location.href);
   }
 }
