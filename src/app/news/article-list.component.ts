@@ -55,6 +55,9 @@ export class ArticleListComponent implements OnInit {
   alertNetworkError() {
     this.alertMessage = "<p class='alert alert-warning mt-4' role='alert'>The news articles aren't able to load due to a network error. Please contact your network administrator or try again later.</p>";
   }
+  alertNetworkLoading() {
+    this.alertMessage = "<p class='alert alert-info mt-4' role='alert'>The news articles are loading right now. Please wait for the server to load the news articles.</p>";
+  }
 
 
   //Article functions
@@ -62,11 +65,14 @@ export class ArticleListComponent implements OnInit {
     this.articleService.getArticles()
       .subscribe(
         articles => {
-          if(this.alertNumber === 1) {
+          if(this.alertNumber !== 0) {
             this.alertReset();
           }
           this.articles = articles;
           this.paginationTotal = this.articles.length;
+          if(this.articles.length === 0) {
+            this.alertNumber = 2;
+          }
         },
         error => {
           this.alertNumber = 1;

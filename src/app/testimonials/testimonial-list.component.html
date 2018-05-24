@@ -28,6 +28,10 @@
               {{alertNetworkError()}}
               <p [innerHTML]="alertMessage"></p>
             </div>
+            <div *ngIf="alertNumber === 2">
+              {{alertNetworkLoading()}}
+              <p [innerHTML]="alertMessage"></p>
+            </div>
 
             <div *ngFor="let testimonial of testimonials | orderBy : order : true | paginate: { id: 'paginate', itemsPerPage: 5, currentPage: p }; let odd = odd; let even = even; let last = last" [class.left-quote]="odd" [class.right-quote]="even" [class.mb-5]="!last" [attr.id]="'testimonial_' + testimonial.id" class="testimonial mb-3">
 
@@ -73,7 +77,7 @@
               </div>
             </div>
 
-            <div *ngIf="alertNumber !== 1">
+            <div *ngIf="alertNumber === 0">
               <div *ngIf="paginationTotal>5" class="pagination-bottom"></div>
 
               <pagination-controls id="paginate"

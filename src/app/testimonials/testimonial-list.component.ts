@@ -57,6 +57,9 @@ export class TestimonialListComponent implements OnInit {
   alertNetworkError() {
     this.alertMessage = "<p class='alert alert-warning mt-4' role='alert'>The testimonials aren't able to load due to a network error. Please contact your network administrator or try again later.</p>";
   }
+  alertNetworkLoading() {
+    this.alertMessage = "<p class='alert alert-info mt-4' role='alert'>The testimonials are loading right now. Please wait for the server to load the testimonials.</p>";
+  }
 
 
   // Testimonial Functions
@@ -64,11 +67,14 @@ export class TestimonialListComponent implements OnInit {
     this.testimonialService.getTestimonials()
       .subscribe(
         testimonials => {
-          if(this.alertNumber === 1) {
+          if(this.alertNumber !== 0) {
             this.alertReset();
           }
           this.testimonials = testimonials;
           this.paginationTotal = this.testimonials.length;
+          if(this.testimonials.length === 0) {
+            this.alertNumber = 2;
+          }
         },
         error => {
           this.alertNumber = 1;

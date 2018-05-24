@@ -27,8 +27,12 @@
               {{alertNetworkError()}}
               <p [innerHTML]="alertMessage"></p>
             </div>
+            <div *ngIf="alertNumber === 2">
+              {{alertNetworkLoading()}}
+              <p [innerHTML]="alertMessage"></p>
+            </div>
 
-            <div *ngIf="alertNumber !== 1">
+            <div *ngIf="alertNumber === 0">
               <pagination-controls id="paginate"
                         (pageChange)="p = $event"
                         maxSize="9"
@@ -75,7 +79,7 @@
               </div>
             </div>
 
-            <div *ngIf="alertNumber !== 1">
+            <div *ngIf="alertNumber === 0">
               <div *ngIf="paginationTotal>5" class="pagination-bottom"></div>
               <pagination-controls id="paginate"
                         (pageChange)="p = $event"
