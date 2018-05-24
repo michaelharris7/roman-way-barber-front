@@ -57,12 +57,12 @@ export class AppComponent implements OnInit {
     console.log("redirect if on account: " + document.location.href);
     console.log("document.location.protocol: " + document.location.protocol);
     // if (this.isAccountPage() && (document.location.protocol === 'http:')) {
-    if (this.isAccountPage() && (document.location.hostname === 'evansbarberstylist.com')) {
+    if (this.isAccountPage() && (document.location.hostname === 'www.evansbarberstylist.com')) {
       console.log('On account page');
       document.location.href = 'https://evansbarberstylist.herokuapp.com' + document.location.pathname;
       console.log("redirecting in process... " + document.location.href);
     }
-    if (!this.isAccountPage() && (document.location.hostname !== 'evansbarberstylist.com')) {
+    if (!this.isAccountPage() && (document.location.hostname !== 'www.evansbarberstylist.com')) {
       console.log('Not on account page');
       document.location.href = 'http://www.evansbarberstylist.com' + document.location.pathname;
       console.log("redirecting in process... " + document.location.href);
