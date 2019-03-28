@@ -36,10 +36,11 @@ export class LoginComponent {
   ) {
       this.loginForm = fb.group({
         email: ['', [ValidationService.emailRequired, ValidationService.emailValidator]],
-        password: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]],
-        passwordConfirmation: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]]
-      }, {
-        validator: ValidationService.passwordMatch
+        password: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]]
+      //   ,
+      //   passwordConfirmation: ['', [ValidationService.passwordRequired, ValidationService.passwordValidator]]
+      // }, {
+      //   validator: ValidationService.passwordMatch
       })
   }
 
