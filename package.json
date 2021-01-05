@@ -35,7 +35,7 @@
     "angular2-markdown": "^2.2.3",
     "angular2-token": "^0.2.0-beta.14",
     "autoprefixer": "^8.4.1",
-    "axios": ">=0.18.1",
+    "axios": ">=0.21.1",
     "bower": "^1.8.4",
     "braces": ">=2.3.1",
     "codelyzer": "^4.3.0",
